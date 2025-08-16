@@ -1,0 +1,59 @@
+.categoriaName {
+    font-size: min(5vw, 40px);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    height: min(10vw, 100px);
+    padding-left: 20px;
+    background-color: rgb(58, 161, 245);
+    font-family: 'Montserrat', sans-serif;
+}
+
+.mainContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.productsWrapper {
+    display: flex;
+    justify-content: center;
+    width: 70%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.paginationWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    gap: 10px;
+}
+
+.paginationButton {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+}
+
+.productListWrapper {
+    flex: 1 1 auto; 
+}
+
+@media (max-width: 1300px) {
+    .mainContainer { width: 80%; }
+}
+
+@media (max-width: 1100px) {
+    .mainContainer { width: 90%; }
+}
+
+@media (max-width: 900px) {
+    .mainContainer { width: 100%; }
+
+    .filterWrapper {
+        display: none
+    }
+}

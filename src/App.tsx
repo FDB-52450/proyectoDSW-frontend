@@ -1,12 +1,16 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import { ShoppingCartProvider } from './context/ShoppingCartContext.tsx'
+
 import { NavigationBar } from './components/layout/NavigationBar/NavigationBar.tsx'
+
+import { ProductsPage } from './pages/ProductsPage/ProductsPage.tsx'
 
 const router = createBrowserRouter([
   // TODO: Replace template elements with actual pages.
 
   {path: "/", element: <a>PAGINA PRINCIPAL</a>},
-  {path: "/productos/", element: <a> PAGINA DE PRODUCTO </a>},
+  {path: "/productos/", element: <ProductsPage></ProductsPage>},
   {path: "/producto/:id", element: <a> PAGINA DE PRODUCTO </a>},
   {path: "/carrito", element: <a>PAGINA DEL CARRITO</a>},
   {path: "/checkout", element: <a>PAGINA DEL CHECKOUT</a>},
@@ -16,8 +20,10 @@ const router = createBrowserRouter([
 function App() {
     return (
         <>
-            <NavigationBar></NavigationBar>
-            <RouterProvider router={router}></RouterProvider>
+            <ShoppingCartProvider>
+                <NavigationBar></NavigationBar>
+                <RouterProvider router={router}></RouterProvider>
+            </ShoppingCartProvider>
         </>
     )
 }
