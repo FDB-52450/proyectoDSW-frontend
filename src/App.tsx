@@ -1,5 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
+import { NavigationBar } from './components/layout/NavigationBar/NavigationBar.tsx'
+
 const router = createBrowserRouter([
   // TODO: Replace template elements with actual pages.
 
@@ -14,6 +16,7 @@ const router = createBrowserRouter([
 function App() {
     return (
         <>
+            <NavigationBar></NavigationBar>
             <RouterProvider router={router}></RouterProvider>
         </>
     )
