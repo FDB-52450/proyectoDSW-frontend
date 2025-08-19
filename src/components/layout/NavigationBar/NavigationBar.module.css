@@ -46,6 +46,8 @@
   color: #228be6;
   border: 1px solid #228be6;
   background: transparent;
+  padding-left: 10px;
+  padding-right: 10px;
   background-image: none;
   background-origin: border-box;
   background-clip: padding-box;
@@ -67,6 +69,12 @@
     .linkBottom {
         height: 42px;
         width: 100%;
+    }
+}
+
+@media (max-width: 48em) {
+    .headerBottom {
+        display: none;
     }
 }
 

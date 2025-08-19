@@ -1,12 +1,12 @@
 
 import styles from './NavigationBar.module.css'
 
-import { Burger, Group, Button, Image, Anchor } from '@mantine/core'
-import { useDisclosure } from '@mantine/hooks'
+import { Group, Button, Image, Anchor } from '@mantine/core'
 import { IconShoppingCart } from '@tabler/icons-react'
 
 import { SearchBar } from './SearchBar/SearchBar.tsx'
 import { DropdownButton } from './DropdownButton/DropdownButton.js'
+import { BurgerMenu } from './MobileMenu/MobileMenu.tsx'
 
 import logo from '../../../assets/logoPagina.png'
 
@@ -108,32 +108,30 @@ const perifericosData = [
 
 
 export function NavigationBar() {
-    const [opened, { toggle }] = useDisclosure(false)
-
     return (
         <>
             <header className={styles.header}>
                 <div className={styles.inner}>
                     <Group wrap='nowrap'>
-                        <Burger color='white' opened={opened} onClick={toggle} size="md" hiddenFrom="sm" />
+                        <BurgerMenu></BurgerMenu>
                         <Anchor href="/" rel="noopener noreferrer">
                             <Image src={logo} alt='IMAGEN DE LOGO' h={60} radius='md'></Image>
                         </Anchor>
                     </Group>
 
-                    <Group w={600} className={styles.searchBar} visibleFrom='sm'>
+                    <Group w={'50vw'} className={styles.searchBar} visibleFrom='sm'>
                         <SearchBar
-                            placeholder="Buscar productos"
                             style={{ width: '100%' }}
                         />
                     </Group>
 
-                    <Group visibleFrom='sm'>
+                    <Group>
                         <Button
                         component='a' href='/carrito'
                         variant='default'
-                        leftSection={<IconShoppingCart></IconShoppingCart>}
-                        className={styles.button}>Carrito</Button>
+                        className={styles.button}>
+                            <IconShoppingCart></IconShoppingCart>
+                        </Button>
                     </Group>
                 </div>
             </header>

@@ -25,13 +25,13 @@ export function SearchBar(props: TextInputProps) {
         <TextInput
             radius="md"
             size="md"
-            placeholder="Search questions"
+            placeholder="Buscar productos"
             rightSectionWidth={42}
             leftSection={<IconSearch size={18} stroke={1.5} />}
             rightSection={
                 <ActionIcon size={30} radius="sm" color={theme.primaryColor} variant="outline"
                 className={styles.hoverFilledIcon} onClick={handleSearch}>
-                <IconArrowRight size={18} stroke={1.5} />
+                    <IconArrowRight size={18} stroke={1.5} />
                 </ActionIcon>
             }
             onChange={(e) => setSearchQuery(e.currentTarget.value)}
