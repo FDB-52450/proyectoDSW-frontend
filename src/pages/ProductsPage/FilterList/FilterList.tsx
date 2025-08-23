@@ -1,9 +1,20 @@
-import styles from './FilterList.module.css'
-
 import { useState } from "react"
 
 import type { ProductoFilters } from "../../../entities/productoFilters.ts"
-import type { Marca } from '../../../entities/marca.ts'
+import type { Marca } from "../../../entities/marca.ts"
+
+import {
+  Box,
+  Stack,
+  Text,
+  TextInput,
+  NumberInput,
+  Checkbox,
+  Select,
+  Button,
+  Group,
+  Divider,
+} from '@mantine/core';
 
 interface ProductFilterProps {
   filters: ProductoFilters
@@ -11,77 +22,105 @@ interface ProductFilterProps {
   marcas: Array<Marca>
 }
 
-export function ProductFilter({filters, updateFilter, marcas}: ProductFilterProps) {
+export function FilterList({filters, updateFilter, marcas}: ProductFilterProps) {
     const [localFilters, setLocalFilters] = useState<ProductoFilters>(filters)
  
-    function handleInputChange (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
-        const { id, value, type } = event.target
+    const handleInputChange = (id: keyof ProductoFilters, value: string | number | boolean) => {
+        setLocalFilters((prev) => ({ ...prev, [id]: value }))
+    }
 
-        let parsedValue: string | number | boolean | null
-
-        if (event.target instanceof HTMLInputElement && type === 'checkbox') {
-            if (id === 'stockMin') {
-                parsedValue = event.target.checked ? 0 : 1
-            } else {
-                parsedValue = event.target.checked
-            }
-        } else if (type === 'number') {
-            parsedValue = value === '' ? null : Number(value)
-        } else {
-            parsedValue = value === '' ? null : value
-        }
-
-        setLocalFilters((prev) => ({...prev, [id]: parsedValue}))
+    const handleStockMinToggle = (checked: boolean) => {
+        setLocalFilters((prev) => ({ ...prev, stockMin: checked ? 0 : undefined }));
     }
 
     return (
-        <div className={styles.mainContainer}>
-            <h2 className={styles.title}>FILTROS</h2>
-            <div className={styles.filters}>
-                <div>
-                    <label htmlFor="price">Precio:</label>
-                    <div className={styles.priceInputContainer}>
-                        <input className={styles.priceInput} type="number" id="precioMin" 
-                        value={localFilters.precioMin ?? ''} onChange={handleInputChange} placeholder=""/>
-                        <label> - </label>
-                        <input className={styles.priceInput} type="number" id="precioMax"
-                        value={localFilters.precioMax ?? ''} onChange={handleInputChange} placeholder=""/>
-                    </div>
-                </div>
-                <div>
-                    <label htmlFor="name">Nombre:</label>
-                    <div>
-                        <input type="text" id="nombre" 
-                        value={localFilters.nombre ?? ''} onChange={handleInputChange} placeholder=""/>
-                    </div>
-                </div>
-                <div>
-                    <label htmlFor="name">Destacado:</label>
-                    <div>
-                        <input type="checkbox" id="destacado" 
-                        checked={localFilters.destacado} onChange={handleInputChange} placeholder=""/>
-                    </div>
-                </div>
-                <div>
-                    <label htmlFor="name">Marcas:</label>
-                    <div>
-                        <select value={localFilters.marca ?? ''} id="marca" onChange={handleInputChange}>
-                            <option value="">Todas</option>
-                            {marcas.map((marca) => (
-                                <option key={marca.id} value={marca.nombre}>{marca.nombre}</option>
-                            ))}
-                        </select>
-                    </div>
-                </div>
-                <div>
-                    <label htmlFor="name">Sin Stock:</label>
-                    <div>
-                        <input type="checkbox" id="stockMin" 
-                        checked={localFilters.stockMin === 0} onChange={handleInputChange} placeholder=""/>
-                    </div>
-                </div>
-                <button onClick={() => updateFilter(localFilters)}>APLICAR CAMBIOS</button>
-            </div>
-        </div>
+        <Box style={{ fontFamily: 'Montserrat, sans-serif', paddingTop: 20 }}>
+            <Text fw={700} style={{ fontSize: 25 }}>FILTROS</Text>
+            <Divider my='md'></Divider>
+
+            <Stack gap="sm">
+                {/* Precio */}
+                <Box>
+                    <Text size="md" mb={5}>Rango de precios:</Text>
+                    <Group gap={5} mb={10}>
+                        <NumberInput
+                        id="precioMin"
+                        placeholder="Minimo"
+                        leftSection={<span>$</span>}
+                        leftSectionWidth={25}
+                        rightSection={<></>}
+                        value={localFilters.precioMin ?? ''}
+                        onChange={(value) => handleInputChange('precioMin', value ?? undefined)}
+                        decimalSeparator=","
+                        thousandSeparator="."
+                        allowNegative={false}
+                        allowDecimal={false}
+                        w={110}
+                        />
+                        <NumberInput
+                        id="precioMax"
+                        placeholder="Maximo"
+                        leftSection={<span>$</span>}
+                        leftSectionWidth={25}
+                        rightSection={<></>}
+                        value={localFilters.precioMax ?? ''}
+                        onChange={(value) => handleInputChange('precioMax', value ?? undefined)}
+                        decimalSeparator=","
+                        thousandSeparator="."
+                        allowNegative={false}
+                        allowDecimal={false}
+                        w={110}
+                        />
+                    </Group>
+                </Box>
+
+                {/* Nombre */}
+                <Box>
+                    <Text size="md" mb={5}>Nombre:</Text>
+                    <TextInput mb={10}
+                        id="nombre"
+                        placeholder=""
+                        value={localFilters.nombre ?? ''}
+                        onChange={(e) => handleInputChange('nombre', e.currentTarget.value)}
+                    />
+                </Box>
+
+                {/* Marcas */}
+                <Box>
+                    <Text size="md" mb={5}>Marcas:</Text>
+                    <Select mb={10}
+                        size='sm'
+                        id="marca"
+                        placeholder="Todas"
+                        value={localFilters.marca ?? ''}
+                        style={{ fontFamily: 'Montserrat, sans-serif'}}
+                        data={[{ value: '', label: 'Todas' }, ...marcas.map((m) => ({ value: m.nombre, label: m.nombre.toUpperCase() }))]}
+                        onChange={(value) => handleInputChange('marca', value ?? '')}
+                    />
+                </Box>
+
+                {/* Destacado */}
+                <Box mb={-5}>
+                    <Checkbox
+                        id="destacado"
+                        label="Destacado"
+                        checked={localFilters.destacado}
+                        onChange={(e) => handleInputChange('destacado', e.currentTarget.checked)}
+                    />
+                </Box>
+
+                {/* Sin Stock */}
+                <Box>
+                    <Checkbox
+                        id="stockMin"
+                        label="Sin Stock"
+                        checked={localFilters.stockMin === 0}
+                        onChange={(e) => handleStockMinToggle(e.currentTarget.checked)}
+                    />
+                </Box>
+
+                <Button mt={20} onClick={() => updateFilter(localFilters)}> APLICAR CAMBIOS </Button>
+            </Stack>
+        </Box>
     )
 }

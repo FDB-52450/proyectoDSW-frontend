@@ -24,20 +24,6 @@
     margin-right: auto;
 }
 
-.paginationWrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-    gap: 10px;
-}
-
-.paginationButton {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: bold;
-}
-
 .productListWrapper {
     flex: 1 1 auto; 
 }

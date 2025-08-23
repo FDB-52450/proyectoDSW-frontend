@@ -1,11 +1,11 @@
-import type { ProductoFilters } from "../entities/productoFilters.ts";
+import type { ProductoFilters } from "../entities/productoFilters.ts"
 
 export async function fetchProducts(filters?: ProductoFilters) {
     try {
-        let url = 'http://localhost:8080/api/productos/';
+        let url = 'http://localhost:8080/api/productos/'
 
         if (filters) {
-            const params = new URLSearchParams();
+            const params = new URLSearchParams()
 
             if (filters.precioMin) params.append('precioMin', filters.precioMin.toString())
             if (filters.precioMax) params.append('precioMax', filters.precioMax.toString())
@@ -16,32 +16,36 @@ export async function fetchProducts(filters?: ProductoFilters) {
             if (filters.page) params.append('page', filters.page.toString())
             if (filters.pageSize) params.append('pageSize', filters.pageSize.toString())
 
-            const queryString = params.toString();
+            const queryString = params.toString()
 
             if (queryString) {
-                url += `?${queryString}`;
+                url += `?${queryString}`
 
-                const newRelativePathQuery = window.location.pathname + '?' + queryString;
-                window.history.replaceState(null, '', newRelativePathQuery);
+                const newRelativePathQuery = window.location.pathname + '?' + queryString
+                window.history.replaceState(null, '', newRelativePathQuery)
             } else {
-                window.history.replaceState(null, '', window.location.pathname);
+                window.history.replaceState(null, '', window.location.pathname)
             }
         }
 
-        const response = await fetch(url);
+        const response = await fetch(url)
 
         if (!response.ok) {
-            throw new Error(`Network response was not ok: ${response.status}`);
+            if (response.status === 404) {
+                return []
+            } else {
+                throw new Error(`Network response was not ok: ${response.status}`)
+            }
         }
 
-        const json = await response.json();
+        const json = await response.json()
 
-        return json;
+        return json
     } catch (error) {
         if (error instanceof Error) {
-            throw new Error(error.message);
+            throw new Error(error.message)
         } else {
-            throw new Error('Unknown error occurred while fetching products');
+            throw new Error('Unknown error occurred while fetching products')
         }
     }
 }

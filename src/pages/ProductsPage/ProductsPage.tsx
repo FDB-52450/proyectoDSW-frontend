@@ -3,8 +3,11 @@ import styles from './ProductsPage.module.css'
 import { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
 
-import { ProductFilter } from "./FilterList/FilterList.tsx"
+import { Pagination } from '@mantine/core'
+
 import { ProductList } from "../../components/product/ProductList/ProductList.tsx"
+import { FilterList } from './FilterList/FilterList.tsx'
+import { NotFoundError } from './NotFoundError/NotFoundError.tsx'
 
 import { fetchProducts } from "../../services/productService.ts"
 import { fetchMarcasFromProductos } from '../../services/productMarcaService.ts'
@@ -12,7 +15,8 @@ import { fetchMarcasFromProductos } from '../../services/productMarcaService.ts'
 import type { Producto } from "../../entities/producto.ts"
 import type { ProductoFilters } from '../../entities/productoFilters.ts'
 import type { Marca } from '../../entities/marca.ts'
-import type { Pagination } from '../../entities/pagination.ts'
+import type { Pagination as PaginationType } from '../../entities/pagination.ts'
+
 
 function useParsedFiltersFromUrl(): ProductoFilters {
     const location = useLocation()
@@ -51,17 +55,15 @@ export function ProductsPage() {
     const [products, setProducts] = useState<Producto[]>([])
     const [filters, setFilters] = useState<ProductoFilters>(useParsedFiltersFromUrl())
     const [marcas, setMarcas] = useState<Marca[]>([])
-    const [pagination, setPagination] = useState<Pagination>()
+    const [pagination, setPagination] = useState<PaginationType>({totalProducts: 1, totalPages: 1, currentPage: 1, pageSize: 20})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
-    function changePagination(pageIncrement: number) {
+    function changePagination(pageValue: number) {
         if (pagination) {
-            const currentPage = pagination.currentPage
-
-            if (currentPage + pageIncrement > 0 && currentPage + pageIncrement <= pagination.totalPages) {
-                setPagination({...pagination, currentPage: currentPage + pageIncrement})
-                setFilters({...filters, page: currentPage + pageIncrement})
+            if (pageValue > 0 && pageValue <= pagination.totalPages) {
+                setPagination({...pagination, currentPage: pageValue})
+                setFilters({...filters, page: pageValue})
             }
         }
     }
@@ -97,21 +99,20 @@ export function ProductsPage() {
 
     return (
         <>
-            <div className={styles.categoriaName}>{categoria.toUpperCase()}</div>
+            <div className={styles.categoriaName}>{categoria.toUpperCase()}
+                {/*<Text fw={500} style={{ fontSize: 40 }}>{categoria.toUpperCase()}</Text>*/}
+            </div>
             <div className={styles.mainContainer}>
                 <div className={styles.productsWrapper}>
                     <div className={styles.filterWrapper}>
-                        <ProductFilter filters={filters} updateFilter={setFilters} marcas={marcas}/>
+                        <FilterList filters={filters} updateFilter={setFilters} marcas={marcas}></FilterList>
                     </div>
                     <div className={styles.productListWrapper}>
-                        <ProductList products={products}/>
+                        {products.length > 0 ? <ProductList products={products}/> : <NotFoundError></NotFoundError>}
                     </div>  
                 </div> 
-                <div className={styles.paginationWrapper}>
-                    <button className={styles.paginationButton} onClick={() => changePagination(-1)}> {'< PREV PAGE'} </button>
-                    <label className={styles.paginationLabel}>[ {pagination?.currentPage} / {pagination?.totalPages} ]</label>
-                    <button className={styles.paginationButton} onClick={() => changePagination(1)}> {'> NEXT PAGE'} </button>
-                </div>
+                <Pagination total={pagination.totalPages} value={pagination.currentPage} mt={20}
+                onChange={(value: number) => changePagination(value)} withEdges hideWithOnePage />
             </div>
         </>
     )
