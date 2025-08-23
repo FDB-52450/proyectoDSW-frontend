@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ShoppingCartProvider } from './context/ShoppingCartContext.tsx'
 
 import { NavigationBar } from './components/layout/NavigationBar/NavigationBar.tsx'
+import { Footer } from './components/layout/Footer/Footer.tsx'
 
 import { ProductsPage } from './pages/ProductsPage/ProductsPage.tsx'
 
@@ -23,6 +24,7 @@ function App() {
             <ShoppingCartProvider>
                 <NavigationBar></NavigationBar>
                 <RouterProvider router={router}></RouterProvider>
+                <Footer></Footer>
             </ShoppingCartProvider>
         </>
     )
