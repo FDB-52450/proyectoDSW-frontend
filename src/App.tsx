@@ -8,6 +8,7 @@ import { ShoppingCartProvider } from './context/ShoppingCartContext.tsx'
 import { DefaultLayout } from './components/layout/DefaultLayout/DefaultLayout.tsx'
 
 import { ProductsPage } from './pages/ProductsPage/ProductsPage.tsx'
+import { CartPage } from './pages/CartPage/CartPage.tsx'
 
 const router = createBrowserRouter([
     {
@@ -17,7 +18,7 @@ const router = createBrowserRouter([
             { index: true, element: <a>PAGINA PRINCIPAL</a> },
             { path: "productos", element: <ProductsPage/> },
             { path: "producto/:id", element: <a>PAGINA DE PRODUCTO</a> },
-            { path: "carrito", element: /*<CartPage/>*/ <a>PAGINA DEL CARRITO</a> },
+            { path: "carrito", element: <CartPage/>},
             { path: "checkout", element: <a>PAGINA DEL CHECKOUT</a> },
             { path: "*", element: <a>PAGINA DE ERROR</a> },
         ],

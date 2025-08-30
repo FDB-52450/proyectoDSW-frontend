@@ -1,0 +1,21 @@
+.card {
+    background-color: var(--mantine-color-body);
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.title {
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 0;
+    min-width: 0;
+    white-space: normal;
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+.body {
+  padding: var(--mantine-spacing-md);
+}

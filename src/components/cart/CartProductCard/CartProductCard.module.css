@@ -1,0 +1,15 @@
+.card {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row; 
+}
+
+.title {
+    font-weight: 400;
+    font-family: Outfit, var(--mantine-font-family);
+    line-height: 1.2;
+}
+
+.body {
+  padding: var(--mantine-spacing-md);
+}
