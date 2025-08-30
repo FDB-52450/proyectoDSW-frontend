@@ -1,25 +1,27 @@
+import styles from './FilterList.module.css'
+
 import { useState } from "react"
 
 import type { ProductoFilters } from "../../../entities/productoFilters.ts"
 import type { Marca } from "../../../entities/marca.ts"
 
 import {
-  Box,
-  Stack,
-  Text,
-  TextInput,
-  NumberInput,
-  Checkbox,
-  Select,
-  Button,
-  Group,
-  Divider,
+    Box,
+    Stack,
+    Text,
+    TextInput,
+    NumberInput,
+    Checkbox,
+    Select,
+    Button,
+    Group,
+    Divider,
 } from '@mantine/core';
 
 interface ProductFilterProps {
-  filters: ProductoFilters
-  updateFilter: (prodFilters: ProductoFilters) => void
-  marcas: Array<Marca>
+    filters: ProductoFilters
+    updateFilter: (prodFilters: ProductoFilters) => void
+    marcas: Array<Marca>
 }
 
 export function FilterList({filters, updateFilter, marcas}: ProductFilterProps) {
@@ -33,8 +35,19 @@ export function FilterList({filters, updateFilter, marcas}: ProductFilterProps) 
         setLocalFilters((prev) => ({ ...prev, stockMin: checked ? 0 : undefined }));
     }
 
+    const emptyFilters: ProductoFilters = {
+        precioMin: undefined,
+        precioMax: undefined,
+        stockMin: 1,
+        nombre: undefined,
+        destacado: false,
+        marca: undefined,
+        categoria: filters.categoria,
+        page: 1,
+    }
+
     return (
-        <Box style={{ fontFamily: 'Montserrat, sans-serif', paddingTop: 20 }}>
+        <Box style={{ fontFamily: 'Montserrat, sans-serif'}} className={styles.filterContainer}>
             <Text fw={700} style={{ fontSize: 25 }}>FILTROS</Text>
             <Divider my='md'></Divider>
 
@@ -119,7 +132,8 @@ export function FilterList({filters, updateFilter, marcas}: ProductFilterProps) 
                     />
                 </Box>
 
-                <Button mt={20} onClick={() => updateFilter(localFilters)}> APLICAR CAMBIOS </Button>
+                <Button mt={20} onClick={() => updateFilter(localFilters)}> APLICAR FILTROS </Button>
+                <Button color='red' onClick={() => updateFilter(emptyFilters)}> BORRAR FILTROS </Button>
             </Stack>
         </Box>
     )

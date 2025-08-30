@@ -1,5 +1,9 @@
 .card {
     background-color: var(--mantine-color-body);
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1)
 }
 
 .imageSection {
@@ -8,6 +12,7 @@
     align-items: center;
     justify-content: center;
     border-bottom: 1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4));
+    min-height: 225px;
 }
 
 .label {
@@ -27,4 +32,55 @@
 .icon {
     margin-right: 5px;
     color: light-dark(var(--mantine-color-gray-5), var(--mantine-color-dark-2));
+}
+
+.emptyBorder {
+    position: relative;
+}
+
+.emptyBorder:hover {
+    transform: translateY(-3px);
+    transition: all 0.2s ease-in-out;
+}
+
+.animatedRgbBorder {
+    position: relative;
+    padding: 2px;
+    border-radius: 10px;
+    background: linear-gradient(
+        270deg,
+        var(--mantine-color-blue-3),
+        var(--mantine-color-blue-4),
+        var(--mantine-color-blue-5),
+        var(--mantine-color-blue-6),
+        var(--mantine-color-blue-7),
+        var(--mantine-color-blue-3)
+    );
+    background-size: 400% 400%;
+    animation: rgbBorder 2s linear infinite;
+    overflow: hidden;
+}
+
+.animatedRgbBorder .mantine-Card-root {
+    background-color: white;
+    border-radius: 6px;
+    z-index: 1;
+    position: relative;
+}
+
+@keyframes rgbBorder {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animatedRgbBorder:hover {
+    transform: translateY(-3px);
+    transition: all 0.2s ease-in-out;
 }
