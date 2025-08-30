@@ -2,9 +2,6 @@ import styles from './ProductsPage.module.css'
 
 import { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
-import { useMediaQuery } from '@mantine/hooks'
-
-import { Pagination } from '@mantine/core'
 
 import { ProductList } from "../../components/product/ProductList/ProductList.tsx"
 import { FilterList } from './FilterList/FilterList.tsx'
@@ -17,6 +14,7 @@ import type { Producto } from "../../entities/producto.ts"
 import type { ProductoFilters } from '../../entities/productoFilters.ts'
 import type { Marca } from '../../entities/marca.ts'
 import type { Pagination as PaginationType } from '../../entities/pagination.ts'
+import { CustomPagination } from './Pagination/CustomPagination.tsx'
 
 
 function useParsedFiltersFromUrl(): ProductoFilters {
@@ -69,8 +67,6 @@ export function ProductsPage() {
         }
     }
 
-    const isMobile = useMediaQuery('(max-width: 768px)')
-
     useEffect(() => {
         setLoading(true)
         setError(null)
@@ -114,8 +110,7 @@ export function ProductsPage() {
                         {products.length > 0 ? <ProductList products={products}/> : <NotFoundError></NotFoundError>}
                     </div>  
                 </div>
-                <Pagination total={pagination.totalPages} value={pagination.currentPage} mt={20} gap={isMobile ? 5 : 8}
-                onChange={(value: number) => changePagination(value)} withEdges={!isMobile} hideWithOnePage />
+                <CustomPagination pagination={pagination} changePagination={changePagination}></CustomPagination>
             </div>
         </>
     )
