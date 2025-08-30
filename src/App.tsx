@@ -1,30 +1,35 @@
+import './App.css'
+
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Notifications } from '@mantine/notifications'
 
 import { ShoppingCartProvider } from './context/ShoppingCartContext.tsx'
 
-import { NavigationBar } from './components/layout/NavigationBar/NavigationBar.tsx'
-import { Footer } from './components/layout/Footer/Footer.tsx'
+import { DefaultLayout } from './components/layout/DefaultLayout/DefaultLayout.tsx'
 
 import { ProductsPage } from './pages/ProductsPage/ProductsPage.tsx'
 
 const router = createBrowserRouter([
-  // TODO: Replace template elements with actual pages.
-
-  {path: "/", element: <a>PAGINA PRINCIPAL</a>},
-  {path: "/productos/", element: <ProductsPage></ProductsPage>},
-  {path: "/producto/:id", element: <a> PAGINA DE PRODUCTO </a>},
-  {path: "/carrito", element: <a>PAGINA DEL CARRITO</a>},
-  {path: "/checkout", element: <a>PAGINA DEL CHECKOUT</a>},
-  {path: "*", element: <a>PAGINA DE ERROR</a>},
+    {
+        path: "/",
+        element: <DefaultLayout/>,
+        children: [
+            { index: true, element: <a>PAGINA PRINCIPAL</a> },
+            { path: "productos", element: <ProductsPage/> },
+            { path: "producto/:id", element: <a>PAGINA DE PRODUCTO</a> },
+            { path: "carrito", element: /*<CartPage/>*/ <a>PAGINA DEL CARRITO</a> },
+            { path: "checkout", element: <a>PAGINA DEL CHECKOUT</a> },
+            { path: "*", element: <a>PAGINA DE ERROR</a> },
+        ],
+    },
 ])
 
 function App() {
     return (
         <>
             <ShoppingCartProvider>
-                <NavigationBar></NavigationBar>
+                <Notifications/>
                 <RouterProvider router={router}></RouterProvider>
-                <Footer></Footer>
             </ShoppingCartProvider>
         </>
     )
