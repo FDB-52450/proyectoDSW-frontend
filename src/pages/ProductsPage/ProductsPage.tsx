@@ -2,6 +2,7 @@ import styles from './ProductsPage.module.css'
 
 import { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
+import { useMediaQuery } from '@mantine/hooks'
 
 import { Pagination } from '@mantine/core'
 
@@ -68,6 +69,8 @@ export function ProductsPage() {
         }
     }
 
+    const isMobile = useMediaQuery('(max-width: 768px)')
+
     useEffect(() => {
         setLoading(true)
         setError(null)
@@ -110,9 +113,9 @@ export function ProductsPage() {
                     <div className={styles.productListWrapper}>
                         {products.length > 0 ? <ProductList products={products}/> : <NotFoundError></NotFoundError>}
                     </div>  
-                </div> 
-                <Pagination total={pagination.totalPages} value={pagination.currentPage} mt={20}
-                onChange={(value: number) => changePagination(value)} withEdges hideWithOnePage />
+                </div>
+                <Pagination total={pagination.totalPages} value={pagination.currentPage} mt={20} gap={isMobile ? 5 : 8}
+                onChange={(value: number) => changePagination(value)} withEdges={!isMobile} hideWithOnePage />
             </div>
         </>
     )
