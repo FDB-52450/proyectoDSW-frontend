@@ -49,3 +49,22 @@ export async function fetchProducts(filters?: ProductoFilters) {
         }
     }
 }
+
+export async function fetchProduct(id: string) {
+    try {
+        const url = 'http://localhost:8080/api/productos/' + Number(id)
+        const response = await fetch(url)
+
+        if (!response.ok) {
+            throw new Error(`Network response was not ok: ${response.status}`)
+        }
+
+        return await response.json()
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message)
+        } else {
+            throw new Error('Unknown error occurred while fetching products')
+        }
+    }
+}
