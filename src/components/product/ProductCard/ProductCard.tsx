@@ -51,12 +51,12 @@ export function ProductCard({product}: {product: Producto}) {
     return (
         <div className={product.destacado ? classes.animatedRgbBorder : classes.emptyBorder}>
             <Card radius="md" className={classes.card} h={425}>
-                <Card.Section className={classes.imageSection}>
+                <Card.Section className={classes.imageSection} component='a' href={'/producto/' + product.id}>
                     <Image style={{maxHeight: 200, maxWidth: 175, objectFit: 'contain'}} src={getProductUrl(product)} alt={product.nombre} />
                 </Card.Section>
 
                 <Stack mt="md" gap={5}>
-                    <Text fw={500} lineClamp={3}>{product.nombre}</Text>
+                    <Text fw={500} lineClamp={3} component='a' href={'/producto/' + product.id}>{product.nombre}</Text>
                     {product.descuento === 0 ? '' :<Badge variant="outline" color="green" size='sm'>{product.descuento}% off</Badge>}
                 </Stack>
 
