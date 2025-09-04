@@ -1,0 +1,12 @@
+.productContainer {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0,0,0,0.1)
+}
+
+.descriptionContainer {
+    border: 1px solid var(--mantine-color-gray-3);
+    border-radius: 8px;
+    padding: 20px;
+}
