@@ -9,7 +9,7 @@
   font-size: 38px;
   line-height: 1;
   margin-bottom: calc(1.5 * var(--mantine-spacing-xl));
-  color: var(--mantine-color-gray-2);
+  color: var(--mantine-color-red-7);
 
   @media (max-width: 48em) {
     font-size: 32px;
