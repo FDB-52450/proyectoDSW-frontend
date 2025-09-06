@@ -49,7 +49,7 @@ export function ImageSection ({imagenes}: {imagenes: Array<Imagen | null>}) {
             emblaOptions={{duration: 30}} getEmblaApi={setEmbla}>
                 {slides}
             </Carousel>
-            <Group mt={-20} justify='space-between' gap={20}>
+            <Group mt={-20} justify='flex-start' gap={20}>
                 {imagenes.map((img: Imagen | null, index: number) => (
                 <>
                     {(index === 0 || img) ? 

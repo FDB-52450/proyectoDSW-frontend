@@ -38,13 +38,13 @@ export function ResumeList() {
                                 <Text size='sm' truncate="end" style={{whiteSpace: 'normal', overflowWrap: 'break-word', maxWidth: '100%'}}>{cartProd.producto.nombre}</Text>
                                 <Text size='xs' c='blue'>[x{cartProd.cantidad}] </Text>
                             </Stack>
-                            <Text size='sm'>${(cartProd.producto.precioFinal * cartProd.cantidad).toLocaleString('AR-as')}</Text>
+                            <Text size='sm'>${(cartProd.producto.precioFinal * cartProd.cantidad).toLocaleString('es-AR')}</Text>
                         </Group>
                     ))}
                     <Divider/>
                     <Group justify="space-between">
                         <Text fw={600}>TOTAL</Text>
-                        <Text>${calcularTotal().toLocaleString('AR-as')}</Text>
+                        <Text>${calcularTotal().toLocaleString('es-AR')}</Text>
                     </Group>
                     <Divider/>
                     <Button component='a' href='/checkout'>FINALIZAR COMPRAR</Button>

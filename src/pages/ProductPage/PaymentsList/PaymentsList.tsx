@@ -29,7 +29,7 @@ export function PaymentsList({prodPrecio}: {prodPrecio: number}) {
                         <Menu.Item style={{backgroundColor: 'transparent', cursor: 'default'}} onMouseOver={(e) => {e.currentTarget.style.backgroundColor = 'transparent'}}>
                             <Group justify='space-between' gap={25}>
                                 <Text size='sm' fw={600}>{cuota.cantCuotas} cuotas</Text>
-                                <Text size='sm'>${getPrecioFinal(cuota.porcentajeAplicado).toLocaleString('AR-as')}</Text>
+                                <Text size='sm'>${getPrecioFinal(cuota.porcentajeAplicado).toLocaleString('es-AR')}</Text>
                             </Group>
                         </Menu.Item>
                     ))}
