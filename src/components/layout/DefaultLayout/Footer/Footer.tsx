@@ -1,6 +1,6 @@
 import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube, IconHelp } from '@tabler/icons-react';
 import { ActionIcon, Button, Container, Group, Image, Text } from '@mantine/core';
-import logo from '../../../assets/logoPagina.png'
+import logo from '../../../../assets/logoPagina.png'
 import classes from './Footer.module.css';
 import { ContactList } from './ContactList/ContactList.tsx';
 
