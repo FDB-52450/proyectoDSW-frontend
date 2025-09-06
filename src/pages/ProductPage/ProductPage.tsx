@@ -101,7 +101,7 @@ export function ProductPage() {
                             <Divider my="md" w='100%' mb={20} mt={20}/>
 
                             <Stack gap={10}>
-                                <ItemList stock={product.stockDisponible}/>
+                                <ItemList prod={product}/>
                             </Stack>
 
                             <Divider my="md" w='100%' mb={20} mt={20}/>

@@ -3,6 +3,7 @@ import { useMediaQuery } from "@mantine/hooks";
 import { Group, ThemeIcon, Stack, Text } from "@mantine/core";
 
 import { IconAlertTriangle, IconBuildingStore, IconCheck, IconShield, IconX } from "@tabler/icons-react";
+import type { Producto } from "../../../entities/producto.ts";
 
 const stockTypes = [
     {stockMax: 0, icon: <IconX></IconX>, color: 'red', title: 'SIN STOCK', desc: 'No hay stock disponible'},
@@ -10,11 +11,11 @@ const stockTypes = [
     {stockMax: Infinity, icon: <IconCheck></IconCheck>, color: 'green', title: 'STOCK DISPONIBLE', desc: '+5 unidades restantes'},
 ]
 
-export function ItemList({stock}: {stock: number}) {
+export function ItemList({prod}: {prod: Producto}) {
     let stockType
 
     for (const stockT of stockTypes) {
-        if (stockT.stockMax >= stock) {
+        if (stockT.stockMax >= prod.stockDisponible) {
             stockType = stockT
             break
         }
@@ -27,6 +28,13 @@ export function ItemList({stock}: {stock: number}) {
     const iconSize = !isSmall ? 'lg' : 'md'
     const titleSize = !isSmall ? 'md' : 'sm'
     const descSize = !isSmall ? 'sm' : 'xs'
+
+    function decapitalize(str: string) {
+        if (!str) {
+            return ""
+        }
+        return str.charAt(0).toLowerCase() + str.slice(1)
+    }
 
     return (
         <>
@@ -53,8 +61,8 @@ export function ItemList({stock}: {stock: number}) {
                     <IconShield></IconShield>
                 </ThemeIcon>
                 <Stack gap={0}>
-                    <Text size={titleSize} fw={500} c='green'>GARANTIA UNIVERSAL</Text>
-                    <Text size={descSize} mt={-3}>{isSmall ? '6 meses' : '6 meses para cualquier producto'}</Text>
+                    <Text size={titleSize} fw={500} c='green'>GARANTIA</Text>
+                    <Text size={descSize} mt={-3}>{isSmall ? `${prod.categoria.duracionGarantia} meses` : `${prod.categoria.duracionGarantia} meses para ${decapitalize(prod.categoria.nombre)}`}</Text>
                 </Stack>
             </Group>
         </>
