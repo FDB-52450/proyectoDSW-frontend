@@ -3,9 +3,12 @@ import styles from './ProductsPage.module.css'
 import { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
 
+import { Group } from '@mantine/core'
+
 import { ProductList } from "../../components/product/ProductList/ProductList.tsx"
 import { FilterList } from './FilterList/FilterList.tsx'
 import { NotFoundError } from './NotFoundError/NotFoundError.tsx'
+import { SortMenu } from './SortMenu/SortMenu.tsx'
 
 import { fetchProducts } from "../../services/productService.ts"
 import { fetchMarcasFromProductos } from '../../services/productMarcaService.ts'
@@ -102,6 +105,9 @@ export function ProductsPage() {
                 {/*<Text fw={500} style={{ fontSize: 40 }}>{categoria.toUpperCase()}</Text>*/}
             </div>
             <div className={styles.mainContainer}>
+                <Group className={styles.sortWrapper} justify='flex-end'>
+                    <SortMenu filters={filters} updateFilter={setFilters}></SortMenu>
+                </Group>
                 <div className={styles.productsWrapper}>
                     <div className={styles.filterWrapper}>
                         <FilterList filters={filters} updateFilter={setFilters} marcas={marcas}></FilterList>

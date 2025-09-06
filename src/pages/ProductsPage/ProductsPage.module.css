@@ -16,6 +16,15 @@
     margin-top: 20px;
 }
 
+.sortWrapper {
+    width: 70%;
+    max-width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-right: 20px;
+    padding-bottom: 15px;
+}
+
 .productsWrapper {
     display: flex;
     justify-content: center;
@@ -32,14 +41,17 @@
 
 @media (max-width: 1300px) {
     .mainContainer { width: 80%; }
+    .sortWrapper { width: 80%; }
 }
 
 @media (max-width: 1100px) {
     .mainContainer { width: 90%; }
+    .sortWrapper { width: 90%; }
 }
 
 @media (max-width: 900px) {
     .mainContainer { width: 100%; }
+    .sortWrapper { width: 100%; }
 
     .filterWrapper {
         display: none
