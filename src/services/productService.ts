@@ -1,6 +1,6 @@
 import type { ProductoFilters } from "../entities/productoFilters.ts"
 
-export async function fetchProducts(filters?: ProductoFilters) {
+export async function fetchProducts(filters?: ProductoFilters, hideParams: boolean = false) {
     try {
         let url = 'http://localhost:8080/api/productos/'
 
@@ -15,16 +15,19 @@ export async function fetchProducts(filters?: ProductoFilters) {
             if (filters.categoria && filters.categoria !== '') params.append('categoria', filters.categoria)
             if (filters.page) params.append('page', filters.page.toString())
             if (filters.pageSize) params.append('pageSize', filters.pageSize.toString())
+            if (filters.sort) params.append('sort', filters.sort)
 
             const queryString = params.toString()
 
             if (queryString) {
                 url += `?${queryString}`
 
-                const newRelativePathQuery = window.location.pathname + '?' + queryString
-                window.history.replaceState(null, '', newRelativePathQuery)
+                if (!hideParams) {
+                    const newRelativePathQuery = window.location.pathname + '?' + queryString
+                    window.history.replaceState(null, '', newRelativePathQuery)
+                }
             } else {
-                window.history.replaceState(null, '', window.location.pathname)
+                if (!hideParams) window.history.replaceState(null, '', window.location.pathname)
             }
         }
 
