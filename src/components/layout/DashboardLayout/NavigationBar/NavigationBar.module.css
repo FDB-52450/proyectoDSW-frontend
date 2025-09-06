@@ -1,0 +1,14 @@
+.header {
+    height: 90px;
+    align-content: center;
+    background-color: var(--mantine-color-gray-9);
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+}
+
+.inner {
+    height: 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
