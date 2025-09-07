@@ -10,6 +10,8 @@ export interface Producto {
     descuento: number
     precioFinal: number
     stockDisponible: number
+    stock?: number,
+    stockReservado?: number,
     destacado: boolean
     fechaIngreso: Date
 

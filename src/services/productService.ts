@@ -1,6 +1,6 @@
 import type { ProductoFilters } from "../entities/productoFilters.ts"
 
-export async function fetchProducts(filters?: ProductoFilters, hideParams: boolean = false) {
+export async function fetchProducts(filters?: ProductoFilters, hideParams: boolean = false, showFullStock: boolean = false) {
     try {
         let url = 'http://localhost:8080/api/productos/'
 
@@ -16,6 +16,8 @@ export async function fetchProducts(filters?: ProductoFilters, hideParams: boole
             if (filters.page) params.append('page', filters.page.toString())
             if (filters.pageSize) params.append('pageSize', filters.pageSize.toString())
             if (filters.sort) params.append('sort', filters.sort)
+            
+            if (showFullStock) params.append('view', 'admin')
 
             const queryString = params.toString()
 
@@ -31,7 +33,7 @@ export async function fetchProducts(filters?: ProductoFilters, hideParams: boole
             }
         }
 
-        const response = await fetch(url)
+        const response = await fetch(url, { credentials: 'include' })
 
         if (!response.ok) {
             if (response.status === 404) {
