@@ -24,7 +24,7 @@ export function UserSection({user}: {user: User}) {
             </Menu.Target>
             <Menu.Dropdown>
                 <Menu.Label>{user.username} - {user.role}</Menu.Label>
-                <Menu.Item color="red" leftSection={<IconLogout2 size={16} stroke={2} onClick={() => {logout(); navigate('/', {replace: true})}}/>}>
+                <Menu.Item color="red" leftSection={<IconLogout2 size={16} stroke={2}/>} onClick={() => {logout(); navigate('/', {replace: true})}}>
                     Cerrar sesion
                 </Menu.Item>
             </Menu.Dropdown>
