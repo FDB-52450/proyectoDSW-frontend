@@ -29,8 +29,5 @@ export async function login(username: string, password: string) {
 }
 
 export async function logout() {
-    await fetch('http://localhost:8080/api/administradores/logout', {
-        method: 'POST',
-        credentials: 'include',
-    })
+    await fetch('http://localhost:8080/api/administradores/logout', { credentials: 'include' })
 }
