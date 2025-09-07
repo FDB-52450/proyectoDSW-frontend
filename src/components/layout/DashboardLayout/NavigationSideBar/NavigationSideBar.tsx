@@ -6,11 +6,11 @@ import { ScrollArea, Text } from '@mantine/core'
 
 import { LinksGroup } from './NavbarLinksGroup/NavbarLinksGroup.tsx'
 
-import { IconChartBar, IconPackage, IconCategory, IconRegistered, IconShield, IconShoppingCart } from '@tabler/icons-react'
+import { IconChartBar, IconPackage, IconCategory, IconRegistered, IconShield, IconShoppingCart, IconUser } from '@tabler/icons-react'
 
 import type { User } from '../../../../entities/user.ts'
 
-type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'administradores' | '-'
+type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'administradores' | 'clientes' | '-'
 
 export function NavigationSideBar({user}: {user: User}) {
     let { tipo } = useParams<{ tipo: Tipo }>()
@@ -55,6 +55,16 @@ export function NavigationSideBar({user}: {user: User}) {
             links: [
                 { label: 'Ver pedidos', link: '/pedidos' },
                 { label: 'Modificar pedido', link: '/' },
+            ],
+        },
+        {
+            label: 'Clientes',
+            icon: IconUser,
+            initiallyOpened: (tipo.toLowerCase() === 'clientes'),
+            links: [
+                { label: 'Ver clientes', link: '/clientes' },
+                { label: 'Agregar clientes', link: '/clientes' },
+                { label: 'Modificar clientes', link: '/clientes' },
             ],
         },
     ]
