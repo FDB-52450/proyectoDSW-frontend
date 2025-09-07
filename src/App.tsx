@@ -5,11 +5,14 @@ import { Notifications } from '@mantine/notifications'
 
 import { ShoppingCartProvider } from './context/ShoppingCartContext.tsx'
 
+import { DashboardLayout } from './components/layout/DashboardLayout/DashboardLayout.tsx'
 import { DefaultLayout } from './components/layout/DefaultLayout/DefaultLayout.tsx'
 
 import { ProductsPage } from './pages/ProductsPage/ProductsPage.tsx'
 import { ProductPage } from './pages/ProductPage/ProductPage.tsx'
 import { CartPage } from './pages/CartPage/CartPage.tsx'
+import { LoginPage } from './pages/LoginPage/LoginPage.tsx'
+import { checkAuthLoader } from './loaders/authLoader.ts'
 
 const router = createBrowserRouter([
     {
@@ -23,6 +26,20 @@ const router = createBrowserRouter([
             { path: "checkout", element: <a>PAGINA DEL CHECKOUT</a> },
             { path: "*", element: <a>PAGINA DE ERROR</a> },
         ],
+    },
+    {
+        path: "/dashboard/",
+        loader: checkAuthLoader,
+        element: <DashboardLayout/>,
+        children: [
+            { index: true, element: <a>PAGINA PRINCIPAL</a>},
+            { path: ":tipo", element: <a>PAGINA DE LISTA</a>},
+            { path: "*", element: <a>PAGINA DE ERROR</a>}
+        ]
+    },
+    { 
+        path: "/login", 
+        element: <LoginPage />
     },
 ])
 
