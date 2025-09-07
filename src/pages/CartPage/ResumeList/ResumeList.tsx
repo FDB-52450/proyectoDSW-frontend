@@ -44,7 +44,7 @@ export function ResumeList() {
                     <Divider/>
                     <Group justify="space-between">
                         <Text fw={600}>TOTAL</Text>
-                        <Text>${calcularTotal().toLocaleString('es-AR')}</Text>
+                        <Text fw={600}>${calcularTotal().toLocaleString('es-AR')}</Text>
                     </Group>
                     <Divider/>
                     <Button component='a' href='/checkout'>FINALIZAR COMPRAR</Button>

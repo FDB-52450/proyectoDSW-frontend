@@ -15,10 +15,11 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
     const [opened, setOpened] = useState(initiallyOpened || false)
     const items = (hasLinks ? links : []).map((link) => (
         <Text<'a'>
-        component="a"
-        className={classes.link}
-        href={`/dashboard${link.link}`}
-        key={link.label}
+            component="a"
+            className={classes.link}
+            href={`/dashboard${link.link}`}
+            key={link.label}
+            fw={550}
         >
         {link.label}
         </Text>
@@ -30,9 +31,9 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
             <Group justify="space-between" gap={0}>
                 <Box style={{ display: 'flex', alignItems: 'center' }}>
                     <ThemeIcon variant="light" size={30}>
-                    <Icon size={18} />
+                        <Icon size={18} />
                     </ThemeIcon>
-                    <Box ml="md">{label}</Box>
+                    <Box ml="md"><Text size='sm' fw={600}>{label}</Text></Box>
                 </Box>
                 {hasLinks && (
                     <IconChevronRight

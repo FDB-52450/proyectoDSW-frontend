@@ -39,7 +39,7 @@ export function DropdownButton({title, data}: {title: string, data: DataInterfac
             <a href="#" className={styles.link}>
                 <Center inline>
                     <Box component="span" mr={5}>
-                        {title}
+                        <Text>{title}</Text>
                     </Box>
                     <IconChevronDown size={16} color={theme.colors.blue[6]} />
                 </Center>
@@ -48,7 +48,7 @@ export function DropdownButton({title, data}: {title: string, data: DataInterfac
 
         <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
             <Group justify="space-between" px="md">
-                <Text fw={500}>{title} de PC</Text>
+                <Text fw={600}>{title} de PC</Text>
             </Group>
             <Divider my="sm" />
             <SimpleGrid cols={2} spacing={0}>

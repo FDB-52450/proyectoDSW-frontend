@@ -3,7 +3,7 @@ import classes from './ProductCard.module.css'
 import { useContext } from 'react'
 import { CartContext } from '../../../context/CartContext.tsx'
 
-import { Badge, Button, Card, Flex, Group, Image, Stack, Text } from '@mantine/core'
+import { Badge, Button, Card, Flex, Image, Stack, Text } from '@mantine/core'
 
 import { IconShoppingCart } from '@tabler/icons-react'
 import noImage from '../../../assets/noImage.png'
@@ -56,27 +56,25 @@ export function ProductCard({product}: {product: Producto}) {
                 </Card.Section>
 
                 <Stack mt="md" gap={5}>
-                    <Text fw={500} lineClamp={3} component='a' href={'/producto/' + product.id}>{product.nombre}</Text>
-                    {product.descuento === 0 ? '' :<Badge variant="outline" color="green" size='sm'>{product.descuento}% off</Badge>}
+                    <Text fw={700} lineClamp={3} component='a' href={'/producto/' + product.id}>{product.nombre}</Text>
+                    {product.descuento === 0 ? '' :<Badge variant="outline" color="green" size='md'>{product.descuento}% off</Badge>}
                 </Stack>
 
-                <Group gap={20} mt='auto' justify='space-between'>
-                    <div>
+                <Flex gap={20} mt='auto' justify='space-between' align='flex-end'>
+                    <Stack gap={5} justify='flex-end'>
                         {product.descuento == 0 ? '' :
-                        <Flex gap={10}>
-                            <Text fz="xs" c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3} td="line-through">
+                            <Text size='13' c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3} td="line-through">
                                 ${product.precio.toLocaleString("es-AR")}
-                            </Text>
-                        </Flex>}
+                            </Text>}
                         <Text fz="h3" fw={700} style={{ lineHeight: 1 }}>
                             ${product.precioFinal.toLocaleString("es-AR")}
                         </Text>
-                    </div>
+                    </Stack>
 
                     <Button radius="md" onClick={addToCart}>
                         <IconShoppingCart/>
                     </Button>
-                </Group>
+                </Flex>
             </Card>
         </div>
     )

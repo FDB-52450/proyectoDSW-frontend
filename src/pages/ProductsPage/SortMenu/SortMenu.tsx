@@ -2,7 +2,7 @@ import styles from './SortMenu.module.css'
 
 import { useState, useEffect } from 'react';
 
-import { Menu, Button } from '@mantine/core';
+import { Menu, Button, Text } from '@mantine/core';
 
 import { IconCoins, IconArrowNarrowDown, IconArrowNarrowUp, IconStar } from '@tabler/icons-react';
 
@@ -34,14 +34,14 @@ export function SortMenu({filters, updateFilter}: SortMenuProps) {
             <Menu.Dropdown>
                 <Menu.Item leftSection={<IconCoins size={16}/>} rightSection={<IconArrowNarrowDown size={10}/>} 
                 onClick={() => handleInputChange('precio-desc')}>
-                    Precio (DESC)
+                    <Text size='sm' fw={600}>Precio (DESC)</Text>
                 </Menu.Item>
                 <Menu.Item leftSection={<IconCoins size={16}/>} rightSection={<IconArrowNarrowUp size={10}/>}
                 onClick={() => handleInputChange('precio-asc')}>
-                    Precio (ASC)
+                    <Text size='sm' fw={600}>Precio (ASC)</Text>
                 </Menu.Item>
                 <Menu.Item leftSection={<IconStar size={16}/>} onClick={() => handleInputChange('destacado')}>
-                    Destacado
+                    <Text size='sm' fw={600}>Destacado</Text>
                 </Menu.Item>
             </Menu.Dropdown>
         </Menu>

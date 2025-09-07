@@ -40,7 +40,7 @@ export function CartProductCard({pedProd, increment, decrement, remove}: Props) 
                     <Stack gap={1}>
                         <Text c="blue" fw={600} size='xs'> {prod.categoria.nombre.toUpperCase()}
                         </Text>
-                        <Text className={classes.title}> {prod.nombre} </Text>
+                        <Text fw={600}> {prod.nombre} </Text>
                     </Stack>
                     <Group>
                         <ActionIcon variant="filled" color="red" onClick={remove}>
@@ -67,7 +67,7 @@ export function CartProductCard({pedProd, increment, decrement, remove}: Props) 
                         ${prod.precio.toLocaleString("es-AR")}
                     </Text>
                     }
-                    <Text fz="xl" fw={500} style={{ lineHeight: 1 }}>
+                    <Text fz="xl" fw={600} style={{ lineHeight: 1 }}>
                         ${prod.precioFinal.toLocaleString("es-AR")}
                     </Text>
                 </Stack>

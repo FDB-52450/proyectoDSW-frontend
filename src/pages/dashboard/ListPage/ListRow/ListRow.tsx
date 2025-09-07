@@ -192,7 +192,7 @@ export function ListTitleRow({tipo}: {tipo: string}) {
                 <Table.Th style={{ textAlign: 'center' }}>Descuento</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Stock</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Stock Reservado</Table.Th>
-                <Table.Th style={{ textAlign: 'center' }}>Stock Disponible</Table.Th>
+                <Table.Th style={{ textAlign: 'center' }}>Stock Disp.</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Destacado?</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Categoria</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Marca</Table.Th>

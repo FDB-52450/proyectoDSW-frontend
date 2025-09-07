@@ -43,7 +43,7 @@ export function ItemList({prod}: {prod: Producto}) {
                     {stockType.icon}
                 </ThemeIcon>
                 <Stack gap={0}>
-                    <Text size={titleSize} fw={500} c={stockType.color}>{stockType.title}</Text>
+                    <Text size={titleSize} fw={600} c={stockType.color}>{stockType.title}</Text>
                     <Text size={descSize} mt={-3}>{stockType.desc}</Text>
                 </Stack>
             </Group>
@@ -52,7 +52,7 @@ export function ItemList({prod}: {prod: Producto}) {
                     <IconBuildingStore></IconBuildingStore>
                 </ThemeIcon>
                 <Stack gap={0}>
-                    <Text size={titleSize} fw={500} c='green'>RETIRO GRATIS EN LOCAL</Text>
+                    <Text size={titleSize} fw={600} c='green'>RETIRO GRATIS EN LOCAL</Text>
                     <Text size={descSize} mt={-3}>{isSmall ? 'Zeballos 1341 (Rosario)' : 'Zeballos 1341 (Rosario, Santa Fe)'}</Text>
                 </Stack>
             </Group>
@@ -61,7 +61,7 @@ export function ItemList({prod}: {prod: Producto}) {
                     <IconShield></IconShield>
                 </ThemeIcon>
                 <Stack gap={0}>
-                    <Text size={titleSize} fw={500} c='green'>GARANTIA</Text>
+                    <Text size={titleSize} fw={600} c='green'>GARANTIA</Text>
                     <Text size={descSize} mt={-3}>{isSmall ? `${prod.categoria.duracionGarantia} meses` : `${prod.categoria.duracionGarantia} meses para ${decapitalize(prod.categoria.nombre)}`}</Text>
                 </Stack>
             </Group>

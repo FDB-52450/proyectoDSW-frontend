@@ -1,7 +1,7 @@
 
 import styles from './NavigationBar.module.css'
 
-import { Group, Button, Image, Anchor } from '@mantine/core'
+import { Group, Button, Image, Anchor, Text } from '@mantine/core'
 import { IconShoppingCart } from '@tabler/icons-react'
 
 import { SearchBar } from './SearchBar/SearchBar.tsx'
@@ -141,9 +141,9 @@ export function NavigationBar() {
                     <Group visibleFrom='sm'>
                         <DropdownButton title='Componentes' data={componentesData}></DropdownButton>
                         <DropdownButton title='Perifericos' data={perifericosData}></DropdownButton>
-                        <a href="/productos?categoria=monitores" className={styles.linkBottom}>Monitores</a>
-                        <a href="/productos?categoria=notebooks" className={styles.linkBottom}>Notebooks</a>
-                        <a href="/productos?categoria=computadoras" className={styles.linkBottom}>Computadoras</a>
+                        <a href="/productos?categoria=monitores" className={styles.linkBottom}><Text>Monitores</Text></a>
+                        <a href="/productos?categoria=notebooks" className={styles.linkBottom}><Text>Notebooks</Text></a>
+                        <a href="/productos?categoria=computadoras" className={styles.linkBottom}><Text>Computadoras</Text></a>
                     </Group>
                 </div>
             </header>

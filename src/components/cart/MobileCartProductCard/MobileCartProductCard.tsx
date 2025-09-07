@@ -39,11 +39,11 @@ export function MobileCartProductCard({pedProd, increment, decrement, remove}: P
                         <Stack gap={1}>
                             <Text c="blue" fw={600} size='xs'> {prod.categoria.nombre.toUpperCase()}
                             </Text>
-                            <Text className={classes.title} maw={150}> {prod.nombre} </Text>
+                            <Text className={classes.title} maw={150} fw={600}> {prod.nombre} </Text>
                         </Stack>
 
                         <Group gap={5} align='flex-end'>
-                            <Text fz="xl" fw={500} style={{ lineHeight: 1 }}>
+                            <Text fz="lg" fw={600} style={{ lineHeight: 1 }}>
                                 ${prod.precioFinal.toLocaleString("es-AR")}
                             </Text>
                             {prod.descuento == 0 ? null :
