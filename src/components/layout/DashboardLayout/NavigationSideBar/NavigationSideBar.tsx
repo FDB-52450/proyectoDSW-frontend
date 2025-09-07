@@ -8,10 +8,12 @@ import { LinksGroup } from './NavbarLinksGroup/NavbarLinksGroup.tsx'
 
 import { IconChartBar, IconPackage, IconCategory, IconRegistered, IconShield, IconShoppingCart } from '@tabler/icons-react'
 
+import type { User } from '../../../../entities/user.ts'
+
 type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'administradores' | '-'
 
-export function NavigationSideBar() {
-    let { tipo } = useParams<{ tipo: Tipo }>();
+export function NavigationSideBar({user}: {user: User}) {
+    let { tipo } = useParams<{ tipo: Tipo }>()
     if ( tipo === undefined ) tipo = '-'
 
     const sidebarData = [
@@ -55,7 +57,10 @@ export function NavigationSideBar() {
                 { label: 'Modificar pedido', link: '/' },
             ],
         },
-        {
+    ]
+
+    if (user.role === 'superadmin') {
+        sidebarData.push({
             label: 'Administradores',
             icon: IconShield,
             initiallyOpened: (tipo.toLowerCase() === 'administradores'),
@@ -63,9 +68,9 @@ export function NavigationSideBar() {
                 { label: 'Ver administradores', link: '/administradores' },
                 { label: 'Agregar administrador', link: '/' },
                 { label: 'Modificar administrador', link: '/' },
-            ],
-        },
-    ]
+            ]},
+        )
+    }
 
     const links = sidebarData.map((item) => <LinksGroup {...item} key={item.label} />)
 
