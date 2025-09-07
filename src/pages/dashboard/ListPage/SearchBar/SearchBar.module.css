@@ -1,0 +1,9 @@
+.hoverFilledIcon {
+    transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.hoverFilledIcon:hover {
+    background-color: #228be6;
+    color: white;
+    border-color: #228be6;
+}

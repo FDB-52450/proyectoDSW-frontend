@@ -14,6 +14,8 @@ import { CartPage } from './pages/CartPage/CartPage.tsx'
 import { LoginPage } from './pages/LoginPage/LoginPage.tsx'
 import { checkAuthLoader } from './loaders/authLoader.ts'
 
+import { ListPage } from './pages/dashboard/ListPage/ListPage.tsx'
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -33,7 +35,7 @@ const router = createBrowserRouter([
         element: <DashboardLayout/>,
         children: [
             { index: true, element: <a>PAGINA PRINCIPAL</a>},
-            { path: ":tipo", element: <a>PAGINA DE LISTA</a>},
+            { path: ":tipo", element: <ListPage/>},
             { path: "*", element: <a>PAGINA DE ERROR</a>}
         ]
     },

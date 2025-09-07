@@ -3,11 +3,11 @@
 ## WILL BE ADDED
 - [ ] Attribution of hardware logos used in category navbar in footer (Freepik, J703).
 - [ ] Implement loading transition for all page loads.
-- [ ] Implement the followings pages:
+- [-] Implement the followings pages:
   + [x] Login page.
-  + [ ] Dashboard page.
+  + [-] Dashboard page.
     + [ ] Main page (stats).
-    + [ ] List page.
+    + [-] List page.
     + [ ] Create/modify page.
   + [ ] Frequently asked questions page.
   + [ ] Home page.
@@ -19,6 +19,7 @@
 ## LIKELY TO BE ADDED
 - [ ] Adjust rate-limiting on back-end
 - [ ] Fix sortMenu component not being properly aligned in /products page.
+- [ ] Refactor list page code.
 
 ## UNLIKELY TO BE ADDED
 - [ ] Replace <a> components with <Link>
