@@ -18,4 +18,6 @@ export interface Producto {
     marca: Marca
     categoria: Categoria
     imagenes: Array<Imagen>
+
+    imagesToRemove?: Array<string>
 }
