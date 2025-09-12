@@ -1,7 +1,11 @@
-import { useState } from 'react'
-import { IconChevronRight } from '@tabler/icons-react'
-import { Box, Collapse, Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core'
 import classes from './NavbarLinksGroup.module.css'
+
+import { useState } from 'react'
+
+import { Link } from 'react-router-dom'
+import { Box, Collapse, Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core'
+
+import { IconChevronRight } from '@tabler/icons-react'
 
 interface LinksGroupProps {
     icon: React.ElementType
@@ -14,10 +18,10 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
     const hasLinks = Array.isArray(links)
     const [opened, setOpened] = useState(initiallyOpened || false)
     const items = (hasLinks ? links : []).map((link) => (
-        <Text<'a'>
-            component="a"
+        <Text
+            component={Link}
             className={classes.link}
-            href={`/dashboard${link.link}`}
+            to={`/dashboard${link.link}`}
             key={link.label}
             fw={550}
         >

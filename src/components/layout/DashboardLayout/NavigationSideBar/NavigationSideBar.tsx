@@ -24,8 +24,7 @@ export function NavigationSideBar({user}: {user: User}) {
             initiallyOpened: (tipo.toLowerCase() === 'productos'),
             links: [
                 { label: 'Ver productos', link: '/productos' },
-                { label: 'Agregar producto', link: '/productos' },
-                { label: 'Modificar producto', link: '/productos' },
+                { label: 'Agregar producto', link: '/productos/new' },
             ],
         },
         {
@@ -34,8 +33,7 @@ export function NavigationSideBar({user}: {user: User}) {
             initiallyOpened: (tipo.toLowerCase() === 'marcas'),
             links: [
                 { label: 'Ver marcas', link: '/marcas' },
-                { label: 'Agregar marca', link: '/marcas' },
-                { label: 'Modificar marca', link: '/marcas' },
+                { label: 'Agregar marca', link: '/marcas/new' },
             ],
         },
         {
@@ -44,8 +42,7 @@ export function NavigationSideBar({user}: {user: User}) {
             initiallyOpened: (tipo.toLowerCase() === 'categorias'),
             links: [
                 { label: 'Ver categorias', link: '/categorias' },
-                { label: 'Agregar categoria', link: '/categorias' },
-                { label: 'Modificar categoria', link: '/categorias' },
+                { label: 'Agregar categoria', link: '/categorias/new' },
             ],
         },
             {
@@ -54,7 +51,6 @@ export function NavigationSideBar({user}: {user: User}) {
             initiallyOpened: (tipo.toLowerCase() === 'pedidos'),
             links: [
                 { label: 'Ver pedidos', link: '/pedidos' },
-                { label: 'Modificar pedido', link: '/' },
             ],
         },
         {
@@ -63,8 +59,7 @@ export function NavigationSideBar({user}: {user: User}) {
             initiallyOpened: (tipo.toLowerCase() === 'clientes'),
             links: [
                 { label: 'Ver clientes', link: '/clientes' },
-                { label: 'Agregar clientes', link: '/clientes' },
-                { label: 'Modificar clientes', link: '/clientes' },
+                { label: 'Agregar clientes', link: '/clientes/new' },
             ],
         },
     ]
