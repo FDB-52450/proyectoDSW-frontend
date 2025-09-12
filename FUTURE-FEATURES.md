@@ -20,7 +20,9 @@
 - [ ] Adjust rate-limiting on back-end
 - [ ] Fix sortMenu component not being properly aligned in /products page.
 - [ ] Refactor list page code.
+- [-] Implement notification system.
 
 ## UNLIKELY TO BE ADDED
-- [ ] Replace <a> components with <Link>
+- [-] Replace <a> components with <Link>
 - [ ] Allow admins to store text with bold letters.
+- [ ] Consume georef api (https://datosgobar.github.io/georef-ar-api/) for proper location data.
