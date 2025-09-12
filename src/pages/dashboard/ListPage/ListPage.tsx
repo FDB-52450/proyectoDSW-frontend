@@ -33,7 +33,7 @@ const initialFilters: ProductoFilters = {
 }
 
 export function ListPage() {
-    const [data, setData] = useState<Producto[] | Marca[] | Categoria[]>([])
+    const [data, setData] = useState<Producto[] | Marca[] | Categoria[] | Pedido[] | Cliente[]>([])
     const [filters, setFilters] = useState<ProductoFilters>(initialFilters)
     const [pagination, setPagination] = useState<PaginationType>({totalProducts: 1, totalPages: 1, currentPage: 1, pageSize: 20})
 

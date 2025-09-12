@@ -12,7 +12,6 @@ import type { Pedido } from "../../../../entities/pedido.ts";
 import type { Cliente } from "../../../../entities/cliente.ts"
 
 type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'clientes';
-const allowedTipos = ['pedidos', 'clientes']
 
 interface ListRowProps {
     tipo: Tipo, 
@@ -175,7 +174,7 @@ export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps
     return (
         <>
             {tableRow}
-            <ActionIcons tipo={tipo} item={allowedTipos.includes(tipo) ? item : null}></ActionIcons>
+            <ActionIcons tipo={tipo} item={item}></ActionIcons>
         </>
     )
 }

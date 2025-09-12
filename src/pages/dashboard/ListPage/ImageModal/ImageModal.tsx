@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Modal, Image } from "@mantine/core";
+import { Modal, Image, Group } from "@mantine/core";
 
 import noImage from '../../../../assets/noImage.png'
 
@@ -36,6 +36,7 @@ export function ImageModal({item, tipo, imgIdx, setViewItem, setViewImageIdx}: I
 
     let imagen: Imagen = {id: -1, url: noImage, imagenPrimaria: true} // FALLBACK
     let title = '-'
+    let size = {value: 'medium', dimensions: 250}
 
     if (item) {
         if (tipo === 'productos') {
@@ -43,10 +44,11 @@ export function ImageModal({item, tipo, imgIdx, setViewItem, setViewImageIdx}: I
 
             imagen = prod.imagenes[imgIdx]
             title = `${prod.nombre} [${imgIdx+1}/${prod.imagenes.length}]`
+            size = {value: 'large', dimensions: 500}
         } else if (tipo === 'marcas') {
             const marca = item as Marca
 
-            imagen = marca.imagen
+            imagen = marca.imagen ? marca.imagen : imagen
             title = marca.nombre
         }
     }
@@ -61,9 +63,11 @@ export function ImageModal({item, tipo, imgIdx, setViewItem, setViewImageIdx}: I
 
     return (
         <>
-            <Modal opened={opened} onClose={handleClose} title={title} size='40%'
+            <Modal opened={opened} onClose={handleClose} title={title} centered
             overlayProps={{backgroundOpacity: 0.55, blur: 2}}>
-                <Image src={getImagenUrl(imagen, 'large')} style={{maxHeight: 600, maxWidth: 600, objectFit: 'contain', padding: 50}}></Image>
+                <Group w='100%' justify="center">
+                    <Image src={getImagenUrl(imagen, size.value)} style={{maxHeight: size.dimensions, maxWidth: size.dimensions, objectFit: 'contain', padding: 50}}></Image>
+                </Group>
             </Modal>
         </>
     )

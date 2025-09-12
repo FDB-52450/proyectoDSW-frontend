@@ -1,4 +1,9 @@
+import { useNavigate } from "react-router-dom"
+import { useDisclosure } from "@mantine/hooks"
+
 import { ActionIcon, Table, Tooltip } from "@mantine/core";
+
+import { DeleteModal } from "../../../../../components/shared/DeleteModal.tsx";
 
 import { IconBan, IconCheck, IconEyeOff, IconSettings, IconTrash, IconX } from "@tabler/icons-react";
 
@@ -12,26 +17,22 @@ type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'clientes'
 
 interface ActionIconsProps {
     tipo: Tipo, 
-    item?: Producto | Marca | Categoria | Pedido | Cliente | null
+    item: Producto | Marca | Categoria | Pedido | Cliente
 }
 
 export function ActionIcons({tipo, item}: ActionIconsProps) {
+    const [opened, { open, close }] = useDisclosure(false);
+    const navigate = useNavigate()
+
     let returnData;
 
     const tipoNombre = tipo.slice(0, -1)
 
     if (tipo === 'pedidos') {
-        if (!item) return null
-
         const ped = item as Pedido
 
         returnData = (
             <>
-                <Tooltip label={`Modificar ${tipoNombre}`}>
-                    <ActionIcon color='blue' mr={5}>
-                        <IconSettings style={{ width: '70%', height: '70%' }} stroke={1.5}/>
-                    </ActionIcon>
-                </Tooltip>
                 <Tooltip label={`Confirmar ${tipoNombre}`}>
                     <ActionIcon color='green' mr={5} disabled={ped.estado != 'pendiente'}>
                         <IconCheck style={{ width: '70%', height: '70%' }} stroke={1.5}/>
@@ -45,17 +46,10 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
             </>
         )
     } else if (tipo === 'clientes') {
-        if (!item) return null
-
         const cli = item as Cliente
 
         returnData = (
             <>
-                <Tooltip label={`Modificar ${tipoNombre}`}>
-                    <ActionIcon color='blue' mr={5}>
-                        <IconSettings style={{ width: '70%', height: '70%' }} stroke={1.5}/>
-                    </ActionIcon>
-                </Tooltip>
                 {cli.banStart ?
                 <Tooltip label={`Rehabilitar ${tipoNombre}`}>
                     <ActionIcon color='green' mr={5}>
@@ -74,18 +68,13 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
     } else if (tipo === 'productos') {
         returnData = (
             <>
-                <Tooltip label={`Modificar ${tipoNombre}`}>
-                    <ActionIcon color='blue' mr={5}>
-                        <IconSettings style={{ width: '70%', height: '70%' }} stroke={1.5}/>
-                    </ActionIcon>
-                </Tooltip>
                 <Tooltip label={`Ocultar ${tipoNombre}`}>
                     <ActionIcon color="gray" mr={5}>
                         <IconEyeOff style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
                 </Tooltip>
                 <Tooltip label={`Borrar ${tipoNombre}`}>
-                    <ActionIcon color="red">
+                    <ActionIcon color="red"  onClick={open}>
                         <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
                 </Tooltip>
@@ -94,13 +83,8 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
     } else {
         returnData = (
             <>
-                <Tooltip label={`Modificar ${tipoNombre}`}>
-                    <ActionIcon color='blue' mr={5}>
-                        <IconSettings style={{ width: '70%', height: '70%' }} stroke={1.5}/>
-                    </ActionIcon>
-                </Tooltip>
                 <Tooltip label={`Borrar ${tipoNombre}`}>
-                    <ActionIcon color="red">
+                    <ActionIcon color="red" onClick={open}>
                         <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
                 </Tooltip>
@@ -110,7 +94,13 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
 
     return (
         <Table.Td style={{ textAlign: 'right' }}>
+            <Tooltip label={`Modificar ${tipoNombre}`}>
+                <ActionIcon color='blue' mr={5} onClick={() => navigate(`${item.id}`)}>
+                    <IconSettings style={{ width: '70%', height: '70%' }} stroke={1.5}/>
+                </ActionIcon>
+            </Tooltip>
             {returnData}
+            <DeleteModal tipo={tipo} id={String(item ? item.id : 0)} isOpen={opened} setClose={close}></DeleteModal>
         </Table.Td>
     )
 }
