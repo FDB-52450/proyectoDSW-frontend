@@ -56,8 +56,8 @@ export function ProductCard({product}: {product: Producto}) {
                 </Card.Section>
 
                 <Stack mt="md" gap={5}>
-                    <Text fw={700} lineClamp={3} component='a' href={'/producto/' + product.id}>{product.nombre}</Text>
-                    {product.descuento === 0 ? '' :<Badge variant="outline" color="green" size='md'>{product.descuento}% off</Badge>}
+                    <Text fw={500} lineClamp={3} component='a' href={'/producto/' + product.id}>{product.nombre}</Text>
+                    {product.descuento === 0 ? '' :<Badge color="green" size='md'>-{product.descuento}%</Badge>}
                 </Stack>
 
                 <Flex gap={20} mt='auto' justify='space-between' align='flex-end'>
@@ -66,7 +66,7 @@ export function ProductCard({product}: {product: Producto}) {
                             <Text size='13' c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3} td="line-through">
                                 ${product.precio.toLocaleString("es-AR")}
                             </Text>}
-                        <Text fz="h3" fw={700} style={{ lineHeight: 1 }}>
+                        <Text fz="h3" fw={600} style={{ lineHeight: 1 }}>
                             ${product.precioFinal.toLocaleString("es-AR")}
                         </Text>
                     </Stack>
