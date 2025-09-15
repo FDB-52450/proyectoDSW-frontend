@@ -37,7 +37,7 @@ export function ProductPage() {
         if (id != undefined) {
             fetchProduct(id)
             .then((res) => {
-                setProduct(res.data)
+                setProduct(res)
                 setLoading(false)
             })
             .catch(() => {
