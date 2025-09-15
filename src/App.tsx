@@ -11,6 +11,8 @@ import { DefaultLayout } from './components/layout/DefaultLayout/DefaultLayout.t
 import { ProductsPage } from './pages/ProductsPage/ProductsPage.tsx'
 import { ProductPage } from './pages/ProductPage/ProductPage.tsx'
 import { CartPage } from './pages/CartPage/CartPage.tsx'
+import { CheckoutPage } from './pages/CheckoutPage/CheckoutPage.tsx'
+
 import { LoginPage } from './pages/LoginPage/LoginPage.tsx'
 import { checkAuthLoader } from './loaders/authLoader.ts'
 
@@ -25,7 +27,7 @@ const router = createBrowserRouter([
             { path: "productos", element: <ProductsPage/> },
             { path: "producto/:id", element: <ProductPage/> },
             { path: "carrito", element: <CartPage/>},
-            { path: "checkout", element: <a>PAGINA DEL CHECKOUT</a> },
+            { path: "checkout", element: <CheckoutPage/> },
             { path: "*", element: <a>PAGINA DE ERROR</a> },
         ],
     },

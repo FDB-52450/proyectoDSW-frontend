@@ -45,3 +45,14 @@ export function pushErrorNotification(codigo: number, message: string) {
         autoClose: false
     })
 }
+
+export function pushCreatePedido() {
+    notifications.show({
+        title: 'Pedido creado con éxito!',
+        message: 'Gracias por comprar en Hardware Nexus.',
+        color: 'green',
+        position: 'bottom-center',
+        icon: <IconCheck size={20} />,
+        autoClose: 100000
+    })
+}

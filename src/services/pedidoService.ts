@@ -1,4 +1,4 @@
-import { pushCreateNotification, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
+import { pushCreatePedido, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
 
 import type { Pedido } from "../entities/pedido.ts"
 
@@ -47,8 +47,11 @@ export async function fetchPedido(id: string) {
 }
 
 
-export async function createPedido(data: Pedido) {
+export async function createPedido(data: Partial<Pedido>) {
     try {
+        const simpleDetalle = data.detalle!.map((pedProd) => ({productoId: pedProd.producto.id, cantidad: pedProd.cantidad}))
+        const simpleData = {...data, detalle: simpleDetalle}
+
         const url = 'http://localhost:8080/api/pedidos/'
         const response = await fetch(url, { 
             method: 'POST',
@@ -56,7 +59,7 @@ export async function createPedido(data: Pedido) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data) 
+            body: JSON.stringify(simpleData) 
         })
 
         const json = await response.json()
@@ -67,7 +70,7 @@ export async function createPedido(data: Pedido) {
             throw new Error(`Network response was not ok: ${response.status}`)
         }
 
-        pushCreateNotification('pedidos')
+        pushCreatePedido()
 
         return json.data
     } catch (error) {
@@ -79,7 +82,7 @@ export async function createPedido(data: Pedido) {
     }
 }
 
-export async function updatePedido(id: string, data: Pedido) {
+export async function updatePedido(id: string, data: Partial<Pedido>) {
     try {
         const url = 'http://localhost:8080/api/pedidos/' + Number(id)
         const response = await fetch(url, { 

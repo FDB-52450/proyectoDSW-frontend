@@ -13,7 +13,7 @@
   + [ ] Home page.
   + [x] Cart page.
   + [x] Products page.
-  + [ ] Checkout page.
+  + [x] Checkout page.
   + [-] Product page.
 
 ## LIKELY TO BE ADDED
@@ -26,3 +26,4 @@
 - [-] Replace <a> components with <Link>
 - [ ] Allow admins to store text with bold letters.
 - [ ] Consume georef api (https://datosgobar.github.io/georef-ar-api/) for proper location data.
+- [ ] Consume ArgentinaDatos API (https://argentinadatos.com/docs/operations/get-feriados.html) to prevent delivery of pedidos on holidays.
