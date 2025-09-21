@@ -13,6 +13,7 @@ import { ProductPage } from './pages/ProductPage/ProductPage.tsx'
 import { CartPage } from './pages/CartPage/CartPage.tsx'
 import { CheckoutPage } from './pages/CheckoutPage/CheckoutPage.tsx'
 import { HomePage } from './pages/HomePage/HomePage.tsx'
+import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx'
 
 import { LoginPage } from './pages/LoginPage/LoginPage.tsx'
 import { checkAuthLoader } from './loaders/authLoader.ts'
@@ -29,7 +30,7 @@ const router = createBrowserRouter([
             { path: "producto/:id", element: <ProductPage/> },
             { path: "carrito", element: <CartPage/>},
             { path: "checkout", element: <CheckoutPage/> },
-            { path: "*", element: <a>PAGINA DE ERROR</a> },
+            { path: "*", element: <ErrorPage/> },
         ],
     },
     {

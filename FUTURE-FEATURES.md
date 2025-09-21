@@ -9,12 +9,14 @@
     + [ ] Main page (stats).
     + [-] List page.
     + [ ] Create/modify page.
+    + [ ] Error page.
   + [ ] Frequently asked questions page.
   + [x] Home page.
   + [x] Cart page.
   + [x] Products page.
   + [x] Checkout page.
   + [-] Product page.
+  + [x] Error page.
 
 ## LIKELY TO BE ADDED
 - [ ] Adjust rate-limiting on back-end
