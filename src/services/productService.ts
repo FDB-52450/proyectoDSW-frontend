@@ -17,6 +17,7 @@ export async function fetchProducts(filters?: ProductoFilters, hideParams: boole
             if (filters.page) params.append('page', filters.page.toString())
             if (filters.pageSize) params.append('pageSize', filters.pageSize.toString())
             if (filters.sort) params.append('sort', filters.sort)
+            if (filters.descontado) params.append('descontado', 'true')
             
             if (showFullStock) params.append('view', 'admin')
 
@@ -56,16 +57,17 @@ export async function fetchProducts(filters?: ProductoFilters, hideParams: boole
     }
 }
 
-export async function fetchProduct(id: string) {
+export async function fetchProduct(id: string, showFullStock: boolean = false) {
     try {
-        const url = 'http://localhost:8080/api/productos/' + Number(id)
-        const response = await fetch(url)
+        const url = 'http://localhost:8080/api/productos/' + Number(id) + (showFullStock ? '?view=admin' : '')
+        const response = await fetch(url, {credentials: 'include'})
+        const json = await response.json()
 
         if (!response.ok) {
             throw new Error(`Network response was not ok: ${response.status}`)
         }
 
-        return await response.json()
+        return json.data
     } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message)

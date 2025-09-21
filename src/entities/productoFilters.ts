@@ -5,6 +5,7 @@ export interface ProductoFilters {
   stockMax?: number | null
   nombre?: string | null
   destacado?: boolean
+  descontado?: boolean
   marca?: string | null
   categoria?: string | null
   sort?: string | null

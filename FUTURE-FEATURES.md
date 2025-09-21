@@ -10,7 +10,7 @@
     + [-] List page.
     + [ ] Create/modify page.
   + [ ] Frequently asked questions page.
-  + [ ] Home page.
+  + [x] Home page.
   + [x] Cart page.
   + [x] Products page.
   + [x] Checkout page.
