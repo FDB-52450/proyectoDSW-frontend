@@ -84,3 +84,23 @@
     transform: translateY(-3px);
     transition: all 0.2s ease-in-out;
 }
+
+.rgbIcon {
+    animation: rgb-glow 4s linear infinite;
+}
+
+/* RGB color cycling animation */
+@keyframes rgb-glow {
+    0% {
+        color: var(--mantine-color-blue-3);
+    }
+    33% {
+        color: var(--mantine-color-blue-5);
+    }
+    66% {
+        color: var(--mantine-color-blue-7);
+    }
+    100% {
+        color: var(--mantine-color-blue-3);
+    }
+}

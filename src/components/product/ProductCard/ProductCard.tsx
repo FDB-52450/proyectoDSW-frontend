@@ -3,9 +3,9 @@ import classes from './ProductCard.module.css'
 import { useContext } from 'react'
 import { CartContext } from '../../../context/CartContext.tsx'
 
-import { Badge, Button, Card, Flex, Image, Stack, Text } from '@mantine/core'
+import { Badge, Box, Button, Card, Flex, Image, Stack, Text, Tooltip } from '@mantine/core'
 
-import { IconShoppingCart } from '@tabler/icons-react'
+import { IconShoppingCart, IconStarFilled } from '@tabler/icons-react'
 import noImage from '../../../assets/noImage.png'
 
 import type { Producto } from '../../../entities/producto.ts'
@@ -51,7 +51,13 @@ export function ProductCard({product}: {product: Producto}) {
     return (
         <div className={product.destacado ? classes.animatedRgbBorder : classes.emptyBorder}>
             <Card radius="md" className={classes.card} h={425}>
-                <Card.Section className={classes.imageSection} component='a' href={'/producto/' + product.id}>
+                <Card.Section className={classes.imageSection} component='a' href={'/producto/' + product.id} style={{ position: 'relative' }}>
+                    {product.destacado && (
+                    <Box pos="absolute" top={8} right={8} bg="rgba(255, 255, 255, 0.85)" p={4} style={{ zIndex: 2 }}>
+                        <Tooltip label='Destacado'>
+                            <IconStarFilled size={20} stroke={2} className={classes.rgbIcon}/>
+                        </Tooltip>
+                    </Box>)}
                     <Image style={{maxHeight: 200, maxWidth: 175, objectFit: 'contain'}} src={getProductUrl(product)} alt={product.nombre} />
                 </Card.Section>
 
