@@ -50,7 +50,6 @@ export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps
                 <Table.Td style={{ textAlign: 'center' }}>{product.descuento > 0 ? `${product.descuento}%` : '-'}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.stock}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.stockReservado === 0 ? '-' : product.stockReservado}</Table.Td>
-                <Table.Td style={{ textAlign: 'center' }}>{product.stock - product.stockReservado}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.destacado ? <IconCheck/> : <IconX/>}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.categoria.nombre}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.marca.nombre}</Table.Td>
@@ -191,7 +190,6 @@ export function ListTitleRow({tipo}: {tipo: string}) {
                 <Table.Th style={{ textAlign: 'center' }}>Descuento</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Stock</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Stock Reservado</Table.Th>
-                <Table.Th style={{ textAlign: 'center' }}>Stock Disp.</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Destacado?</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Categoria</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Marca</Table.Th>

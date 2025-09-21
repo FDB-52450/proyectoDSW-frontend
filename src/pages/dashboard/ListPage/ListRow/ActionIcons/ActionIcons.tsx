@@ -1,11 +1,13 @@
 import { useNavigate } from "react-router-dom"
 import { useDisclosure } from "@mantine/hooks"
+import { useState } from "react"
 
-import { ActionIcon, Table, Tooltip } from "@mantine/core";
+import { ActionIcon, Table, Tooltip } from "@mantine/core"
 
-import { DeleteModal } from "../../../../../components/shared/DeleteModal.tsx";
+import { DeleteModal } from "../../../../../components/confirmationModals/DeleteModal.tsx"
+import { PedidoModal } from "../../../../../components/confirmationModals/PedidoModal.tsx"
 
-import { IconBan, IconCheck, IconEyeOff, IconSettings, IconTrash, IconX } from "@tabler/icons-react";
+import { IconBan, IconCheck, IconEyeOff, IconSettings, IconTrash, IconX } from "@tabler/icons-react"
 
 import type { Pedido } from "../../../../../entities/pedido.ts";
 import type { Cliente } from "../../../../../entities/cliente.ts";
@@ -22,6 +24,7 @@ interface ActionIconsProps {
 
 export function ActionIcons({tipo, item}: ActionIconsProps) {
     const [opened, { open, close }] = useDisclosure(false);
+    const [action, setAction] = useState<string>('')
     const navigate = useNavigate()
 
     let returnData;
@@ -34,15 +37,16 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
         returnData = (
             <>
                 <Tooltip label={`Confirmar ${tipoNombre}`}>
-                    <ActionIcon color='green' mr={5} disabled={ped.estado != 'pendiente'}>
+                    <ActionIcon color='green' mr={5} disabled={ped.estado != 'pendiente'} onClick={() => {setAction('confirmado'); open()}}>
                         <IconCheck style={{ width: '70%', height: '70%' }} stroke={1.5}/>
                     </ActionIcon>
                 </Tooltip>
                 <Tooltip label={`Cancelar ${tipoNombre}`}>
-                    <ActionIcon color="red" disabled={ped.estado != 'pendiente'}>
+                    <ActionIcon color="red" disabled={ped.estado != 'pendiente'} onClick={() => {setAction('cancelado'); open()}}>
                         <IconX style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
                 </Tooltip>
+                <PedidoModal estadoNuevo={action} id={String(ped.id)} isOpen={opened} setClose={close}></PedidoModal>
             </>
         )
     } else if (tipo === 'clientes') {
@@ -74,10 +78,11 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
                     </ActionIcon>
                 </Tooltip>
                 <Tooltip label={`Borrar ${tipoNombre}`}>
-                    <ActionIcon color="red"  onClick={open}>
+                    <ActionIcon color="red" onClick={open}>
                         <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
                 </Tooltip>
+                <DeleteModal tipo={tipo} id={String(item ? item.id : 0)} isOpen={opened} setClose={close}></DeleteModal>
             </>    
         )
     } else {
@@ -88,6 +93,7 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
                         <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
                 </Tooltip>
+                <DeleteModal tipo={tipo} id={String(item ? item.id : 0)} isOpen={opened} setClose={close}></DeleteModal>
             </>    
         )
     }
@@ -100,7 +106,6 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
                 </ActionIcon>
             </Tooltip>
             {returnData}
-            <DeleteModal tipo={tipo} id={String(item ? item.id : 0)} isOpen={opened} setClose={close}></DeleteModal>
         </Table.Td>
     )
 }
