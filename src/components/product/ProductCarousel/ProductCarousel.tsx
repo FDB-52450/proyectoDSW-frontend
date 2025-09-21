@@ -17,10 +17,10 @@ export function ProductCarousel({products}: {products: Producto[]}) {
 
     return (
         <Carousel slideSize={isTablet ? (isSmallMobile ? "100%" : "33%"): "20%"} slideGap="md" withControls={products.length > 5}
-        plugins={[autoplay.current]} onMouseEnter={autoplay.current.stop} onMouseLeave={() => autoplay.current.play()} 
+        plugins={[autoplay.current]} onMouseEnter={autoplay.current.stop} onMouseLeave={() => autoplay.current.play()} height={440}
         emblaOptions={{loop: true}}>
             {products.map((product, index) => (
-                <Carousel.Slide key={index}>
+                <Carousel.Slide key={index} style={{top: '3px'}}>
                     <ProductCard product={product} />
                 </Carousel.Slide>
             ))}
