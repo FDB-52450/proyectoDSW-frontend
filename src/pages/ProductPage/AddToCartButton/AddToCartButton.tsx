@@ -5,6 +5,8 @@ import { useMediaQuery } from '@mantine/hooks'
 import { useContext } from 'react'
 import { CartContext } from '../../../context/CartContext.tsx'
 
+import { pushAddToCart } from '../../../notifications/customNotifications.tsx'
+
 import { Button } from '@mantine/core'
 
 import { IconShoppingCart } from '@tabler/icons-react'
@@ -38,6 +40,7 @@ export function AddToCartButton({product}: {product: Producto}) {
                 return [...currItems, pedProd]
             }
         })
+        pushAddToCart(product.nombre)
     }
 
     const isSmall = useMediaQuery('(max-width: 400px)')

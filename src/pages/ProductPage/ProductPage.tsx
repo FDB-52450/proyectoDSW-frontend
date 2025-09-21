@@ -4,9 +4,9 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { useMediaQuery } from '@mantine/hooks'
 
-import { fetchProduct } from "../../services/productService.ts"
+import { fetchProduct, fetchProducts } from "../../services/productService.ts"
 
-import { Container, Group, Stack, Image, Text, Flex, Title, Divider, Badge, Tooltip} from "@mantine/core"
+import { Container, Group, Stack, Image, Text, Flex, Divider, Badge, Tooltip} from "@mantine/core"
 
 import { AddToCartButton } from './AddToCartButton/AddToCartButton.tsx'
 import { CopyLinkButton } from './CopyLinkButton/CopyLinkButton.tsx'
@@ -21,10 +21,12 @@ import noImage from '../../assets/noImage.png'
 
 import type { Producto } from "../../entities/producto.ts"
 import type { Imagen } from '../../entities/imagen.ts'
+import { ProductCarousel } from '../../components/product/ProductCarousel/ProductCarousel.tsx'
 
 
 export function ProductPage() {   
     const [product, setProduct] = useState<Producto>()
+    const [similarProducts, setSimilarProducts] = useState<Producto[]>([])
     const [loading, setLoading] = useState(true)
 
     let { id } = useParams()
@@ -45,6 +47,19 @@ export function ProductPage() {
             })
         }
     }, [id])
+
+    useEffect(() => {     
+        if (product != undefined) {
+            fetchProducts({ categoria: product.categoria.nombre, page: 1})
+            .then((res) => {
+                setSimilarProducts(res.data)
+                setLoading(false)
+            })
+            .catch(() => {
+                setLoading(false)
+            })
+        }
+    }, [product])
 
     function getImagenUrl(imagen: Imagen | null) {
         if (imagen) {
@@ -73,8 +88,8 @@ export function ProductPage() {
     
     return (
         <>
-            <Container size={isLaptop ? (isMobile ? '95%' : '90%') : '70%'} className={styles.productContainer} mt={20}>
-                <Stack>
+            <Container size={isLaptop ? (isMobile ? '95%' : '90%') : '70%'} mt={20}>
+                <Stack className={styles.productContainer}>
                     <Group>
                         <IconChevronRight></IconChevronRight>
                         <Text size="xl" fw={550} component='a' href={`/productos?categoria=${product.categoria.nombre}`}>{product.categoria.nombre}</Text>
@@ -96,7 +111,7 @@ export function ProductPage() {
                                 </Tooltip>
                             </Group>
 
-                            <Title order={isMobile ? 2 : 1}>{product.nombre.replace(product.marca.nombre, '')}</Title>
+                            <Text size={isMobile ? '30px' : '35px'} fw={550}>{product.nombre}</Text>
 
                             <Divider my="md" w='100%' mb={20} mt={20}/>
 
@@ -108,15 +123,15 @@ export function ProductPage() {
 
                             <Stack gap={0} w='100%'>
                                 <Group align='center'>
-                                    <Title order={isMobile ? 6 : 4} c="dimmed" style={{ lineHeight: 1 }} mt={3} td="line-through">
+                                    <Text size={isMobile ? 'sm' : 'md'} c="dimmed" style={{ lineHeight: 1 }} mt={3} td="line-through">
                                         ${product.precio.toLocaleString("es-AR")}
-                                    </Title>
-                                    <Badge variant="outline" color="green" size='md'>{product.descuento}% off</Badge>
+                                    </Text>
+                                    <Badge variant="outline" color="green" size={isMobile ? 'sm' : 'md'}>{product.descuento}% off</Badge>
                                 </Group>
                                 <Group justify='space-between' w='100%' mb={5}>
-                                    <Title order={isMobile ? 2 : 1} style={{ lineHeight: 1 }}>
+                                    <Text size={isMobile ? '25px' : '30px'} fw={550} style={{ lineHeight: 1 }}>
                                         ${product.precioFinal.toLocaleString("es-AR")}
-                                    </Title>
+                                    </Text>
                                     <PaymentsList prodPrecio={product.precioFinal}></PaymentsList>
                                 </Group>
                                 <Text size={isMobile ? 'xs' : 'sm'} c="dimmed" style={{ lineHeight: 1 }}>
@@ -134,13 +149,15 @@ export function ProductPage() {
                     </Flex>
 
                     <Stack justify='center' pr={20} pl={20} className={styles.descriptionContainer}>
-                        <Title mb={10}>Descripción</Title>
+                        <Text size={isMobile ? '18px' : '22px'} fw={550}> Descripcion </Text>
                         <Text size='md' c='dimmed' style={{whiteSpace: 'pre-line'}}>{product.desc}</Text>
                     </Stack>
+                </Stack>
+                <Stack justify='center' mt={50}>
+                    <Text size={isMobile ? '20px' : '25px'} fw={550}> PRODUCTOS SIMILARES </Text>
+                    <ProductCarousel products={similarProducts}></ProductCarousel>
                 </Stack>
             </Container>
         </>
     )
 }
-
-// TODO: Finish this page; lacks similar products section at the bottom.

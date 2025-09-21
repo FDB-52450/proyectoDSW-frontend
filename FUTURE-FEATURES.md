@@ -15,7 +15,7 @@
   + [x] Cart page.
   + [x] Products page.
   + [x] Checkout page.
-  + [-] Product page.
+  + [x] Product page.
   + [x] Error page.
 
 ## LIKELY TO BE ADDED

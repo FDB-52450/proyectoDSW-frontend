@@ -1,6 +1,6 @@
 import { notifications } from '@mantine/notifications';
 
-import { IconAlertTriangle, IconCheck, IconPlus, IconTrash } from '@tabler/icons-react';
+import { IconAlertTriangle, IconCheck, IconPlus, IconShoppingCart, IconTrash } from '@tabler/icons-react';
 
 export function pushCreateNotification(tipo: string) {
     notifications.show({
@@ -54,5 +54,16 @@ export function pushCreatePedido() {
         position: 'bottom-center',
         icon: <IconCheck size={20} />,
         autoClose: 100000
+    })
+}
+
+export function pushAddToCart(productName: string) {
+    notifications.show({
+        title: 'Producto agregado al carrito!',
+        message: `El producto ${productName} ha sido agregado al carrito.`,
+        color: 'blue',
+        position: 'bottom-center',
+        icon: <IconShoppingCart size={20} />,
+        autoClose: 5000
     })
 }
