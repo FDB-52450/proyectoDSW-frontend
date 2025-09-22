@@ -6,31 +6,32 @@ import { ActionIcon, Table, Tooltip } from "@mantine/core"
 
 import { DeleteModal } from "../../../../../components/confirmationModals/DeleteModal.tsx"
 import { PedidoModal } from "../../../../../components/confirmationModals/PedidoModal.tsx"
+import { BanModal } from "../../../../../components/confirmationModals/BanModal.tsx"
+import { PasswordModal } from "../../../../../components/confirmationModals/PasswordModal.tsx"
 
-import { IconBan, IconCheck, IconEyeOff, IconSettings, IconTrash, IconX } from "@tabler/icons-react"
+import { IconBan, IconCheck, IconEyeOff, IconLock, IconSettings, IconTrash, IconX } from "@tabler/icons-react"
 
 import type { Pedido } from "../../../../../entities/pedido.ts";
 import type { Cliente } from "../../../../../entities/cliente.ts";
 import type { Producto } from "../../../../../entities/producto.ts";
 import type { Marca } from "../../../../../entities/marca.ts";
 import type { Categoria } from "../../../../../entities/categoria.ts";
-import { BanModal } from "../../../../../components/confirmationModals/BanModal.tsx"
-
-type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'clientes'
+import type { Administrador } from "../../../../../entities/administrador.ts"
 
 interface ActionIconsProps {
-    tipo: Tipo, 
-    item: Producto | Marca | Categoria | Pedido | Cliente
+    tipo: string, 
+    item: Producto | Marca | Categoria | Pedido | Cliente | Administrador
 }
 
 export function ActionIcons({tipo, item}: ActionIconsProps) {
     const [opened, { open, close }] = useDisclosure(false);
+    const [secondOpened, { open: secondOpen, close: secondClose }] = useDisclosure(false)
     const [action, setAction] = useState<string>('')
     const navigate = useNavigate()
 
     let returnData;
 
-    const tipoNombre = tipo.slice(0, -1)
+    const tipoNombre = tipo === 'administradores' ? tipo.slice(0, -2) : tipo.slice(0, -1)
 
     if (tipo === 'pedidos') {
         const ped = item as Pedido
@@ -81,6 +82,25 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
                         <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
                 </Tooltip>
+                <DeleteModal tipo={tipo} id={String(item ? item.id : 0)} isOpen={opened} setClose={close}></DeleteModal>
+            </>    
+        )
+    } else if (tipo === 'administradores') {
+        const admin = item as Administrador
+
+        returnData = (
+            <>
+                <Tooltip label='Modificar contraseña'>
+                    <ActionIcon color="yellow" mr={5} onClick={secondOpen}>
+                        <IconLock style={{ width: '70%', height: '70%' }} stroke={1.5} />
+                    </ActionIcon>
+                </Tooltip>
+                <Tooltip label={admin.role === 'superadmin' ? 'El superadmin no puede ser borrado' : `Borrar ${tipoNombre}`}>
+                    <ActionIcon color="red" onClick={open} disabled={admin.role === 'superadmin'}>
+                        <IconTrash style={{ width: '70%', height: '70%' }} stroke={1.5} />
+                    </ActionIcon>
+                </Tooltip>
+                <PasswordModal id={String(item ? item.id : 0)} isOpen={secondOpened} setClose={secondClose}></PasswordModal>
                 <DeleteModal tipo={tipo} id={String(item ? item.id : 0)} isOpen={opened} setClose={close}></DeleteModal>
             </>    
         )

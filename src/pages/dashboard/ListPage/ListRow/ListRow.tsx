@@ -10,17 +10,16 @@ import type { Categoria } from "../../../../entities/categoria.ts";
 import type { Imagen } from "../../../../entities/imagen.ts";
 import type { Pedido } from "../../../../entities/pedido.ts";
 import type { Cliente } from "../../../../entities/cliente.ts"
-
-type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'clientes';
+import type { Administrador } from "../../../../entities/administrador.ts";
 
 interface ListRowProps {
-    tipo: Tipo, 
-    item: Producto | Marca | Categoria | Pedido | Cliente
-    setViewItem: (item: Producto | Marca | Categoria | Pedido | Cliente | null) => void
+    tipo: string, 
+    item: Producto | Marca | Categoria | Pedido | Cliente | Administrador
+    setViewItem: (item: Producto | Marca | Categoria | Pedido | Cliente | Administrador | null) => void
     setViewImageIdx: (idx: number) => void
 }
 
-export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps) {
+export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps) { 
     function getImagenUrl(imagen: Imagen, size: string) {
         return `http://localhost:8080/images/${imagen.url}/${size}.webp`
     }
@@ -168,6 +167,17 @@ export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps
                 </Table.Td>
             </>
         )
+    } else if (tipo === 'administradores') {
+        const admin = item as Administrador
+ 
+        tableRow = (
+            <>
+                <Table.Td style={{ textAlign: 'center' }}>{admin.id}</Table.Td>
+                <Table.Td style={{ textAlign: 'center' }}>{admin.nombre}</Table.Td>
+                <Table.Td style={{ textAlign: 'center' }}>********</Table.Td>
+                <Table.Td style={{ textAlign: 'center' }}>{capitalize(admin.role)}</Table.Td>
+            </>
+        )
     }
 
     return (
@@ -242,6 +252,15 @@ export function ListTitleRow({tipo}: {tipo: string}) {
                 <Table.Th>Direccion</Table.Th>
                 <Table.Th>Codigo Postal</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Bloqueado?</Table.Th>
+            </>
+        )
+    } else if (tipo === 'administradores') {
+        tableHeader = (
+            <>
+                <Table.Th style={{ textAlign: 'center' }}>ID</Table.Th>
+                <Table.Th style={{ textAlign: 'center' }}>Nombre</Table.Th>
+                <Table.Th style={{ textAlign: 'center' }}>Contraseña</Table.Th>
+                <Table.Th style={{ textAlign: 'center' }}>Rol</Table.Th>
             </>
         )
     }

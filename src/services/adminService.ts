@@ -113,7 +113,7 @@ export async function createAdmin(data: Administrador) {
     }
 }
 
-export async function updateAdmin(id: string, data: Administrador) {
+export async function updateAdmin(id: string, data: Partial<Administrador>) {
     try {
         const url = 'http://localhost:8080/api/administradores/' + Number(id)
         const response = await fetch(url, { 

@@ -10,12 +10,13 @@ import type { Marca } from "../../../../entities/marca.ts";
 import type { Categoria } from "../../../../entities/categoria.ts";
 import type { Pedido } from "../../../../entities/pedido.ts";
 import type { Cliente } from "../../../../entities/cliente.ts";
+import type { Administrador } from "../../../../entities/administrador.ts";
 
 interface ImageModalProps {
-    item: Producto | Marca | Categoria | Pedido | Cliente | null
+    item: Producto | Marca | Categoria | Pedido | Cliente | Administrador | null
     tipo: string
     imgIdx: number
-    setViewItem: (item: Producto | Marca | Categoria | Pedido | Cliente | null) => void
+    setViewItem: (item: Producto | Marca | Categoria | Pedido | Cliente | Administrador | null) => void
     setViewImageIdx: (idx: number) => void
 }
 

@@ -1,6 +1,6 @@
 export interface Administrador {
     id: number
     nombre: string
-    passwordHash: string,
+    password?: string,
     role: string
 }

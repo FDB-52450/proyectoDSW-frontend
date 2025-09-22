@@ -16,7 +16,7 @@ export function DeleteModal({tipo, id, isOpen, setClose}: {tipo: string, id: str
     const navigate = useNavigate()
     const location = useLocation()
 
-    const nombreTipo = tipo.slice(0, -1).toUpperCase()
+    const nombreTipo = tipo === 'administradores' ? tipo.slice(0, -2): tipo.slice(0, -1)
 
     const handleDelete = async () => {
         const deleteMap: Record<string, () => Promise<Producto | Marca | Categoria>> = {
@@ -31,10 +31,10 @@ export function DeleteModal({tipo, id, isOpen, setClose}: {tipo: string, id: str
     }
 
     return (
-        <Modal opened={isOpen} onClose={setClose} overlayProps={{backgroundOpacity: 0.55, blur: 2}} centered>
+        <Modal opened={isOpen} onClose={setClose} overlayProps={{backgroundOpacity: 0.55, blur: 2}} centered size='500px'>
             <Stack align='center' gap={0}>
                 <IconAlertTriangle size={75} color='red'></IconAlertTriangle>
-                <Text fw={650} mt={20}> Estas seguro que quieres borrar esta {tipo.slice(0, -1)}? </Text>
+                <Text fw={650} mt={20}> Estas seguro que quieres borrar esta {nombreTipo}? </Text>
                 <Text> Esta accion no se puede revertir. </Text>
                 <Group mt={50}>
                     <Button color='red' leftSection={<IconTrash/>} 
@@ -50,7 +50,7 @@ export function DeleteModal({tipo, id, isOpen, setClose}: {tipo: string, id: str
                         } else {
                             navigate(`/dashboard/${tipo}`, {replace: true})}
                         }}>
-                        BORRAR {nombreTipo}
+                        BORRAR {nombreTipo.toUpperCase()}
                     </Button>
                     <Button color='gray' leftSection={<IconX></IconX>} onClick={setClose}>
                         CANCELAR
