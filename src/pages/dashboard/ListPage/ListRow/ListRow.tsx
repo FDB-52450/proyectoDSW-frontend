@@ -1,4 +1,6 @@
-import { Table, Image, Group, UnstyledButton, Tooltip } from "@mantine/core";
+import { useDisclosure } from "@mantine/hooks";
+
+import { Table, Image, Group, UnstyledButton, Tooltip, Modal, Text, Divider } from "@mantine/core";
 
 import { ActionIcons } from "./ActionIcons/ActionIcons.tsx";
 
@@ -20,6 +22,8 @@ interface ListRowProps {
 }
 
 export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps) { 
+    const [opened, { open, close }] = useDisclosure(false)
+
     function getImagenUrl(imagen: Imagen, size: string) {
         return `http://localhost:8080/images/${imagen.url}/${size}.webp`
     }
@@ -122,7 +126,7 @@ export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps
                 <Table.Td style={{ textAlign: 'center' }}>
                     <Group gap={5} justify="center">
                         <Tooltip label='Ver detalle completo'>
-                            <UnstyledButton>
+                            <UnstyledButton onClick={open}>
                                 <IconDots size={20}/>
                             </UnstyledButton>
                         </Tooltip>
@@ -131,6 +135,33 @@ export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps
                 <Table.Td style={{ textAlign: 'center' }}>{pedido.cliente.nombre}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{new Date(pedido.fechaEntrega).toLocaleDateString()}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{new Date(pedido.fechaPedido).toLocaleDateString()}</Table.Td>
+                <Modal opened={opened} onClose={close} overlayProps={{backgroundOpacity: 0.55, blur: 2}} centered size='35%' title='RESUMEN DE PEDIDO'>
+                    <Group justify="space-between">
+                        <Group>
+                            <Text size='sm' w='250px' fw={550}>PRODUCTO</Text>
+                            <Text size='sm' fw={550}>UNIDADES</Text>
+                        </Group>
+                        <Group gap={5} w='150px' justify="space-between" mr={30}>
+                            <Text size='sm' w='50px' fw={550}>PRECIO UNIDAD</Text>
+                            <Text size='sm' w='50px' fw={550}>PRECIO TOTAL</Text>
+                        </Group>
+                    </Group>
+                    <Divider mt={10} mb={10}></Divider>
+                    {pedido.detalle.map((item, idx) => {
+                        return (
+                            <Group justify="space-between" key={idx} mt={5}>
+                                <Group>
+                                    <Text w='275px' truncate='end'>{item.producto.nombre}</Text>
+                                    <Text w='35px'>{item.cantidad}x</Text>
+                                </Group>
+                                <Group gap={5}>
+                                    <Text w='90px'>${item.producto.precioFinal.toLocaleString('es-AR')}</Text>
+                                    <Text w='90px'>${(item.producto.precioFinal * item.cantidad).toLocaleString('es-AR')}</Text>
+                                </Group>
+                            </Group>
+                        )
+                    })}
+                </Modal>
             </>
         )
     } else if (tipo === 'clientes') {
