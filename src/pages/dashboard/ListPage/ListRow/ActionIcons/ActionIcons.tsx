@@ -14,6 +14,7 @@ import type { Cliente } from "../../../../../entities/cliente.ts";
 import type { Producto } from "../../../../../entities/producto.ts";
 import type { Marca } from "../../../../../entities/marca.ts";
 import type { Categoria } from "../../../../../entities/categoria.ts";
+import { BanModal } from "../../../../../components/confirmationModals/BanModal.tsx"
 
 type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'clientes'
 
@@ -54,19 +55,17 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
 
         returnData = (
             <>
-                {cli.banStart ?
-                <Tooltip label={`Rehabilitar ${tipoNombre}`}>
-                    <ActionIcon color='green' mr={5}>
+                <Tooltip label={`Reactivar ${tipoNombre}`}>
+                    <ActionIcon color='green' mr={5} onClick={() => {setAction('reactivar'); open()}} disabled={!cli.banStart ? true : false}>
                         <IconCheck style={{ width: '70%', height: '70%' }} stroke={1.5}/>
                     </ActionIcon>
                 </Tooltip> 
-                :
                 <Tooltip label={`Suspender ${tipoNombre}`}>
-                    <ActionIcon color='red' mr={5}>
+                    <ActionIcon color='red' mr={5} onClick={() => {setAction('suspender'); open()}}>
                         <IconBan style={{ width: '70%', height: '70%' }} stroke={1.5}/>
                     </ActionIcon>
                 </Tooltip>
-                }
+                <BanModal accion={action} id={String(cli.id)} isOpen={opened} setClose={close}></BanModal>
             </>
         )
     } else if (tipo === 'productos') {
