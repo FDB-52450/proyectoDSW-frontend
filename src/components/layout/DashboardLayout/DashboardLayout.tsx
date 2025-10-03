@@ -2,9 +2,10 @@ import { useEffect, useState } from "react"
 
 import { fetchCurrentUser } from "../../../services/adminService.ts"
 
+import { Flex } from "@mantine/core"
+
 import { Outlet } from "react-router-dom"
 import { NavigationSideBar } from "./NavigationSideBar/NavigationSideBar.tsx"
-import { Flex } from "@mantine/core"
 import { NavigationBar } from "./NavigationBar/NavigationBar.tsx"
 
 import type { User } from "../../../entities/user.ts"
@@ -23,7 +24,9 @@ export function DashboardLayout() {
         <>
             <NavigationBar user={user}/>
             <Flex>
-                <NavigationSideBar user={user}/>
+                <Flex visibleFrom="lg">
+                    <NavigationSideBar user={user} type="normal"/>
+                </Flex>
                 <Outlet/>
             </Flex>
         </>

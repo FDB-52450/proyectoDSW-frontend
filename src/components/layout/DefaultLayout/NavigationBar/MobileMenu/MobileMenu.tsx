@@ -1,5 +1,8 @@
-import { Drawer, Burger, Accordion, Button, Stack } from '@mantine/core';
 import { useState } from 'react'
+
+import { Drawer, Burger, Accordion, Button, Stack } from '@mantine/core';
+
+import { SearchBar } from '../SearchBar/SearchBar.tsx';
 
 import MotherboardIcon from '../../../../../assets/icons/motherboard.png'
 import GraphicsCardIcon from '../../../../../assets/icons/graphicCard.png'
@@ -16,14 +19,13 @@ import HeadphonesIcon from '../../../../../assets/icons/headphone.png'
 import MicrophoneIcon from '../../../../../assets/icons/microphone.png'
 
 import logo from '../../../../../assets/logoPagina.png'
-import { SearchBar } from '../SearchBar/SearchBar.tsx';
 
 export function BurgerMenu() {
     const [opened, setOpened] = useState(false);
 
     return (
         <>
-        <Burger opened={opened} onClick={() => setOpened((o) => !o)} hiddenFrom="sm" color="white"/>
+        <Burger opened={opened} onClick={() => setOpened((o) => !o)} hiddenFrom="md" color="white"/>
         
         <Drawer
             opened={opened}

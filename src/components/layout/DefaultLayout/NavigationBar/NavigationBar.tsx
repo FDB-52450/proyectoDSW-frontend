@@ -2,7 +2,7 @@
 import styles from './NavigationBar.module.css'
 
 import { Group, Button, Image, Anchor, Text } from '@mantine/core'
-import { IconShoppingCart } from '@tabler/icons-react'
+import { IconDoor, IconShoppingCart, IconTools } from '@tabler/icons-react'
 
 import { SearchBar } from './SearchBar/SearchBar.tsx'
 import { DropdownButton } from './DropdownButton/DropdownButton.js'
@@ -23,6 +23,9 @@ import MouseIcon from '../../../../assets/icons/mouse.png'
 import KeyboardIcon from '../../../../assets/icons/keyboard.png'
 import HeadphonesIcon from '../../../../assets/icons/headphone.png'
 import MicrophoneIcon from '../../../../assets/icons/microphone.png'
+
+import type { User } from '../../../../entities/user.ts'
+import { Link } from 'react-router-dom'
 
 const componentesData = [
     {
@@ -107,7 +110,7 @@ const perifericosData = [
 ]
 
 
-export function NavigationBar() {
+export function NavigationBar({user}: {user: User | null}) {
     return (
         <>
             <header className={styles.header}>
@@ -119,18 +122,31 @@ export function NavigationBar() {
                         </Anchor>
                     </Group>
 
-                    <Group w={'50vw'} className={styles.searchBar} visibleFrom='sm'>
-                        <SearchBar
-                            style={{ width: '100%' }}
-                        />
+                    <Group w={'40vw'} className={styles.searchBar} visibleFrom='md'>
+                        <SearchBar style={{ width: '100%' }}/>
                     </Group>
 
                     <Group>
-                        <Button
-                        component='a' href='/carrito'
-                        variant='default'
-                        className={styles.button}>
-                            <IconShoppingCart></IconShoppingCart>
+                        {user ? 
+                        <Button component={Link} to='/dashboard' className={styles.button} visibleFrom='xs'>
+                            <Group gap={5}>
+                                <IconTools/>
+                                <Text fw={550}>DASHBOARD</Text>
+                            </Group>
+                        </Button>
+                        :
+                        <Button component={Link} to='/login' className={styles.button} visibleFrom='xs'>
+                            <Group gap={5}>
+                                <IconDoor/>
+                                <Text fw={550}>INGRESAR</Text>
+                            </Group>
+                        </Button>
+                        }
+                        <Button component='a' href='/carrito' variant='default' className={styles.button}>
+                            <Group gap={5}>
+                                <IconShoppingCart/>
+                                <Text fw={550} visibleFrom='xs'>CARRITO</Text>
+                            </Group>
                         </Button>
                     </Group>
                 </div>
@@ -138,7 +154,7 @@ export function NavigationBar() {
             
             <header className={styles.headerBottom}>
                 <div className={styles.innerBottom}>
-                    <Group visibleFrom='sm'>
+                    <Group visibleFrom='xs'>
                         <DropdownButton title='Componentes' data={componentesData}></DropdownButton>
                         <DropdownButton title='Perifericos' data={perifericosData}></DropdownButton>
                         <a href="/productos?categoria=monitores" className={styles.linkBottom}><Text>Monitores</Text></a>
