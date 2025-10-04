@@ -3,29 +3,37 @@
 ## WILL BE ADDED
 - [ ] Attribution of hardware logos used in category navbar in footer (Freepik, J703).
 - [ ] Implement loading transition for all page loads.
-- [-] Implement the followings pages:
-  + [x] Login page.
-  + [-] Dashboard page.
-    + [ ] Main page (stats).
-    + [-] List page.
-    + [ ] Create/modify page.
+- [80%] Implement the followings pages:
+  + [100%] Login page.
+  + [85%] Dashboard page.
+    + [WIP_95%] Main page (stats).
+    + [95%] List page.
+      - [ ] Improve support for smaller screens.
+    + [WIP_90%] Create/modify page.
+      - [ ] Improve support for smaller screens.
     + [ ] Error page.
   + [ ] Frequently asked questions page.
-  + [x] Home page.
-  + [x] Cart page.
-  + [x] Products page.
-  + [x] Checkout page.
-  + [x] Product page.
-  + [x] Error page.
+  + [90%] Home page.
+   - [ ] Replace banner element with custom image carousel.
+  + [90%] Cart page.
+   - [ ] Prevent client from finishing purchase based on x conditions.
+  + [90%] Products page.
+   - [ ] Implement filter menu for mobile.
+   - [ ] Fix sortMenu component not being properly aligned in /products page.
+  + [75%] Checkout page.
+   - [ ] Improve support for mobile screens.
+   - [ ] Prevent clients from getting to step 2 of checkout if they are banned.
+  + [100%] Product page.
+  + [100%] Error page.
 
 ## LIKELY TO BE ADDED
 - [ ] Adjust rate-limiting on back-end
-- [ ] Fix sortMenu component not being properly aligned in /products page.
 - [ ] Refactor list page code.
-- [-] Implement notification system.
+- [95%] Implement notification system.
+  - [ ] Improve information given on error notification. 
+- [ ] Implemented skeleton (templates) for card components.
 
 ## UNLIKELY TO BE ADDED
-- [-] Replace <a> components with <Link>
-- [ ] Allow admins to store text with bold letters.
+- [WIP] Replace <a> components with <Link>
 - [ ] Consume georef api (https://datosgobar.github.io/georef-ar-api/) for proper location data.
 - [ ] Consume ArgentinaDatos API (https://argentinadatos.com/docs/operations/get-feriados.html) to prevent delivery of pedidos on holidays.
