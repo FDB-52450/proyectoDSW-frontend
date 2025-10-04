@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 
 import { Menu, Button, Text } from '@mantine/core';
 
-import { IconCoins, IconArrowNarrowDown, IconArrowNarrowUp, IconStar } from '@tabler/icons-react';
+import { IconCoins, IconArrowNarrowDown, IconArrowNarrowUp, IconStar, IconChevronDown } from '@tabler/icons-react';
 
-import type { ProductoFilters } from '../../../entities/productoFilters.ts';
+import type { ProductoFilters } from '../../../entities/filters/productoFilters.ts';
 
 interface SortMenuProps {
     filters: ProductoFilters
@@ -28,7 +28,7 @@ export function SortMenu({filters, updateFilter}: SortMenuProps) {
     return (
         <Menu shadow="md" width={225} position='bottom-end' withArrow>
             <Menu.Target>
-                <Button className={styles.button} variant='default'>Ordenar por...</Button>
+                <Button className={styles.button} variant='default' rightSection={<IconChevronDown size={18}/>}>Ordenar por</Button>
             </Menu.Target>
 
             <Menu.Dropdown>
