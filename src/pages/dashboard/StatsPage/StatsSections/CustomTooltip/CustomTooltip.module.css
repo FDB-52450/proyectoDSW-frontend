@@ -1,0 +1,9 @@
+.tooltip {
+    background-color: #fff;
+    padding: 8px 10px; 
+    border-radius: 4px; 
+    font-size: 14px;
+    line-height: 1.4;
+    white-space: nowrap;
+    box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.15);
+}

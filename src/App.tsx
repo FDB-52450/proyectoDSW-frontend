@@ -19,6 +19,7 @@ import { LoginPage } from './pages/LoginPage/LoginPage.tsx'
 import { checkAuthLoader } from './loaders/authLoader.ts'
 
 import { ListPage } from './pages/dashboard/ListPage/ListPage.tsx'
+import { MainPage } from './pages/dashboard/StatsPage/StatsPage.tsx'
 
 const router = createBrowserRouter([
     {
@@ -38,7 +39,7 @@ const router = createBrowserRouter([
         loader: checkAuthLoader,
         element: <DashboardLayout/>,
         children: [
-            { index: true, element: <a>PAGINA PRINCIPAL</a>},
+            { index: true, element: <MainPage/>},
             { path: ":tipo", element: <ListPage/>},
             { path: "*", element: <a>PAGINA DE ERROR</a>}
         ]

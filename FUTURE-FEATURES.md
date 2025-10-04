@@ -6,7 +6,7 @@
 - [80%] Implement the followings pages:
   + [100%] Login page.
   + [85%] Dashboard page.
-    + [WIP_95%] Main page (stats).
+    + [100%] Main page (stats).
     + [95%] List page.
       - [ ] Improve support for smaller screens.
     + [WIP_90%] Create/modify page.
