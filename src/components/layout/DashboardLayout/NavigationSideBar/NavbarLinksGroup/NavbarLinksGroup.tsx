@@ -12,9 +12,10 @@ interface LinksGroupProps {
     label: string
     initiallyOpened?: boolean
     links?: { label: string; link: string }[]
+    close?: () => void
 }
 
-export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
+export function LinksGroup({ icon: Icon, label, initiallyOpened, links, close }: LinksGroupProps) {
     const navigate = useNavigate()
 
     const hasLinks = Array.isArray(links)
@@ -26,6 +27,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
             to={`/dashboard${link.link}`}
             key={link.label}
             fw={550}
+            onClick={() => {if (close) close()}}
         >
         {link.label}
         </Text>
@@ -33,7 +35,8 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 
     return (
         <>
-        <UnstyledButton onClick={() => {setOpened((o) => !o); if (label === 'Resumen') navigate('/dashboard')}} className={classes.control}>
+        <UnstyledButton onClick={() => {setOpened((o) => !o); 
+            if (label === 'Resumen') {navigate('/dashboard'); if (close) close()}}} className={classes.control}>
             <Group justify="space-between" gap={0}>
                 <Box style={{ display: 'flex', alignItems: 'center' }}>
                     <ThemeIcon variant="light" size={30}>

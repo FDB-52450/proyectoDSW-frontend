@@ -12,7 +12,7 @@ import type { User } from '../../../../entities/user.ts'
 
 type Tipo = 'productos' | 'marcas' | 'categorias' | 'pedidos' | 'administradores' | 'clientes' | '-'
 
-export function NavigationSideBar({user, type}: {user: User, type: 'normal' | 'mobile'}) {
+export function NavigationSideBar({user, close}: {user: User, close?: () => void}) {
     let { tipo } = useParams<{ tipo: Tipo }>()
     if ( tipo === undefined ) tipo = '-'
 
@@ -76,10 +76,10 @@ export function NavigationSideBar({user, type}: {user: User, type: 'normal' | 'm
         )
     }
 
-    const links = sidebarData.map((item) => <LinksGroup {...item} key={item.label} />)
+    const links = sidebarData.map((item) => <LinksGroup {...item} key={item.label} close={close}/>)
 
     return (
-        <nav className={classes.navbar} style={type === 'mobile' ? {borderRight: '0px', 'width': '100%'} : {}}>
+        <nav className={classes.navbar} style={close ? {borderRight: '0px', 'width': '100%'} : {}}>
             <div className={classes.header}>
                 <Text size='xl' fw={625}>Dashboard</Text>
             </div>

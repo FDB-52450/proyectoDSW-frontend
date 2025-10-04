@@ -25,7 +25,7 @@ export function DashboardLayout() {
             <NavigationBar user={user}/>
             <Flex>
                 <Flex visibleFrom="lg">
-                    <NavigationSideBar user={user} type="normal"/>
+                    <NavigationSideBar user={user}/>
                 </Flex>
                 <Outlet/>
             </Flex>

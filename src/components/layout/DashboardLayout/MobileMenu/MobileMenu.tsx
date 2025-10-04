@@ -13,7 +13,7 @@ export function MobileMenu({user}: {user: User}) {
         <>
             <Burger opened={opened} onClick={() => setOpened((o) => !o)} hiddenFrom="lg" color="white"/>    
             <Drawer opened={opened} onClose={() => setOpened(false)}padding="md"size="sm">
-                <NavigationSideBar user={user} type='mobile'></NavigationSideBar>
+                <NavigationSideBar user={user} close={() => setOpened(false)}></NavigationSideBar>
             </Drawer>
         </>
     )
