@@ -2,7 +2,7 @@ import styles from './FilterList.module.css'
 
 import { useState } from "react"
 
-import type { ProductoFilters } from "../../../entities/productoFilters.ts"
+import type { ProductoFilters } from "../../../entities/filters/productoFilters.ts"
 import type { Marca } from "../../../entities/marca.ts"
 
 import {

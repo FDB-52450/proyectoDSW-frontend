@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ActionIcon, Group, Paper, Text, TextInput } from '@mantine/core';
 import { IconArrowRight, IconSearch, IconX } from '@tabler/icons-react';
 
-import type { ProductoFilters } from '../../../../entities/productoFilters.ts';
+import type { ProductoFilters } from '../../../../entities/filters/productoFilters.ts';
 
 import styles from './SearchBar.module.css';
 

@@ -180,14 +180,12 @@ export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps
         tableRow = (
             <>
                 <Table.Td style={{ textAlign: 'center' }}>{cliente.id}</Table.Td>
-                <Table.Td style={{ textAlign: 'center' }}>{cliente.dni}</Table.Td>
                 <Table.Td>{cliente.nombre}</Table.Td>
                 <Table.Td>{cliente.apellido}</Table.Td>
                 <Table.Td>{cliente.email}</Table.Td>
                 <Table.Td>{cliente.telefono}</Table.Td>
                 <Table.Td>{cliente.provincia}</Table.Td>
                 <Table.Td>{cliente.ciudad}</Table.Td>
-                <Table.Td>{cliente.direccion}</Table.Td>
                 <Table.Td>{cliente.codigoPostal}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>
                     <Group gap={5} justify="center">
@@ -279,16 +277,15 @@ export function ListTitleRow({tipo}: {tipo: string}) {
         tableHeader = (
             <>
                 <Table.Th style={{ textAlign: 'center' }}>ID</Table.Th>
-                <Table.Th style={{ textAlign: 'center' }}>DNI</Table.Th>
                 <Table.Th>Nombre</Table.Th>
                 <Table.Th>Apellido</Table.Th>
                 <Table.Th>Email</Table.Th>
                 <Table.Th>Telefono</Table.Th>
                 <Table.Th>Provincia</Table.Th>
                 <Table.Th>Ciudad</Table.Th>
-                <Table.Th>Direccion</Table.Th>
                 <Table.Th>Codigo Postal</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Bloqueado?</Table.Th>
+                <Table.Th style={{ textAlign: 'center' }}>Datos Privados</Table.Th>
             </>
         )
     } else if (tipo === 'administradores') {

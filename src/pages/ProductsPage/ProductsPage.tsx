@@ -14,7 +14,7 @@ import { fetchProducts } from "../../services/productService.ts"
 import { fetchMarcasFromProductos } from '../../services/productMarcaService.ts'
 
 import type { Producto } from "../../entities/producto.ts"
-import type { ProductoFilters } from '../../entities/productoFilters.ts'
+import type { ProductoFilters } from '../../entities/filters/productoFilters.ts'
 import type { Marca } from '../../entities/marca.ts'
 import type { Pagination as PaginationType } from '../../entities/pagination.ts'
 import { CustomPagination } from './Pagination/CustomPagination.tsx'
@@ -57,7 +57,7 @@ export function ProductsPage() {
     const [products, setProducts] = useState<Producto[]>([])
     const [filters, setFilters] = useState<ProductoFilters>(useParsedFiltersFromUrl())
     const [marcas, setMarcas] = useState<Marca[]>([])
-    const [pagination, setPagination] = useState<PaginationType>({totalProducts: 1, totalPages: 1, currentPage: 1, pageSize: 20})
+    const [pagination, setPagination] = useState<PaginationType>({totalItems: 1, totalPages: 1, currentPage: 1, pageSize: 20})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
@@ -105,7 +105,7 @@ export function ProductsPage() {
                 {/*<Text fw={500} style={{ fontSize: 40 }}>{categoria.toUpperCase()}</Text>*/}
             </div>
             <div className={styles.mainContainer}>
-                <Group className={styles.sortWrapper} justify='flex-end'>
+                <Group className={styles.sortWrapper} justify='center'>
                     <SortMenu filters={filters} updateFilter={setFilters}></SortMenu>
                 </Group>
                 <div className={styles.productsWrapper}>

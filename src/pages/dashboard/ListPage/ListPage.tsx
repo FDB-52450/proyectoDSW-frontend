@@ -10,7 +10,7 @@ import { fetchPedidos } from '../../../services/pedidoService.ts';
 import { fetchClientes } from '../../../services/clienteService.ts';
 import { fetchAdmins } from '../../../services/adminService.ts';
 
-import { Box, Divider, Group, LoadingOverlay, Pagination, Stack, Table, Title } from "@mantine/core"
+import { Box, Divider, Group, LoadingOverlay, Pagination, ScrollArea, Stack, Table, Text } from "@mantine/core"
 
 import { ListRow, ListTitleRow } from "./ListRow/ListRow.tsx";
 import { SearchBar } from "./SearchBar/SearchBar.tsx";
@@ -20,24 +20,26 @@ import { ImageModal } from './ImageModal/ImageModal.tsx';
 import type { Producto } from "../../../entities/producto.ts";
 import type { Marca } from "../../../entities/marca.ts";
 import type { Categoria } from "../../../entities/categoria.ts";
-import type { ProductoFilters } from "../../../entities/productoFilters.ts";
 import type { Pagination as PaginationType } from "../../../entities/pagination.ts";
 import type { Pedido } from '../../../entities/pedido.ts';
 import type { Cliente } from '../../../entities/cliente.ts';
 import type { Administrador } from '../../../entities/administrador.ts';
 
+import type { ProductoFilters } from "../../../entities/filters/productoFilters.ts";
+import type { PedidoFilters } from '../../../entities/filters/pedidoFilters.ts';
+import type { ClienteFilters } from '../../../entities/filters/clienteFilters.ts';
+
 const validTipos: string[] = ['productos', 'marcas', 'categorias', 'pedidos', 'clientes', 'administradores']
 
-const initialFilters: ProductoFilters = {
-    nombre: null,
+const initialFilters = {
     page: 1,
     sort: null,
 }
 
 export function ListPage() {
     const [data, setData] = useState<Producto[] | Marca[] | Categoria[] | Pedido[] | Cliente[] | Administrador[]>([])
-    const [filters, setFilters] = useState<ProductoFilters>(initialFilters)
-    const [pagination, setPagination] = useState<PaginationType>({totalProducts: 1, totalPages: 1, currentPage: 1, pageSize: 20})
+    const [filters, setFilters] = useState<ProductoFilters | PedidoFilters>(initialFilters)
+    const [pagination, setPagination] = useState<PaginationType>({totalItems: 1, totalPages: 1, currentPage: 1, pageSize: 20})
 
     const [viewItem, setViewItem] = useState<Producto | Marca | Categoria | Pedido | Cliente | Administrador | null>(null)
     const [viewImageIdx, setViewImageIdx] = useState<number>(0)
@@ -47,11 +49,20 @@ export function ListPage() {
     const [currentTipo, setCurrentTipo] = useState<string | null>(null)
 
     const { tipo } = useParams<{ tipo: string }>();
+
+    // This piece of code ensures that filters used on products are not used on pedidos.
+    
+    useEffect(() => {
+        if (currentTipo && tipo && tipo != currentTipo) {
+            setPagination({totalItems: 1, totalPages: 1, currentPage: 1, pageSize: 20})
+            setFilters(initialFilters)
+        }
+    }, [tipo, currentTipo])
     
     useEffect(() => {
         setLoading(true)
         setError(null)
-        setCurrentTipo(null) // FIX BUG RELATED TO TIPO NOT ALIGNED WITH DATA
+        setCurrentTipo(null)
         setData([])
 
         if (tipo === 'productos') {
@@ -89,10 +100,11 @@ export function ListPage() {
                 setLoading(false)
             })
         } else if (tipo === 'pedidos') {
-            fetchPedidos()
+            fetchPedidos(filters as PedidoFilters) 
             .then((res) => {
                 setData(res.data)
                 setCurrentTipo(tipo)
+                setPagination(res.pagination)
                 setLoading(false)
             })
             .catch((err) => {
@@ -100,10 +112,11 @@ export function ListPage() {
                 setLoading(false)
             })
         } else if (tipo === 'clientes') {
-            fetchClientes()
+            fetchClientes(filters as ClienteFilters)
             .then((res) => {
                 setData(res.data)
                 setCurrentTipo(tipo)
+                setPagination(res.pagination)
                 setLoading(false)
             })
             .catch((err) => {
@@ -153,10 +166,10 @@ export function ListPage() {
         <Box w='100%' pos='relative'>
             <LoadingOverlay visible={loading} zIndex={1000} overlayProps={{ radius: 'sm', blur: 2 }} loaderProps={{size: 75}}/> 
             <Stack m={25} p={30} className={styles.listContainer}>
-                <Title>{capitalize(tipo)}</Title>
+                <Text size='40px' fw={550}>{capitalize(tipo)}</Text>
+                <Divider></Divider>
                 {tipo === 'productos' ?
                 <>
-                    <Divider></Divider>
                     <Group justify="space-between">
                         <SearchBar filters={filters} updateFilter={setFilters}/>
                         <SortMenu filters={filters} updateFilter={setFilters}></SortMenu>
@@ -165,15 +178,17 @@ export function ListPage() {
                 null}
                 {currentTipo === tipo ?
                 <>
-                    <Table highlightOnHover verticalSpacing={5}>
-                        <Table.Thead>
-                            <Table.Tr>
-                                <ListTitleRow tipo={tipo}/>
-                                <Table.Th></Table.Th>
-                            </Table.Tr>
-                        </Table.Thead>
-                        <Table.Tbody>{rows}</Table.Tbody>
-                    </Table>
+                    <ScrollArea>
+                        <Table highlightOnHover verticalSpacing={5}>
+                            <Table.Thead>
+                                <Table.Tr>
+                                    <ListTitleRow tipo={tipo}/>
+                                    <Table.Th></Table.Th>
+                                </Table.Tr>
+                            </Table.Thead>
+                            <Table.Tbody>{rows}</Table.Tbody>
+                        </Table>
+                    </ScrollArea>
                     <Group justify="flex-end" mt={15}>
                         <Pagination total={pagination.totalPages} value={pagination.currentPage} onChange={(value: number) => changePagination(value)} withEdges/>
                     </Group>

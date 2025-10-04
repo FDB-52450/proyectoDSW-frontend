@@ -4,7 +4,7 @@ import { Menu, Button } from '@mantine/core';
 
 import { IconCoins, IconArrowNarrowDown, IconArrowNarrowUp, IconStar } from '@tabler/icons-react';
 
-import type { ProductoFilters } from '../../../../entities/productoFilters.ts';
+import type { ProductoFilters } from '../../../../entities/filters/productoFilters.ts';
 
 interface SortMenuProps {
     filters: ProductoFilters
