@@ -4,7 +4,7 @@ import { Table, Image, Group, UnstyledButton, Tooltip, Modal, Text, Divider } fr
 
 import { ActionIcons } from "./ActionIcons/ActionIcons.tsx";
 
-import { IconBan, IconCheck, IconClock, IconDots, IconPhotoX, IconQuestionMark, IconX } from "@tabler/icons-react";
+import { IconBan, IconCheck, IconClock, IconDots, IconEye, IconEyeOff, IconPhotoX, IconQuestionMark, IconX } from "@tabler/icons-react";
 
 import type { Producto } from "../../../../entities/producto.ts";
 import type { Marca } from "../../../../entities/marca.ts";
@@ -48,12 +48,17 @@ export function ListRow({tipo, item, setViewItem, setViewImageIdx}: ListRowProps
         tableRow = (
             <>
                 <Table.Td style={{ textAlign: 'center' }}>{product.id}</Table.Td>
-                <Table.Td>{product.nombre}</Table.Td>
+                <Table.Td>
+                    <Text size='sm' truncate='end' w='200px' title={product.nombre}>
+                        {product.nombre}
+                    </Text>
+                </Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>${product.precio.toLocaleString('es-AR')}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.descuento > 0 ? `${product.descuento}%` : '-'}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.stock}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.stockReservado === 0 ? '-' : product.stockReservado}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.destacado ? <IconCheck/> : <IconX/>}</Table.Td>
+                <Table.Td style={{ textAlign: 'center' }}>{product.ocultado ? <IconEyeOff/> : <IconEye/>}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.categoria.nombre}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{product.marca.nombre}</Table.Td>
                 <Table.Td style={{ textAlign: 'center' }}>{new Date(product.fechaIngreso).toLocaleDateString()}</Table.Td>
@@ -232,6 +237,7 @@ export function ListTitleRow({tipo}: {tipo: string}) {
                 <Table.Th style={{ textAlign: 'center' }}>Stock</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Stock Reservado</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Destacado?</Table.Th>
+                <Table.Th style={{ textAlign: 'center' }}>Ocultado?</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Categoria</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Marca</Table.Th>
                 <Table.Th style={{ textAlign: 'center' }}>Fecha de ingreso</Table.Th>

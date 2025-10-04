@@ -9,7 +9,7 @@ import { PedidoModal } from "../../../../../components/confirmationModals/Pedido
 import { BanModal } from "../../../../../components/confirmationModals/BanModal.tsx"
 import { PasswordModal } from "../../../../../components/confirmationModals/PasswordModal.tsx"
 
-import { IconBan, IconCheck, IconEyeOff, IconLock, IconSettings, IconTrash, IconX } from "@tabler/icons-react"
+import { IconBan, IconCheck, IconEye, IconEyeOff, IconLock, IconSettings, IconTrash, IconX } from "@tabler/icons-react"
 
 import type { Pedido } from "../../../../../entities/pedido.ts";
 import type { Cliente } from "../../../../../entities/cliente.ts";
@@ -17,6 +17,7 @@ import type { Producto } from "../../../../../entities/producto.ts";
 import type { Marca } from "../../../../../entities/marca.ts";
 import type { Categoria } from "../../../../../entities/categoria.ts";
 import type { Administrador } from "../../../../../entities/administrador.ts"
+import { updateProduct } from "../../../../../services/productService.ts"
 
 interface ActionIconsProps {
     tipo: string, 
@@ -70,12 +71,26 @@ export function ActionIcons({tipo, item}: ActionIconsProps) {
             </>
         )
     } else if (tipo === 'productos') {
+        const prod = item as Producto
+
+        async function updateProd() {
+            await updateProduct(String(item.id), {ocultado: !prod.ocultado})
+            setTimeout(() => {navigate(0)}, 2500)
+        }
+
         returnData = (
             <>
-                <Tooltip label={`Ocultar ${tipoNombre}`}>
+                <Tooltip label={prod.ocultado ? `Mostrar ${tipoNombre}` : `Ocultar ${tipoNombre}`} 
+                onClick={() => {updateProd()}}>
+                    {prod.ocultado ?
+                    <ActionIcon color="gray" mr={5}>
+                        <IconEye style={{ width: '70%', height: '70%' }} stroke={1.5} />
+                    </ActionIcon>
+                    :
                     <ActionIcon color="gray" mr={5}>
                         <IconEyeOff style={{ width: '70%', height: '70%' }} stroke={1.5} />
                     </ActionIcon>
+                    }
                 </Tooltip>
                 <Tooltip label={`Borrar ${tipoNombre}`}>
                     <ActionIcon color="red" onClick={open}>

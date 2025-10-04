@@ -13,6 +13,7 @@ export interface Producto {
     stock?: number,
     stockReservado?: number,
     destacado: boolean
+    ocultado: boolean
     fechaIngreso: Date
 
     marca: Marca

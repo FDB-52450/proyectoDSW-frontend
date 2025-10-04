@@ -1,5 +1,6 @@
 import type { Producto } from "../entities/producto.ts"
 import type { ProductoFilters } from "../entities/productoFilters.ts"
+import { pushCreateNotification, pushDeleteNotification, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
 
 export async function fetchProducts(filters?: ProductoFilters, hideParams: boolean = false, showFullStock: boolean = false) {
     try {
@@ -80,7 +81,7 @@ export async function fetchProduct(id: string, showFullStock: boolean = false) {
 
 export async function createProduct(data: Producto) {
     try {
-        const url = 'http://localhost:8080/api/marcas/'
+        const url = 'http://localhost:8080/api/productos/'
         const formData = new FormData()
 
         formData.append('nombre', data.nombre)
@@ -107,8 +108,12 @@ export async function createProduct(data: Producto) {
         const json = await response.json()
 
         if (!response.ok) {
+            pushErrorNotification(response.status, json.message)
+            
             throw new Error(`Network response was not ok: ${response.status}`)
         }
+
+        pushCreateNotification('productos')
 
         return json.data
     } catch (error) {
@@ -120,19 +125,20 @@ export async function createProduct(data: Producto) {
     }
 }
 
-export async function updateProduct(id: string, data: Producto) {
+export async function updateProduct(id: string, data: Partial<Producto>) {
     try {
-        const url = 'http://localhost:8080/api/marcas/' + Number(id)
+        const url = 'http://localhost:8080/api/productos/' + Number(id)
         const formData = new FormData()
      
         if (data.nombre !== undefined) formData.append('nombre', data.nombre)
         if (data.precio !== undefined) formData.append('precio', data.precio.toString())
         if (data.stock !== undefined) formData.append('stock', data.stock!.toString())
-        if (data.marca.id !== undefined) formData.append('marcaId', data.marca.id.toString())
-        if (data.categoria.id !== undefined) formData.append('categoriaId', data.categoria.id.toString())
+        if (data.marca !== undefined && data.marca.id !== undefined) formData.append('marcaId', data.marca.id.toString())
+        if (data.categoria !== undefined && data.categoria.id !== undefined) formData.append('categoriaId', data.categoria.id.toString())
         if (data.desc !== undefined) formData.append('desc', data.desc)
         if (data.descuento !== undefined) formData.append('descuento', data.descuento.toString())
         if (data.destacado !== undefined) formData.append('destacado', data.destacado.toString())
+        if (data.ocultado !== undefined) formData.append('ocultado', data.ocultado.toString())
         if (data.stockReservado !== undefined) formData.append('stockReservado', data.stockReservado.toString())
 
         if (data.imagesToRemove) data.imagesToRemove.forEach((str) => formData.append('imagesToRemove', str))
@@ -147,8 +153,12 @@ export async function updateProduct(id: string, data: Producto) {
         const json = await response.json()
 
         if (!response.ok) {
+            pushErrorNotification(response.status, json.message)
+
             throw new Error(`Network response was not ok: ${response.status}`)
         }
+
+        pushUpdateNotification('productos')
 
         return json.data
     } catch (error) {
@@ -162,7 +172,7 @@ export async function updateProduct(id: string, data: Producto) {
 
 export async function deleteProduct(id: string) {
     try {
-        const url = 'http://localhost:8080/api/marcas/' + Number(id)
+        const url = 'http://localhost:8080/api/productos/' + Number(id)
         const response = await fetch(url, { 
             method: 'DELETE',
             credentials: 'include',
@@ -174,8 +184,12 @@ export async function deleteProduct(id: string) {
         const json = await response.json()
 
         if (!response.ok) {
+            pushErrorNotification(response.status, json.message)
+
             throw new Error(`Network response was not ok: ${response.status}`)
         }
+
+        pushDeleteNotification('productos')
 
         return json.message
     } catch (error) {
