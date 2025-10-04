@@ -1,10 +1,25 @@
 import { pushCreatePedido, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
 
 import type { Pedido } from "../entities/pedido.ts"
+import type { PedidoFilters } from "../entities/filters/pedidoFilters.ts"
 
-export async function fetchPedidos() {
+export async function fetchPedidos(filters?: PedidoFilters) {
     try {
-        const url = 'http://localhost:8080/api/pedidos/'
+        let url = 'http://localhost:8080/api/pedidos/'
+
+        if (filters) {
+            const params = new URLSearchParams()
+
+            if (filters.estado) params.append('estado', filters.estado)
+            if (filters.page) params.append('page', filters.page.toString())
+            if (filters.pageSize) params.append('pageSize', filters.pageSize.toString())
+            if (filters.sort) params.append('sort', filters.sort)
+
+            const queryString = params.toString()
+
+            if (queryString) url += `?${queryString}`
+        }
+
         const response = await fetch(url, { credentials: 'include' })
         const json = await response.json()
 

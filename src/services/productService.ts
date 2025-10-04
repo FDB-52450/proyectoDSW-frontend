@@ -1,5 +1,5 @@
 import type { Producto } from "../entities/producto.ts"
-import type { ProductoFilters } from "../entities/productoFilters.ts"
+import type { ProductoFilters } from "../entities/filters/productoFilters.ts"
 import { pushCreateNotification, pushDeleteNotification, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
 
 export async function fetchProducts(filters?: ProductoFilters, hideParams: boolean = false, showFullStock: boolean = false) {

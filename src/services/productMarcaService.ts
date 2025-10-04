@@ -1,7 +1,7 @@
 import { fetchProducts } from "./productService.ts"
 import type { Marca } from "../entities/marca.ts"
 import type { Producto } from "../entities/producto.ts"
-import type { ProductoFilters } from "../entities/productoFilters.ts"
+import type { ProductoFilters } from "../entities/filters/productoFilters.ts"
 
 export async function fetchMarcasFromProductos(filters?: ProductoFilters) {
     if (filters) {

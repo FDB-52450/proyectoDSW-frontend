@@ -1,10 +1,24 @@
 import { pushCreateNotification, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
 
 import type { Cliente } from "../entities/cliente.ts"
+import type { ClienteFilters } from "../entities/filters/clienteFilters.ts"
 
-export async function fetchClientes() {
+export async function fetchClientes(filters: ClienteFilters) {
     try {
-        const url = 'http://localhost:8080/api/clientes/'
+        let url = 'http://localhost:8080/api/clientes/'
+
+        if (filters) {
+            const params = new URLSearchParams()
+
+            if (filters.page) params.append('page', filters.page.toString())
+            if (filters.pageSize) params.append('pageSize', filters.pageSize.toString())
+            // if (filters.sort) params.append('sort', filters.sort)
+
+            const queryString = params.toString()
+
+            if (queryString) url += `?${queryString}`
+        }
+
         const response = await fetch(url, { credentials: 'include' })
         const json = await response.json()
 
