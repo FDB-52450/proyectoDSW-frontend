@@ -2,7 +2,7 @@ import classes from './NavbarLinksGroup.module.css'
 
 import { useState } from 'react'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Box, Collapse, Group, Text, ThemeIcon, UnstyledButton } from '@mantine/core'
 
 import { IconChevronRight } from '@tabler/icons-react'
@@ -15,6 +15,8 @@ interface LinksGroupProps {
 }
 
 export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksGroupProps) {
+    const navigate = useNavigate()
+
     const hasLinks = Array.isArray(links)
     const [opened, setOpened] = useState(initiallyOpened || false)
     const items = (hasLinks ? links : []).map((link) => (
@@ -31,7 +33,7 @@ export function LinksGroup({ icon: Icon, label, initiallyOpened, links }: LinksG
 
     return (
         <>
-        <UnstyledButton onClick={() => setOpened((o) => !o)} className={classes.control} component={Link} to='/dashboard'>
+        <UnstyledButton onClick={() => {setOpened((o) => !o); if (label === 'Resumen') navigate('/dashboard')}} className={classes.control}>
             <Group justify="space-between" gap={0}>
                 <Box style={{ display: 'flex', alignItems: 'center' }}>
                     <ThemeIcon variant="light" size={30}>
