@@ -82,7 +82,7 @@ export async function createMarca(data: Marca) {
     }
 }
 
-export async function updateMarca(id: string, data: Marca) {
+export async function updateMarca(id: string, data: Partial<Marca>) {
     try {
         const url = 'http://localhost:8080/api/marcas/' + Number(id)
         const formData = new FormData()
