@@ -184,3 +184,32 @@ export async function reactivateCliente(id: string) {
         }
     }
 }
+
+export async function fetchStatusCliente(data: Partial<Cliente>) {
+        try {
+        const url = 'http://localhost:8080/api/clientes/status'
+        const response = await fetch(url, { 
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data) 
+        })
+
+        const json = await response.json()
+
+        if (!response.ok) {
+            pushErrorNotification(response.status, json.message)
+            
+            throw new Error(`Network response was not ok: ${response.status}`)
+        }
+
+        return json.data
+    } catch (error) {
+        if (error instanceof Error) {
+            throw new Error(error.message)
+        } else {
+            throw new Error('Unknown error occurred while fetching products')
+        }
+    }
+}

@@ -8,7 +8,7 @@
   + [85%] Dashboard page.
     + [100%] Main page (stats).
     + [95%] List page.
-      - [ ] Improve support for smaller screens.
+      - [WIP] Improve support for smaller screens.
     + [WIP_90%] Create/modify page.
       - [ ] Improve support for smaller screens.
     + [ ] Error page.
@@ -17,12 +17,12 @@
    - [ ] Replace banner element with custom image carousel.
   + [90%] Cart page.
    - [ ] Prevent client from finishing purchase based on x conditions.
-  + [90%] Products page.
+  + [85%] Products page.
    - [ ] Implement filter menu for mobile.
    - [ ] Fix sortMenu component not being properly aligned in /products page.
-  + [75%] Checkout page.
-   - [ ] Improve support for mobile screens.
-   - [ ] Prevent clients from getting to step 2 of checkout if they are banned.
+  + [100%] Checkout page.
+   - [100%] Improve support for mobile screens.
+   - [100%] Prevent clients from getting to step 2 of checkout if they are banned.
   + [100%] Product page.
   + [100%] Error page.
 

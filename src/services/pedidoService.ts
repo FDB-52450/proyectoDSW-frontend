@@ -2,6 +2,7 @@ import { pushCreatePedido, pushErrorNotification, pushUpdateNotification } from 
 
 import type { Pedido } from "../entities/pedido.ts"
 import type { PedidoFilters } from "../entities/filters/pedidoFilters.ts"
+import dayjs from "dayjs"
 
 export async function fetchPedidos(filters?: PedidoFilters) {
     try {
@@ -65,7 +66,7 @@ export async function fetchPedido(id: string) {
 export async function createPedido(data: Partial<Pedido>) {
     try {
         const simpleDetalle = data.detalle!.map((pedProd) => ({productoId: pedProd.producto.id, cantidad: pedProd.cantidad}))
-        const simpleData = {...data, detalle: simpleDetalle}
+        const simpleData = {...data, fechaEntrega: dayjs(data.fechaEntrega).format('YYYY-MM-DD'), detalle: simpleDetalle}
 
         const url = 'http://localhost:8080/api/pedidos/'
         const response = await fetch(url, { 
