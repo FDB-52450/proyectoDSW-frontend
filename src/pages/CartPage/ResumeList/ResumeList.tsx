@@ -3,11 +3,12 @@ import styles from './ResumeList.module.css'
 import { useContext } from "react"
 import { CartContext } from "../../../context/CartContext.tsx"
 
-import { Button, Stack, Text, Group, Divider } from "@mantine/core"
+import { Button, Stack, Text, Group, Divider, ScrollArea } from "@mantine/core"
+import { Link } from 'react-router-dom'
 
 import type { PedidoProd } from "../../../entities/pedidoProd.ts"
 
-export function ResumeList() {
+export function ResumeList({disabled}: {disabled: boolean}) {
     const context = useContext(CartContext)
 
     if (!context) {
@@ -32,6 +33,7 @@ export function ResumeList() {
                         <Text size='sm' fw={600}>PRODUCTO</Text>
                         <Text size='sm' fw={600}>SUBTOTAL</Text>
                     </Group>
+                    <ScrollArea h={325} type='hover' offsetScrollbars scrollbarSize={4} p={10}>
                     {cart.map((cartProd: PedidoProd) => (
                         <Group justify="space-between">
                             <Stack gap={5} w='50%'>
@@ -41,13 +43,14 @@ export function ResumeList() {
                             <Text size='sm'>${(cartProd.producto.precioFinal * cartProd.cantidad).toLocaleString('es-AR')}</Text>
                         </Group>
                     ))}
+                    </ScrollArea>
                     <Divider/>
                     <Group justify="space-between">
                         <Text fw={600}>TOTAL</Text>
                         <Text fw={600}>${calcularTotal().toLocaleString('es-AR')}</Text>
                     </Group>
                     <Divider/>
-                    <Button component='a' href='/checkout'>FINALIZAR COMPRAR</Button>
+                    <Button component={Link} to='/checkout' disabled={disabled}>FINALIZAR COMPRAR</Button>
                     <Button variant="filled" color="red" onClick={() => setCart([])}>BORRAR COMPRAR</Button>
                 </Stack>
             </div>

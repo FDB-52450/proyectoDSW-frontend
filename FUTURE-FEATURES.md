@@ -15,8 +15,8 @@
   + [ ] Frequently asked questions page.
   + [90%] Home page.
    - [ ] Replace banner element with custom image carousel.
-  + [90%] Cart page.
-   - [ ] Prevent client from finishing purchase based on x conditions.
+  + [100%] Cart page.
+   - [100%] Prevent client from finishing purchase based on stock limit conditions.
   + [85%] Products page.
    - [ ] Implement filter menu for mobile.
    - [ ] Fix sortMenu component not being properly aligned in /products page.

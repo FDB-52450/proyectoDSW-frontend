@@ -7,7 +7,7 @@ import { CartContext } from '../../../context/CartContext.tsx';
 import { useMediaQuery } from '@mantine/hooks';
 
 import type { PedidoProd } from '../../../entities/pedidoProd.ts';
-import { Divider, Stack } from '@mantine/core';
+import { Divider, ScrollArea, Stack } from '@mantine/core';
 import { MobileCartProductCard } from '../MobileCartProductCard/MobileCartProductCard.tsx';
 
 export function CartList() {
@@ -47,24 +47,26 @@ export function CartList() {
     const isMobile = useMediaQuery('(max-width: 425px)')
 
     return (
-        <Stack className={styles.cartListContainer}>
-            {cart.map((cartProduct, index) => (
-                <>{isMobile ? 
-                    <MobileCartProductCard pedProd={cartProduct} 
-                        increment={() => handleIncrement(cartProduct.producto.id)}
-                        decrement={() => handleDecrement(cartProduct.producto.id)}
-                        remove={() => handleRemove(cartProduct.producto.id)}>         
-                    </MobileCartProductCard>
-                    :
-                    <CartProductCard pedProd={cartProduct} 
-                        increment={() => handleIncrement(cartProduct.producto.id)}
-                        decrement={() => handleDecrement(cartProduct.producto.id)}
-                        remove={() => handleRemove(cartProduct.producto.id)}>
-                    </CartProductCard>
-                    }
-                    {cart[index + 1] ? <Divider></Divider> : null}
-                </>
-            ))}
+        <ScrollArea.Autosize mah={830} type='hover' offsetScrollbars className={styles.cartListContainer} scrollbarSize={6}>
+        <Stack>
+                {cart.map((cartProduct, index) => (
+                    <>{isMobile ? 
+                        <MobileCartProductCard pedProd={cartProduct} 
+                            increment={() => handleIncrement(cartProduct.producto.id)}
+                            decrement={() => handleDecrement(cartProduct.producto.id)}
+                            remove={() => handleRemove(cartProduct.producto.id)}>         
+                        </MobileCartProductCard>
+                        :
+                        <CartProductCard pedProd={cartProduct} 
+                            increment={() => handleIncrement(cartProduct.producto.id)}
+                            decrement={() => handleDecrement(cartProduct.producto.id)}
+                            remove={() => handleRemove(cartProduct.producto.id)}>
+                        </CartProductCard>
+                        }
+                        {cart[index + 1] ? <Divider></Divider> : null}
+                    </>
+                ))}
         </Stack>
+        </ScrollArea.Autosize>
     )
 };
