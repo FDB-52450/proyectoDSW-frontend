@@ -71,7 +71,7 @@ export function NavigationSideBar({user, close}: {user: User, close?: () => void
             initiallyOpened: (tipo.toLowerCase() === 'administradores'),
             links: [
                 { label: 'Ver administradores', link: '/administradores' },
-                { label: 'Agregar administrador', link: '/' },
+                { label: 'Agregar administrador', link: '/administradores/new' },
             ]},
         )
     }

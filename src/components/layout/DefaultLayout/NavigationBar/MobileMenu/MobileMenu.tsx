@@ -43,9 +43,9 @@ export function BurgerMenu() {
                             <Button leftSection={<img src={MotherboardIcon} alt="motherboard" style={{ width: 25, height: 25 }} />} 
                             variant="subtle" size="sm" component='a' href='/productos?categoria=placas%20madre'>Motherboards</Button>
                             <Button leftSection={<img src={GraphicsCardIcon} alt="placasVideo" style={{ width: 25, height: 25 }} />} 
-                            variant="subtle" size="sm" component='a' href='/productos?categoria=tarjetas%20de%20video'>Placas de video</Button>
-                                <Button variant="subtle" size="xs" left={40} component='a' href='/productos?categoria=tarjetas%20de%20video&marca=NVIDIA'>NVIDIA</Button>
-                                <Button variant="subtle" size="xs" left={40} component='a' href='/productos?categoria=tarjetas%20de%20video&marca=AMD'>AMD</Button>
+                            variant="subtle" size="sm" component='a' href='/productos?categoria=tarjetas%20graficas'>Placas de video</Button>
+                                <Button variant="subtle" size="xs" left={40} component='a' href='/productos?categoria=tarjetas%20graficas&marca=NVIDIA'>NVIDIA</Button>
+                                <Button variant="subtle" size="xs" left={40} component='a' href='/productos?categoria=tarjetas%20graficas&marca=AMD'>AMD</Button>
                             <Button leftSection={<img src={ProcessorIcon} alt="procesadores" style={{ width: 25, height: 25 }} />} 
                             variant="subtle" size="sm" component='a' href='/productos?categoria=procesadores'>Procesadores</Button>
                                 <Button variant="subtle" size="xs" left={40} component='a' href='/productos?categoria=procesadores&marca=INTEL'>INTEL</Button>
