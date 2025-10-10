@@ -4,9 +4,10 @@ import stylesImage from './ActiveImage.module.css'
 import { useState } from 'react'
 import { useMediaQuery } from '@mantine/hooks'
 
-import { Image, Group} from "@mantine/core"
+import { Image, Group, Stack, Text} from "@mantine/core"
 import { Carousel } from "@mantine/carousel"
 
+import { IconPhoto } from '@tabler/icons-react'
 import noImage from '../../../assets/noImage.png'
 
 import type { EmblaCarouselType } from 'embla-carousel'
@@ -37,7 +38,14 @@ export function ImageSection ({imagenes}: {imagenes: Array<Imagen | null>}) {
         <>
             {(index === 0 || img) ? 
             <Carousel.Slide key={index} style={{alignContent: 'center', justifyItems: 'center'}} mah={maxMainSize}>
+                {img ? 
                 <Image src={getImagenUrl(img)} style={{maxHeight: maxMainSize, maxWidth: maxMainSize, objectFit: 'contain'}} p={25}></Image>
+                :
+                <Stack align='center' gap={5} mb={25}>
+                    <IconPhoto size={maxMainSize - 200} color="var(--mantine-color-dimmed)" stroke={0.75}/>
+                    <Text size="35px" component='span' color="var(--mantine-color-dimmed)">Sin imagen</Text>
+                </Stack>
+                }
             </Carousel.Slide>
             : null}
         </>
@@ -55,7 +63,13 @@ export function ImageSection ({imagenes}: {imagenes: Array<Imagen | null>}) {
                     {(index === 0 || img) ? 
                     <a onClick={() => {embla!.scrollTo(index); setActiveSlide(index)}} style={{height: maxSecondarySize, width: maxSecondarySize, justifyItems: 'center', alignContent: 'center'}}
                     className={activeSlide === index ? stylesImage.image : ''}>
+                        {img ? 
                         <Image src={getImagenUrl(img)} style={{maxHeight: maxSecondarySize - 10, maxWidth: maxSecondarySize - 10, objectFit: 'contain'}} p={5}></Image>
+                        :
+                        <Stack align='center' gap={5}>
+                            <IconPhoto size={maxSecondarySize - 35} color="var(--mantine-color-dimmed)" stroke={0.75}/>
+                        </Stack>
+                        }
                     </a>
                     : null}
                 </>

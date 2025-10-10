@@ -3,9 +3,11 @@ import classes from './ProductCard.module.css'
 import { useContext } from 'react'
 import { CartContext } from '../../../context/CartContext.tsx'
 
+import { Link } from 'react-router-dom'
 import { Badge, Box, Button, Card, Flex, Image, Stack, Text, Tooltip } from '@mantine/core'
 
-import { IconShoppingCart, IconStarFilled } from '@tabler/icons-react'
+import { IconPhoto, IconShoppingCart, IconStarFilled } from '@tabler/icons-react'
+
 import noImage from '../../../assets/noImage.png'
 
 import type { Producto } from '../../../entities/producto.ts'
@@ -51,14 +53,21 @@ export function ProductCard({product}: {product: Producto}) {
     return (
         <div className={product.destacado ? classes.animatedRgbBorder : classes.emptyBorder}>
             <Card radius="md" className={classes.card} h={425}>
-                <Card.Section className={classes.imageSection} component='a' href={'/producto/' + product.id} style={{ position: 'relative' }}>
+                <Card.Section className={classes.imageSection} component={Link} to={'/producto/' + product.id}
+                style={{ position: 'relative', textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
                     {product.destacado && (
                     <Box pos="absolute" top={8} right={8} bg="rgba(255, 255, 255, 0.85)" p={4} style={{ zIndex: 2 }}>
                         <Tooltip label='Destacado'>
                             <IconStarFilled size={20} stroke={2} className={classes.rgbIcon}/>
                         </Tooltip>
                     </Box>)}
-                    <Image style={{maxHeight: 200, maxWidth: 175, objectFit: 'contain'}} src={getProductUrl(product)} alt={product.nombre} />
+                    {product.imagenes[0] ? 
+                    <Image style={{maxHeight: 200, maxWidth: 175, objectFit: 'contain'}} src={getProductUrl(product)} alt={product.nombre}/>
+                    :
+                    <Stack align='center' gap={5}>
+                        <IconPhoto size={100} color="var(--mantine-color-dimmed)" stroke={0.75}/>
+                        <Text size="xl" component='span' color="var(--mantine-color-dimmed)">Sin imagen</Text>
+                    </Stack>} 
                 </Card.Section>
 
                 <Stack mt="md" gap={5}>
