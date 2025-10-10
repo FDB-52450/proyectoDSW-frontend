@@ -30,8 +30,6 @@ export function QuestionsPage() {
         .finally(() => {
             setLoading(false)
         })
-
-        setError('AAAAA')
     }, [])
 
     const garantiaRows = categorias.map((c) => (
