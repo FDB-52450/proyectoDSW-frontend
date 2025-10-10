@@ -6,7 +6,7 @@ import { useMediaQuery } from '@mantine/hooks'
 
 import { fetchProduct, fetchProducts } from "../../services/productService.ts"
 
-import { Container, Group, Stack, Image, Text, Flex, Divider, Badge, Tooltip} from "@mantine/core"
+import { Container, Group, Stack, Text, Flex, Divider, Badge, Breadcrumbs, Anchor} from "@mantine/core"
 
 import { AddToCartButton } from './AddToCartButton/AddToCartButton.tsx'
 import { CopyLinkButton } from './CopyLinkButton/CopyLinkButton.tsx'
@@ -14,15 +14,11 @@ import { ItemList } from './ItemList/ItemList.tsx'
 import { ImageSection } from './ImageSection/ImageSection.tsx'
 import { PaymentsList } from './PaymentsList/PaymentsList.tsx'
 import { NotFoundError } from './NotFoundError/NotFoundError.tsx'
-
-import { IconChevronRight } from '@tabler/icons-react'
-
-import noImage from '../../assets/noImage.png'
-
-import type { Producto } from "../../entities/producto.ts"
-import type { Imagen } from '../../entities/imagen.ts'
 import { ProductCarousel } from '../../components/product/ProductCarousel/ProductCarousel.tsx'
 
+import { IconChevronRight, IconListTree } from '@tabler/icons-react'
+
+import type { Producto } from "../../entities/producto.ts"
 
 export function ProductPage() {   
     const [product, setProduct] = useState<Producto>()
@@ -61,15 +57,6 @@ export function ProductPage() {
         }
     }, [product])
 
-    function getImagenUrl(imagen: Imagen | null) {
-        if (imagen) {
-            const imagenUrl = imagen.url
-            return `http://localhost:8080/images/${imagenUrl}/large.webp`
-        } else {
-            return noImage
-        }
-    }
-
     function getPrecioSinIva(prodPrecio: number) {
         const precioFinal = prodPrecio / (1 + 0.21)
         return Math.ceil(precioFinal)
@@ -85,14 +72,26 @@ export function ProductPage() {
     if (!product) {
         return <NotFoundError prodId={id}/>
     }
+
+    const items = [
+        { title: product.categoria.nombre, href: `/productos?categoria=${product.categoria.nombre}`, last: false },
+        { title: product.marca.nombre, href: `/productos?categoria=${product.categoria.nombre}&marca=${product.marca.nombre}`, last: true },
+    ].map((item, index) => (
+        <Anchor href={item.href} key={index} variant='gradient' size='xl'
+        gradient={item.last ? { from: 'blue', to: 'cyan', deg: 90 } : { from: 'black', to: 'black', deg: 90 }} >
+            {item.title}
+        </Anchor>
+    ))
     
     return (
         <>
             <Container size={isLaptop ? (isMobile ? '95%' : '90%') : '70%'} mt={20}>
                 <Stack className={styles.productContainer}>
-                    <Group>
-                        <IconChevronRight></IconChevronRight>
-                        <Text size="xl" fw={550} component='a' href={`/productos?categoria=${product.categoria.nombre}`}>{product.categoria.nombre}</Text>
+                    <Group mt={15} ml={10}>
+                        <IconListTree size={25}/>
+                        <Breadcrumbs separator={<IconChevronRight size={15}/>} separatorMargin='5px'>
+                            {items}
+                        </Breadcrumbs>
                     </Group>
 
                     <Divider mt={10} mb={20}/>
@@ -103,16 +102,7 @@ export function ProductPage() {
                         </Stack>
 
                         <Stack ml={isMobile ? 0 : 35} gap={0} align='flex-start' w={isMobile ? '100%' : '60%'}>
-                            <Group mb={5}>
-                                <Tooltip label={`Ver más productos de ${product.marca.nombre}`} withArrow position="right">
-                                    <a href={`/productos?marca=${product.marca.nombre}`}>
-                                        <Image src={getImagenUrl(product.marca.imagen)} style={{maxHeight: 75, maxWidth: 75, objectFit: 'contain'}}></Image>
-                                    </a>
-                                </Tooltip>
-                            </Group>
-
                             <Text size={isMobile ? '30px' : '35px'} fw={550}>{product.nombre}</Text>
-
                             <Divider my="md" w='100%' mb={20} mt={20}/>
 
                             <Stack gap={10}>
