@@ -43,7 +43,6 @@ export function CartPage() {
             })
             .finally(() => {
                 setLoading(false)
-                setError('ERROR')
             })
     }, [])
 
