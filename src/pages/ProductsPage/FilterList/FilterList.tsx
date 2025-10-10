@@ -2,21 +2,11 @@ import styles from './FilterList.module.css'
 
 import { useState } from "react"
 
+import { Box, Stack, Text, TextInput, NumberInput, Checkbox, Select, Button, Divider, Flex} from '@mantine/core'
+
 import type { ProductoFilters } from "../../../entities/filters/productoFilters.ts"
 import type { Marca } from "../../../entities/marca.ts"
-
-import {
-    Box,
-    Stack,
-    Text,
-    TextInput,
-    NumberInput,
-    Checkbox,
-    Select,
-    Button,
-    Group,
-    Divider,
-} from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks'
 
 interface ProductFilterProps {
     filters: ProductoFilters
@@ -46,90 +36,49 @@ export function FilterList({filters, updateFilter, marcas}: ProductFilterProps) 
         page: 1,
     }
 
-    return (
-        <Box style={{ fontFamily: 'Montserrat, sans-serif'}} className={styles.filterContainer}>
-            <Text fw={700} style={{ fontSize: 25 }}>FILTROS</Text>
-            <Divider my='md'></Divider>
+    const isLaptop = useMediaQuery('(max-width: 1024px)')
+    const isMobile = useMediaQuery('(max-width: 768px)')
+    const isLaptopButNotMobile = isLaptop && !isMobile
 
+    return (
+        <Box className={styles.filterContainer}>
+            <Text fw={475} size='25px'>FILTROS</Text>
+            <Divider my='md'></Divider>
             <Stack gap="sm">
-                {/* Precio */}
                 <Box>
                     <Text size="md" mb={5}>Rango de precios:</Text>
-                    <Group gap={5} mb={10}>
-                        <NumberInput
-                        id="precioMin"
-                        placeholder="Minimo"
-                        leftSection={<span>$</span>}
-                        leftSectionWidth={25}
-                        rightSection={<></>}
-                        value={localFilters.precioMin ?? ''}
-                        onChange={(value) => handleInputChange('precioMin', value ?? undefined)}
-                        decimalSeparator=","
-                        thousandSeparator="."
-                        allowNegative={false}
-                        allowDecimal={false}
-                        w={110}
-                        />
-                        <NumberInput
-                        id="precioMax"
-                        placeholder="Maximo"
-                        leftSection={<span>$</span>}
-                        leftSectionWidth={25}
-                        rightSection={<></>}
-                        value={localFilters.precioMax ?? ''}
-                        onChange={(value) => handleInputChange('precioMax', value ?? undefined)}
-                        decimalSeparator=","
-                        thousandSeparator="."
-                        allowNegative={false}
-                        allowDecimal={false}
-                        w={110}
-                        />
-                    </Group>
+                    <Flex gap={5} mb={10} justify='space-between' align='center' direction={isLaptopButNotMobile ? 'column' : 'row'}>
+                        <NumberInput id="precioMin" placeholder="Minimo" leftSection={<span>$</span>} leftSectionWidth={25} rightSection={<></>}
+                        value={localFilters.precioMin ?? ''} onChange={(value) => handleInputChange('precioMin', value ?? undefined)}
+                        decimalSeparator="," thousandSeparator="." allowNegative={false} allowDecimal={false} w={isLaptopButNotMobile ? '100%' : '45%'}/>
+                        {isLaptopButNotMobile ? null : <Text>-</Text>}
+                        <NumberInput id="precioMax" placeholder="Maximo" leftSection={<span>$</span>} leftSectionWidth={25} rightSection={<></>}
+                        value={localFilters.precioMax ?? ''} onChange={(value) => handleInputChange('precioMax', value ?? undefined)}
+                        decimalSeparator="," thousandSeparator="." allowNegative={false} allowDecimal={false} w={isLaptopButNotMobile ? '100%' : '45%'}/>
+                    </Flex>
                 </Box>
 
-                {/* Nombre */}
                 <Box>
                     <Text size="md" mb={5}>Nombre:</Text>
-                    <TextInput mb={10}
-                        id="nombre"
-                        placeholder=""
-                        value={localFilters.nombre ?? ''}
-                        onChange={(e) => handleInputChange('nombre', e.currentTarget.value)}
-                    />
+                    <TextInput mb={10} id="nombre" placeholder=""
+                    value={localFilters.nombre ?? ''}onChange={(e) => handleInputChange('nombre', e.currentTarget.value)}/>
                 </Box>
 
-                {/* Marcas */}
                 <Box>
                     <Text size="md" mb={5}>Marcas:</Text>
-                    <Select mb={10}
-                        size='sm'
-                        id="marca"
-                        placeholder="Todas"
-                        value={localFilters.marca ?? ''}
-                        style={{ fontFamily: 'Montserrat, sans-serif'}}
-                        data={[{ value: '', label: 'Todas' }, ...marcas.map((m) => ({ value: m.nombre, label: m.nombre.toUpperCase() }))]}
-                        onChange={(value) => handleInputChange('marca', value ?? '')}
-                    />
+                    <Select mb={10} size='sm' id="marca" placeholder="Todas" value={localFilters.marca ?? ''}
+                    data={[{ value: '', label: 'Todas' }, ...marcas.map((m) => ({ value: m.nombre, label: m.nombre.toUpperCase()}))]}
+                    onChange={(value) => handleInputChange('marca', value ?? '')}/>
                 </Box>
 
-                {/* Destacado */}
                 <Box mb={-5}>
-                    <Checkbox
-                        id="destacado"
-                        label="Destacado"
-                        checked={localFilters.destacado}
-                        onChange={(e) => handleInputChange('destacado', e.currentTarget.checked)}
-                    />
+                    <Checkbox id="destacado" label="Destacado" checked={localFilters.destacado}
+                    onChange={(e) => handleInputChange('destacado', e.currentTarget.checked)}/>
                 </Box>
 
-                {/* Sin Stock */}
                 <Box>
-                    <Checkbox
-                        id="stockMin"
-                        label="Sin Stock"
-                        checked={localFilters.stockMin === 0}
-                        onChange={(e) => handleStockMinToggle(e.currentTarget.checked)}
-                    />
+                    <Checkbox id="stockMin" label="Sin Stock" checked={localFilters.stockMin === 0} 
+                    onChange={(e) => handleStockMinToggle(e.currentTarget.checked)}/>
                 </Box>
 
                 <Button mt={20} onClick={() => updateFilter(localFilters)}> APLICAR FILTROS </Button>

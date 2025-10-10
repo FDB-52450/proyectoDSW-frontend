@@ -9,16 +9,18 @@
     + [100%] Main page (stats).
     + [95%] List page.
       - [WIP] Improve support for smaller screens.
-    + [WIP_90%] Create/modify page.
-      - [ ] Improve support for smaller screens.
+    + [WIP_95%] Create/modify page.
+      - [100%] Add support for modification of admin entities.
+      - [WIP] Add custom buttons for each entity.
+      - [100%] Improve support for smaller screens.
     + [ ] Error page.
   + [ ] Frequently asked questions page.
   + [90%] Home page.
    - [ ] Replace banner element with custom image carousel.
   + [100%] Cart page.
    - [100%] Prevent client from finishing purchase based on stock limit conditions.
-  + [85%] Products page.
-   - [ ] Implement filter menu for mobile.
+  + [95%] Products page.
+   - [100%] Implement filter menu for mobile.
    - [ ] Fix sortMenu component not being properly aligned in /products page.
   + [100%] Checkout page.
    - [100%] Improve support for mobile screens.

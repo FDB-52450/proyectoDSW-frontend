@@ -2,23 +2,25 @@ import styles from './ProductsPage.module.css'
 
 import { useState, useEffect } from "react"
 import { useLocation } from 'react-router-dom'
+import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 
-import { Group } from '@mantine/core'
+import { fetchProducts } from "../../services/productService.ts"
+import { fetchMarcasFromProductos } from '../../services/productMarcaService.ts'
+
+import { Button, Collapse, Flex, Group, LoadingOverlay, Stack, Text } from '@mantine/core'
 
 import { ProductList } from "../../components/product/ProductList/ProductList.tsx"
 import { FilterList } from './FilterList/FilterList.tsx'
 import { NotFoundError } from './NotFoundError/NotFoundError.tsx'
 import { SortMenu } from './SortMenu/SortMenu.tsx'
+import { CustomPagination } from './Pagination/CustomPagination.tsx'
 
-import { fetchProducts } from "../../services/productService.ts"
-import { fetchMarcasFromProductos } from '../../services/productMarcaService.ts'
+import { IconFilter2 } from '@tabler/icons-react'
 
 import type { Producto } from "../../entities/producto.ts"
 import type { ProductoFilters } from '../../entities/filters/productoFilters.ts'
 import type { Marca } from '../../entities/marca.ts'
 import type { Pagination as PaginationType } from '../../entities/pagination.ts'
-import { CustomPagination } from './Pagination/CustomPagination.tsx'
-
 
 function useParsedFiltersFromUrl(): ProductoFilters {
     const location = useLocation()
@@ -61,6 +63,8 @@ export function ProductsPage() {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState<string | null>(null)
 
+    const [opened, { toggle }] = useDisclosure(false);
+
     function changePagination(pageValue: number) {
         if (pagination) {
             if (pageValue > 0 && pageValue <= pagination.totalPages) {
@@ -93,31 +97,43 @@ export function ProductsPage() {
             setMarcas(res)
         })
     }, [])
+  
+    const isLaptop = useMediaQuery('(max-width: 1024px)')
+    const isMobile = useMediaQuery('(max-width: 768px)')
 
-    if (loading) return <div>Loading...</div>
     if (error) return <div>Error: {error}</div>
 
     const categoria = filters.categoria ? filters.categoria : 'TODOS LOS PRODUCTOS'
 
     return (
-        <>
-            <div className={styles.categoriaName}>{categoria.toUpperCase()}
-                {/*<Text fw={500} style={{ fontSize: 40 }}>{categoria.toUpperCase()}</Text>*/}
-            </div>
-            <div className={styles.mainContainer}>
-                <Group className={styles.sortWrapper} justify='center'>
-                    <SortMenu filters={filters} updateFilter={setFilters}></SortMenu>
-                </Group>
-                <div className={styles.productsWrapper}>
-                    <div className={styles.filterWrapper}>
+        <Stack w='100%'>
+            <LoadingOverlay visible={loading} loaderProps={{size: '100px'}}></LoadingOverlay>
+            <Group style={{backgroundColor: 'var(--mantine-color-blue-4)'}} p={30} justify={isMobile ? 'center' : 'flex-start'}>
+                <Text fw={420} size={isMobile ? '33px' : (isLaptop ? '35px' : '40px')} ta='center'>{categoria.toUpperCase()}</Text>
+            </Group>
+            <Stack justify='center' w={isMobile ? '100%' : (isLaptop ? '85%' : '70%')} m='auto'>
+                <Stack align='center'>
+                    <Group>
+                        <SortMenu filters={filters} updateFilter={setFilters}></SortMenu>
+                        <Button variant='default' onClick={toggle} rightSection={<IconFilter2 size={18}/>} 
+                        className={styles.button} hiddenFrom='md'>Filtros</Button> 
+                    </Group>
+                    <Collapse in={opened} w='85%'>
                         <FilterList filters={filters} updateFilter={setFilters} marcas={marcas}></FilterList>
-                    </div>
-                    <div className={styles.productListWrapper}>
+                    </Collapse>
+                </Stack>
+                <Flex justify='center' align='flex-start' direction='row'>
+                    <Stack visibleFrom='md' w='30%'>
+                        <FilterList filters={filters} updateFilter={setFilters} marcas={marcas}></FilterList>
+                    </Stack>
+                    <Stack mt='-20px' w='100%'>
                         {products.length > 0 ? <ProductList products={products}/> : <NotFoundError></NotFoundError>}
-                    </div>  
-                </div>
-                <CustomPagination pagination={pagination} changePagination={changePagination}></CustomPagination>
-            </div>
-        </>
+                    </Stack>
+                </Flex>
+                <Group justify='center'>
+                    <CustomPagination pagination={pagination} changePagination={changePagination}></CustomPagination>
+                </Group>
+            </Stack>
+        </Stack>
     )
 }
