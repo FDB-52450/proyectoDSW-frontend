@@ -3,6 +3,8 @@ import classes from './ProductCard.module.css'
 import { useContext } from 'react'
 import { CartContext } from '../../../context/CartContext.tsx'
 
+import { pushAddToCart } from '../../../notifications/customNotifications.tsx'
+
 import { Link } from 'react-router-dom'
 import { Badge, Box, Button, Card, Flex, Image, Stack, Text, Tooltip } from '@mantine/core'
 
@@ -20,7 +22,7 @@ export function ProductCard({product}: {product: Producto}) {
         throw new Error("CartContext must be used within a provider")
     }
 
-    const {setCart} = context
+    const {cart, setCart} = context
 
     function addToCart() {
         setCart((currItems: Array<PedidoProd>) => {
@@ -39,6 +41,24 @@ export function ProductCard({product}: {product: Producto}) {
                 return [...currItems, pedProd]
             }
         })
+
+        pushAddToCart(product.nombre)
+    }
+
+    function getPedidoProd() {
+        const pedidoProd = cart.find((item: PedidoProd) => item.producto.id === product.id)
+
+        return pedidoProd
+    }
+
+    function determineStockAvailability() {
+        const pedidoProd = getPedidoProd()
+
+        if (pedidoProd && pedidoProd.cantidad >= product.stockDisponible) {
+            return false
+        }
+
+        return true
     }
 
     function getProductUrl(prod: Producto) {
@@ -85,10 +105,17 @@ export function ProductCard({product}: {product: Producto}) {
                             ${product.precioFinal.toLocaleString("es-AR")}
                         </Text>
                     </Stack>
+                 
+                    <Box pos="relative" display="inline-block">
+                        <Button radius="md" onClick={addToCart} disabled={!determineStockAvailability()}>
+                            <IconShoppingCart />
+                        </Button>
 
-                    <Button radius="md" onClick={addToCart}>
-                        <IconShoppingCart/>
-                    </Button>
+                        {getPedidoProd() ? 
+                        <Badge color="red" size="sm" variant="filled" pos="absolute" top={-5} right={-5} px={5}>{getPedidoProd()?.cantidad}</Badge>
+                        : null
+                        }
+                        </Box>
                 </Flex>
             </Card>
         </div>

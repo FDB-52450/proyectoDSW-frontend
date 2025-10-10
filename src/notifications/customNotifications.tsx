@@ -64,6 +64,6 @@ export function pushAddToCart(productName: string) {
         color: 'blue',
         position: 'bottom-center',
         icon: <IconShoppingCart size={20} />,
-        autoClose: 5000
+        autoClose: 2500
     })
 }
