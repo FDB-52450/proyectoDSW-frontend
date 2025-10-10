@@ -54,7 +54,7 @@ export function CartProductCard({pedProd, increment, decrement, remove}: Props) 
                                 {pedProd.cantidad}
                             </Text>
                             <ActionIcon variant="filled" color="blue" onClick={increment}
-                                disabled={(pedProd.cantidad >= 10 || pedProd.cantidad >= pedProd.producto.stockDisponible) ? true: false} >
+                                disabled={(pedProd.cantidad >= pedProd.producto.categoria.stockLimit || pedProd.cantidad >= pedProd.producto.stockDisponible) ? true: false} >
                                 <IconChevronUp style={{ width: '70%', height: '70%' }} stroke={1.5}/>
                             </ActionIcon>
                         </Group>
