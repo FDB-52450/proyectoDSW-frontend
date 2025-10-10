@@ -17,6 +17,7 @@
   + [ ] Frequently asked questions page.
   + [90%] Home page.
    - [ ] Replace banner element with custom image carousel.
+   - [100%] Fix errors regarding no marcas showing up when none of them have an image.
   + [100%] Cart page.
    - [100%] Prevent client from finishing purchase based on stock limit conditions.
   + [95%] Products page.

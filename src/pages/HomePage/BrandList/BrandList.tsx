@@ -1,11 +1,10 @@
 import styles from './BrandList.module.css'
 
-import { Button,  Grid, Group, Image} from "@mantine/core";
-import type { Marca } from "../../../entities/marca.ts";
+import { Button,  Grid, Group, Image, Stack, Text} from "@mantine/core"
+import type { Marca } from "../../../entities/marca.ts"
 
-import noImage from '../../../assets/noImage.png'
-import { useNavigate } from 'react-router-dom';
-import { useMediaQuery } from '@mantine/hooks';
+import { useNavigate } from 'react-router-dom'
+import { useMediaQuery } from '@mantine/hooks'
 
 export function BrandList({marcas}: {marcas: Marca[]}) {
     const navigate = useNavigate()
@@ -17,20 +16,27 @@ export function BrandList({marcas}: {marcas: Marca[]}) {
     
     return (
         <Grid gutter='sm'>
-            {marcas.slice(0, 12).map((marca) => {
-                if (marca.imagen) {
-                    return (
-                    <Grid.Col span={isTablet ? (isSmallMobile ? 6: 3): 2}>
-                        <Button w='100%' h={size} variant='default' className={styles.img} onClick={() => navigate(`/productos?marca=${marca.nombre}`)}>
-                            <Group m={isSmallMobile ? 10: 20}>
-                                <Image src={marca.imagen ? `http://localhost:8080/images/${marca.imagen.url}/medium.webp` : noImage} alt='Imagen de marca'
-                                style={{maxHeight: size, maxWidth: size, objectFit: 'contain'}}></Image> 
-                            </Group>
-                        </Button>
-                    </Grid.Col> 
-                    )
-                }
-            })}
+            {marcas.slice(0, 12).map((marca) => (
+                <Grid.Col span={isTablet ? (isSmallMobile ? 6: 3): 2}>
+                    <Button w='100%' h={size} variant='default' className={styles.img} onClick={() => navigate(`/productos?marca=${marca.nombre}`)}>
+                        <Group m={isSmallMobile ? 10: 20}>
+                            {marca.imagen ? 
+                            <Image src={`http://localhost:8080/images/${marca.imagen.url}/medium.webp`} alt={marca.nombre}
+                            style={{maxHeight: size, maxWidth: size, objectFit: 'contain'}}></Image> 
+                            :
+                            <Stack gap={5}>
+                                {marca.nombre.split(' ').map((line) => (
+                                    <Text title='No hay imagen disponible' fw={475} size='24px' variant='gradient' gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>
+                                        {line.toUpperCase()}
+                                    </Text>
+                                ))}
+                            </Stack>
+                            }
+                        </Group>
+                    </Button>
+                </Grid.Col>
+                )
+            )}
         </Grid>
     )
 }
