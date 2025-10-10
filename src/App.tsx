@@ -13,6 +13,7 @@ import { ProductPage } from './pages/ProductPage/ProductPage.tsx'
 import { CartPage } from './pages/CartPage/CartPage.tsx'
 import { CheckoutPage } from './pages/CheckoutPage/CheckoutPage.tsx'
 import { HomePage } from './pages/HomePage/HomePage.tsx'
+import { QuestionsPage } from './pages/QuestionsPage/QuestionsPage.tsx'
 import { ErrorPage } from './pages/ErrorPage/ErrorPage.tsx'
 
 import { LoginPage } from './pages/LoginPage/LoginPage.tsx'
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
             { path: "producto/:id", element: <ProductPage/> },
             { path: "carrito", element: <CartPage/>},
             { path: "checkout", element: <CheckoutPage/> },
+            { path: "preguntas-frecuentes", element: <QuestionsPage/>},
             { path: "*", element: <ErrorPage/> },
         ],
     },
@@ -54,7 +56,7 @@ function App() {
     return (
         <>
             <ShoppingCartProvider>
-                <Notifications/>
+                <Notifications limit={5}/>
                 <RouterProvider router={router}></RouterProvider>
             </ShoppingCartProvider>
         </>
