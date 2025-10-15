@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 import { Menu, Button, Text } from '@mantine/core';
 
-import { IconCoins, IconArrowNarrowDown, IconArrowNarrowUp, IconStar, IconChevronDown } from '@tabler/icons-react';
+import { IconCoins, IconArrowNarrowDown, IconArrowNarrowUp, IconStar, IconChevronDown, IconClipboard } from '@tabler/icons-react';
 
 import type { ProductoFilters } from '../../../entities/filters/productoFilters.ts';
 
@@ -18,7 +18,17 @@ export function SortMenu({filters, updateFilter}: SortMenuProps) {
     const [localFilters, setLocalFilters] = useState<ProductoFilters>(filters)
 
     function handleInputChange (value: string) {
-        setLocalFilters((prev: ProductoFilters) => ({ ...prev, sort: value}))
+        if (value === 'none') {
+            setLocalFilters((prev: ProductoFilters) => {
+                const { sort: _sort, ...rest } = prev
+
+                void _sort // Prevents not-used variable warning
+
+                return rest
+            })
+        } else {
+            setLocalFilters((prev: ProductoFilters) => ({ ...prev, sort: value}))
+        }
     }
 
     useEffect(() => {
@@ -32,6 +42,10 @@ export function SortMenu({filters, updateFilter}: SortMenuProps) {
             </Menu.Target>
 
             <Menu.Dropdown>
+                <Menu.Item leftSection={<IconClipboard size={16}/>}
+                onClick={() => handleInputChange('none')}>
+                    <Text size='sm' fw={600}>Todos</Text>
+                </Menu.Item>
                 <Menu.Item leftSection={<IconCoins size={16}/>} rightSection={<IconArrowNarrowDown size={10}/>} 
                 onClick={() => handleInputChange('precio-desc')}>
                     <Text size='sm' fw={600}>Precio (DESC)</Text>
