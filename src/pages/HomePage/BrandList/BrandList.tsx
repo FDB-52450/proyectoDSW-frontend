@@ -5,6 +5,7 @@ import type { Marca } from "../../../entities/marca.ts"
 
 import { useNavigate } from 'react-router-dom'
 import { useMediaQuery } from '@mantine/hooks'
+import { IconPhoto } from '@tabler/icons-react'
 
 export function BrandList({marcas}: {marcas: Marca[]}) {
     const navigate = useNavigate()
@@ -13,6 +14,7 @@ export function BrandList({marcas}: {marcas: Marca[]}) {
     const isTablet = useMediaQuery('(max-width: 1024px)')
 
     const size = isSmallMobile ? 130 : (isTablet ? 150 : 200)
+    const textSize = isSmallMobile ? '15px' : (isTablet ? '20px' : '18px')
     
     return (
         <Grid gutter='sm'>
@@ -24,9 +26,10 @@ export function BrandList({marcas}: {marcas: Marca[]}) {
                             <Image src={`http://localhost:8080/images/${marca.imagen.url}/medium.webp`} alt={marca.nombre}
                             style={{maxHeight: size, maxWidth: size, objectFit: 'contain'}}></Image> 
                             :
-                            <Stack gap={5}>
+                            <Stack gap={5} align='center'>
+                                <IconPhoto color='gray' size={75} stroke={0.75}></IconPhoto>
                                 {marca.nombre.split(' ').map((line) => (
-                                    <Text title='No hay imagen disponible' fw={475} size='24px' variant='gradient' gradient={{ from: 'blue', to: 'cyan', deg: 90 }}>
+                                    <Text title='No hay imagen disponible' fw={475} size={textSize} c='dimmed'>
                                         {line.toUpperCase()}
                                     </Text>
                                 ))}
