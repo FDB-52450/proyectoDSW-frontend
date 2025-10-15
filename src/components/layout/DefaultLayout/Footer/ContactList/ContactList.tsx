@@ -28,10 +28,10 @@ function ContactIcon({ icon: Icon, title, description, ...others }: ContactIconP
 }
 
 const MOCKDATA = [
-    { title: 'Email', description: 'hello@mantine.dev', icon: IconAt },
-    { title: 'Telefono', description: '+49 (800) 335 35 35', icon: IconPhone },
-    { title: 'Ubicacion', description: '844 Morris Park avenue', icon: IconMapPin },
-    { title: 'Horarios', description: '8 a.m. – 11 p.m.', icon: IconSun },
+    { title: 'Email', description: 'soporte@technexus.com', icon: IconAt },
+    { title: 'Telefono', description: '+54 9 432 4631-6492', icon: IconPhone },
+    { title: 'Ubicacion', description: 'Rosario, Zeballos 1341', icon: IconMapPin },
+    { title: 'Horarios', description: '9 a.m. - 17 p.m.', icon: IconSun },
 ]
 
 export function ContactList() {

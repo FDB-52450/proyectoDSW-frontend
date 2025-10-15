@@ -1,5 +1,5 @@
 import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube, IconHelp } from '@tabler/icons-react';
-import { ActionIcon, Button, Container, Group, Image, Text } from '@mantine/core';
+import { ActionIcon, Button, Container, Group, Image, Stack, Text } from '@mantine/core';
 import logo from '../../../../assets/logoPagina.png'
 import classes from './Footer.module.css';
 import { ContactList } from './ContactList/ContactList.tsx';
@@ -8,11 +8,13 @@ export function Footer() {
     return (
         <footer className={classes.footer}>
             <Container className={classes.inner}>
-                <div className={classes.logo}>
-                    <Image src={logo}/>
-                </div>
-                <Button component='a' href='/preguntas-frecuentes'
-                mt={20} leftSection={<IconHelp size={18}></IconHelp>}>Preguntas frecuentes</Button>
+                <Stack gap={5}>
+                    <div className={classes.logo}>
+                        <Image src={logo}/>
+                    </div>
+                    <Button component='a' href='/preguntas-frecuentes' mt={20} 
+                    leftSection={<IconHelp size={18}></IconHelp>}>Preguntas frecuentes</Button>
+                </Stack>
                 <ContactList></ContactList>
             </Container>
             <Container className={classes.afterFooter}>

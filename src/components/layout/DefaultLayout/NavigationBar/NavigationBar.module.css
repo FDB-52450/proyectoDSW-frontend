@@ -1,4 +1,7 @@
 .header {
+  position: sticky;
+  top: 0px;
+  z-index: 1000;
   height: 90px;
   align-content: center;
   background-color: var(--mantine-color-gray-9);
