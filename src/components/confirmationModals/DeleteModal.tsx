@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { deleteMarca } from "../../services/marcaService.ts"
 import { deleteCategoria } from "../../services/categoriaService.ts"
 import { deleteProduct } from "../../services/productService.ts"
+import { deleteAdmin } from "../../services/adminService.ts"
 
 import { Button, Group, Modal, Stack, Text } from "@mantine/core"
 
@@ -11,6 +12,7 @@ import { IconAlertTriangle, IconTrash, IconX } from "@tabler/icons-react"
 import type { Producto } from "../../entities/producto.ts"
 import type { Marca } from "../../entities/marca.ts"
 import type { Categoria } from "../../entities/categoria.ts"
+import type { Administrador } from "../../entities/administrador.ts"
 
 export function DeleteModal({tipo, id, isOpen, setClose}: {tipo: string, id: string, isOpen: boolean, setClose: () => void}) {
     const navigate = useNavigate()
@@ -19,10 +21,11 @@ export function DeleteModal({tipo, id, isOpen, setClose}: {tipo: string, id: str
     const nombreTipo = tipo === 'administradores' ? tipo.slice(0, -2): tipo.slice(0, -1)
 
     const handleDelete = async () => {
-        const deleteMap: Record<string, () => Promise<Producto | Marca | Categoria>> = {
+        const deleteMap: Record<string, () => Promise<Producto | Marca | Categoria | Administrador>> = {
             productos: () => deleteProduct(id),
             marcas: () => deleteMarca(id),
-            categorias: async () => deleteCategoria(id),
+            categorias: () => deleteCategoria(id),
+            administradores: () => deleteAdmin(id),
         }
      
         const deleteFn = deleteMap[tipo]
