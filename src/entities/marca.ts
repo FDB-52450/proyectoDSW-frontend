@@ -4,4 +4,5 @@ export interface Marca {
     id: number
     nombre: string
     imagen: Imagen | null
+    keepImage: boolean
 }

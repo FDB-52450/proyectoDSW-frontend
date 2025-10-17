@@ -70,7 +70,7 @@ export async function fetchAdmin(id: string) {
             throw new Error(`Network response was not ok: ${response.status}`)
         }
         
-        return json.data
+        return {...json.data, 'password': '******'}
     } catch (error) {
         if (error instanceof Error) {
             throw new Error(error.message)
@@ -81,8 +81,11 @@ export async function fetchAdmin(id: string) {
 }
 
 
-export async function createAdmin(data: Administrador) {
+export async function createAdmin(data: Partial<Administrador>) {
     try {
+        const { role, ...rest } = data
+        void role
+
         const url = 'http://localhost:8080/api/administradores/'
         const response = await fetch(url, { 
             method: 'POST',
@@ -90,7 +93,7 @@ export async function createAdmin(data: Administrador) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data) 
+            body: JSON.stringify(rest) 
         })
         
         const json = await response.json()

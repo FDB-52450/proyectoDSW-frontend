@@ -93,7 +93,6 @@ export async function createProduct(data: Producto) {
         if (data.desc !== undefined) formData.append('desc', data.desc)
         if (data.descuento !== undefined) formData.append('descuento', data.descuento.toString())
         if (data.destacado !== undefined) formData.append('destacado', data.destacado.toString())
-        if (data.stockReservado !== undefined) formData.append('stockReservado', data.stockReservado.toString())
 
         if (data.imagenes) {
             data.imagenes.forEach((img) => { if (img.file) formData.append('images', img.file)})

@@ -88,8 +88,8 @@ export async function updateMarca(id: string, data: Partial<Marca>) {
         const formData = new FormData()
 
         if (data.nombre) formData.append('nombre', data.nombre)
-
         if (data.imagen && data.imagen.file) formData.append('imagen', data.imagen.file)
+        if (data.keepImage != undefined) formData.append('keepImage', data.keepImage.toString())
 
         const response = await fetch(url, {
             method: 'PATCH',

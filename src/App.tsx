@@ -21,6 +21,7 @@ import { checkAuthLoader } from './loaders/authLoader.ts'
 
 import { ListPage } from './pages/dashboard/ListPage/ListPage.tsx'
 import { MainPage } from './pages/dashboard/StatsPage/StatsPage.tsx'
+import { EntityPage } from './pages/dashboard/EntityPage/EntityPage.tsx'
 
 const router = createBrowserRouter([
     {
@@ -43,6 +44,7 @@ const router = createBrowserRouter([
         children: [
             { index: true, element: <MainPage/>},
             { path: ":tipo", element: <ListPage/>},
+            { path: ":tipo/:id", element: <EntityPage/>},
             { path: "*", element: <a>PAGINA DE ERROR</a>}
         ]
     },

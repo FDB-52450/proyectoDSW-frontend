@@ -100,6 +100,14 @@ export async function createPedido(data: Partial<Pedido>) {
 
 export async function updatePedido(id: string, data: Partial<Pedido>) {
     try {
+        let simpleData 
+
+        if (data.fechaEntrega) {
+            simpleData = {...data, fechaEntrega: dayjs(data.fechaEntrega).format('YYYY-MM-DD')}
+        } else {
+            simpleData = data
+        }
+
         const url = 'http://localhost:8080/api/pedidos/' + Number(id)
         const response = await fetch(url, { 
             method: 'PATCH',
@@ -107,7 +115,7 @@ export async function updatePedido(id: string, data: Partial<Pedido>) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(data) 
+            body: JSON.stringify(simpleData) 
         })
 
         const json = await response.json()
