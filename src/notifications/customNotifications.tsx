@@ -3,9 +3,12 @@ import { notifications } from '@mantine/notifications';
 import { IconAlertTriangle, IconCheck, IconPlus, IconShoppingCart, IconTrash } from '@tabler/icons-react';
 
 export function pushCreateNotification(tipo: string) {
+    const nombreTipo = tipo === 'administradores' ? tipo.slice(0, -2): tipo.slice(0, -1)
+    const articulo = (tipo === 'marcas' || tipo === 'categorias') ? 'La' : 'El'
+
     notifications.show({
         title: 'Entidad creada con exito',
-        message: `La ${tipo.slice(0, -1)} ha sido creada con exito.`,
+        message: `${articulo} ${nombreTipo} ha sido cread${articulo === 'La' ? 'a' : 'o'} con exito.`,
         color: 'blue',
         position: 'bottom-center',
         icon: <IconPlus size={20} />,
@@ -14,9 +17,12 @@ export function pushCreateNotification(tipo: string) {
 }
 
 export function pushUpdateNotification(tipo: string) {
+    const nombreTipo = tipo === 'administradores' ? tipo.slice(0, -2): tipo.slice(0, -1)
+    const articulo = (tipo === 'marcas' || tipo === 'categorias') ? 'La' : 'El'
+
     notifications.show({
         title: 'Entidad actualizada con exito',
-        message: `La ${tipo.slice(0, -1)} ha sido actualizada con exito.`,
+        message: `${articulo} ${nombreTipo} ha sido actualizad${articulo === 'La' ? 'a' : 'o'} con exito.`,
         color: 'green',
         position: 'bottom-center',
         icon: <IconCheck size={20} />,
@@ -25,9 +31,12 @@ export function pushUpdateNotification(tipo: string) {
 }
 
 export function pushDeleteNotification(tipo: string) {
+    const nombreTipo = tipo === 'administradores' ? tipo.slice(0, -2): tipo.slice(0, -1)
+    const articulo = (tipo === 'marcas' || tipo === 'categorias') ? 'La' : 'El'
+
     notifications.show({
         title: 'Entidad borrada con exito',
-        message: `La ${tipo.slice(0, -1)} ha sido borrada con exito.`,
+        message: `${articulo} ${nombreTipo} ha sido borrad${articulo === 'La' ? 'a' : 'o'} con exito.`,
         color: 'red',
         position: 'bottom-center',
         icon: <IconTrash size={20} />,
