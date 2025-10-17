@@ -6,7 +6,7 @@ import { useMediaQuery } from '@mantine/hooks'
 
 import { fetchProduct, fetchProducts } from "../../services/productService.ts"
 
-import { Container, Group, Stack, Text, Flex, Divider, Badge, Breadcrumbs, Anchor} from "@mantine/core"
+import { Container, Group, Stack, Text, Flex, Divider, Badge, Breadcrumbs, Anchor, Image} from "@mantine/core"
 
 import { AddToCartButton } from './AddToCartButton/AddToCartButton.tsx'
 import { CopyLinkButton } from './CopyLinkButton/CopyLinkButton.tsx'
@@ -16,7 +16,7 @@ import { PaymentsList } from './PaymentsList/PaymentsList.tsx'
 import { NotFoundError } from './NotFoundError/NotFoundError.tsx'
 import { ProductCarousel } from '../../components/product/ProductCarousel/ProductCarousel.tsx'
 
-import { IconChevronRight, IconListTree } from '@tabler/icons-react'
+import { IconChevronRight, IconListTree, IconPhoto } from '@tabler/icons-react'
 
 import type { Producto } from "../../entities/producto.ts"
 
@@ -46,7 +46,7 @@ export function ProductPage() {
 
     useEffect(() => {     
         if (product != undefined) {
-            fetchProducts({ categoria: product.categoria.nombre, page: 1})
+            fetchProducts({ categoria: product.categoria.nombre, page: 1}, true)
             .then((res) => {
                 setSimilarProducts(res.data)
                 setLoading(false)
@@ -102,7 +102,12 @@ export function ProductPage() {
                         </Stack>
 
                         <Stack ml={isMobile ? 0 : 35} gap={0} align='flex-start' w={isMobile ? '100%' : '60%'}>
-                            <Text size={isMobile ? '30px' : '35px'} fw={550}>{product.nombre}</Text>
+                            {product.marca.imagen ? 
+                            <Image src={`http://localhost:8080/images/${product.marca.imagen.url}/medium.webp`} alt={product.marca.nombre}
+                            style={{maxHeight: 60, maxWidth: 60, objectFit: 'contain'}} mb={10}/>
+                            : 
+                            <IconPhoto size={40} color="var(--mantine-color-dimmed)" stroke={0.75}/>}
+                            <Text size={isMobile ? '30px' : '35px'} fw={550}>{product.nombre}</Text>                           
                             <Divider my="md" w='100%' mb={20} mt={20}/>
 
                             <Stack gap={10}>
