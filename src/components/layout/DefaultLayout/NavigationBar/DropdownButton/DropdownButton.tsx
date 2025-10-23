@@ -1,5 +1,6 @@
 import { IconChevronDown } from '@tabler/icons-react'
 import { 
+    Anchor,
     Box, Center, Divider,
     Group, HoverCard, SimpleGrid,
     Text, ThemeIcon, UnstyledButton, useMantineTheme,
@@ -17,7 +18,7 @@ export function DropdownButton({title, data}: {title: string, data: DataInterfac
   const theme = useMantineTheme()
 
   const links = data.map((item) => (
-    <UnstyledButton className={styles.subLink} key={item.title}>
+    <UnstyledButton className={styles.subLink} key={item.title} component="a" href={`/productos?categoria=${item.filter}`}>
         <Group wrap="nowrap" align="flex-start">
                 <ThemeIcon size={55} variant="default" radius="md">
                     <img className={styles.coloredIcon} src={item.icon} alt={item.title} style={{width: 35, height: 35}} />
@@ -49,6 +50,12 @@ export function DropdownButton({title, data}: {title: string, data: DataInterfac
         <HoverCard.Dropdown style={{ overflow: 'hidden' }}>
             <Group justify="space-between" px="md">
                 <Text fw={600}>{title} de PC</Text>
+                <Text size='9px' component='a' opacity={0.5}>
+                    Iconos hechos por {' '} 
+                    <Anchor href='https://www.freepik.com/author/j703'>
+                        J703 (Freepik)
+                    </Anchor>
+                </Text>
             </Group>
             <Divider my="sm" />
             <SimpleGrid cols={2} spacing={0}>

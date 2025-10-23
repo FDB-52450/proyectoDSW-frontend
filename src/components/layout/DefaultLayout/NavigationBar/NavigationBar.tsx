@@ -57,7 +57,7 @@ const componentesData = [
         filter: 'memorias%20ram',
         subcategorias: [
             { title: 'DDR4', filter: 'nombre=DDR4' },
-            { title: 'DDR5', filter: 'nombre=DDR4' }
+            { title: 'DDR5', filter: 'nombre=DDR5' }
         ]
     },
     {

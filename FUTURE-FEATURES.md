@@ -1,7 +1,7 @@
 # POTENTIAL FUTURE FEATURES
 
 ## WILL BE ADDED
-- [ ] Attribution of hardware logos used in category navbar in footer (Freepik, J703).
+- [100%] Attribution of hardware logos used in category navbar in footer (Freepik, J703).
 - [ ] Implement loading transition for all page loads.
 - [90%] Implement the followings pages:
   + [100%] Login page.
@@ -26,16 +26,17 @@
   + [100%] Checkout page.
    - [100%] Improve support for mobile screens.
    - [100%] Prevent clients from getting to step 2 of checkout if they are banned.
+   - [ ] Relax phone validation rules.
   + [100%] Product page.
   + [100%] Error page.
 
 ## LIKELY TO BE ADDED
-- [ ] Refactor list page code.
 - [95%] Implement notification system.
   - [ ] Improve information given on error notification. 
 - [ ] Implemented skeleton (templates) for card components.
 
 ## UNLIKELY TO BE ADDED
+- [ ] Refactor list page code.
 - [WIP] Replace <a> components with <Link>
 - [ ] Consume georef api (https://datosgobar.github.io/georef-ar-api/) for proper location data.
 - [ ] Consume ArgentinaDatos API (https://argentinadatos.com/docs/operations/get-feriados.html) to prevent delivery of pedidos on holidays.

@@ -4,7 +4,7 @@ import { useMediaQuery } from '@mantine/hooks'
 import { fetchProducts } from "../../services/productService.ts"
 import { fetchMarcas } from '../../services/marcaService.ts'
 
-import { Anchor, Box, Button, Container, Image,  LoadingOverlay,  Stack, Text} from '@mantine/core'
+import { Anchor, Box, Button, Container, Group, Image,  LoadingOverlay,  Stack, Text} from '@mantine/core'
 import { Link } from "react-router-dom"
 
 import { BrandList } from './BrandList/BrandList.tsx'
@@ -99,9 +99,17 @@ export function HomePage() {
                             </Anchor>
                         </Text>
                     </Box>
-
+                          
                     <Text size='25px' mt={50}> CATEGORIAS </Text>
                     <CategoriaList/>
+                    <Group justify="flex-end">
+                        <Text size='10px' component='a' opacity={0.5}>
+                        Iconos hechos por {' '} 
+                            <Anchor href='https://www.freepik.com/author/j703'>
+                                J703 (Freepik)
+                            </Anchor>
+                        </Text>
+                    </Group>
               
                     <Box pos="relative" h={isMobile ? 175 : 325} w='100%' mt={50}>
                         <Image src="src\assets\categoriaImages\tarjetasGraficas.webp" alt={'categoria'} w="100%" h={isMobile ? 175 : 325}

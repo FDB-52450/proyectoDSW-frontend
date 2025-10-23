@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-import { Drawer, Burger, Accordion, Button, Stack } from '@mantine/core';
+import { Drawer, Burger, Accordion, Button, Stack, Group, Text, Anchor } from '@mantine/core';
 
 import { SearchBar } from '../SearchBar/SearchBar.tsx';
 
@@ -64,6 +64,14 @@ export function BurgerMenu() {
                             variant="subtle" size="sm" component='a' href='/productos?categoria=gabinetes'>Gabinetes</Button>
                             <Button leftSection={<img src={ComputerFanIcon} alt="refrigeracion" style={{ width: 25, height: 25 }} />} 
                             variant="subtle" size="sm" component='a' href='/productos?categoria=refrigeracion'>Refrigeracion</Button>
+                            <Group justify="flex-end" w='100%' mt={5}>
+                                <Text size='8px' component='a' opacity={0.5}>
+                                Iconos hechos por {' '} 
+                                    <Anchor href='https://www.freepik.com/author/j703'>
+                                        J703 (Freepik)
+                                    </Anchor>
+                                </Text>
+                            </Group>
                         </Stack>
                     </Accordion.Panel>
                 </Accordion.Item>
@@ -80,6 +88,14 @@ export function BurgerMenu() {
                             variant="subtle" size="sm" component='a' href='/productos?categoria=auriculares'>Auriculares</Button>
                             <Button leftSection={<img src={MicrophoneIcon} alt="microfonos" style={{ width: 25, height: 25 }} />} 
                             variant="subtle" size="sm" component='a' href='/productos?categoria=microfonos'>Microfonos</Button>
+                            <Group justify="flex-end" w='100%' mt={5}>
+                                <Text size='8px' component='a' opacity={0.5}>
+                                Iconos hechos por {' '} 
+                                    <Anchor href='https://www.freepik.com/author/j703'>
+                                        J703 (Freepik)
+                                    </Anchor>
+                                </Text>
+                            </Group>
                         </Stack>
                     </Accordion.Panel>
                 </Accordion.Item>

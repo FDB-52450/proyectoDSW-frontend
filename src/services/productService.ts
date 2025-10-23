@@ -90,9 +90,9 @@ export async function createProduct(data: Producto) {
         formData.append('marcaId', data.marca.id.toString())
         formData.append('categoriaId', data.categoria.id.toString())
 
-        if (data.desc !== undefined) formData.append('desc', data.desc)
-        if (data.descuento !== undefined) formData.append('descuento', data.descuento.toString())
-        if (data.destacado !== undefined) formData.append('destacado', data.destacado.toString())
+        if (data.desc) formData.append('desc', data.desc)
+        if (data.descuento) formData.append('descuento', data.descuento.toString())
+        if (data.destacado != undefined && data.destacado != null) formData.append('destacado', data.destacado.toString())
 
         if (data.imagenes) {
             data.imagenes.forEach((img) => { if (img.file) formData.append('images', img.file)})
@@ -107,7 +107,11 @@ export async function createProduct(data: Producto) {
         const json = await response.json()
 
         if (!response.ok) {
-            pushErrorNotification(response.status, json.message)
+            if (typeof json === 'object' && Array.isArray(json.errors)) {
+                pushErrorNotification(response.status, json.errors[0].msg)
+            } else {
+                pushErrorNotification(response.status, json.message)
+            }
             
             throw new Error(`Network response was not ok: ${response.status}`)
         }

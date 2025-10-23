@@ -14,6 +14,7 @@ import noImage from '../../../assets/noImage.png'
 
 import type { Producto } from '../../../entities/producto.ts'
 import type { PedidoProd } from '../../../entities/pedidoProd.ts'
+import { useMediaQuery } from '@mantine/hooks'
 
 export function ProductCard({product}: {product: Producto}) {
     const context = useContext(CartContext)
@@ -70,9 +71,15 @@ export function ProductCard({product}: {product: Producto}) {
         }
     }
 
+    const isMobile = useMediaQuery('(max-width: 768px)')
+    const isSmallMobile = useMediaQuery('(max-width: 500px)')
+
+    const isTablet = isMobile && !isSmallMobile
+    const imageSize = isTablet ? 175 : 200
+
     return (
         <div className={product.destacado ? classes.animatedRgbBorder : classes.emptyBorder}>
-            <Card radius="md" className={classes.card} h={425}>
+            <Card radius="md" className={classes.card} h={425} miw={200}>
                 <Card.Section className={classes.imageSection} component={Link} to={'/producto/' + product.id}
                 style={{ position: 'relative', textDecoration: 'none', color: 'inherit', cursor: 'pointer' }}>
                     {product.destacado && (
@@ -82,7 +89,7 @@ export function ProductCard({product}: {product: Producto}) {
                         </Tooltip>
                     </Box>)}
                     {product.imagenes[0] ? 
-                    <Image style={{maxHeight: 200, maxWidth: 175, objectFit: 'contain'}} src={getProductUrl(product)} alt={product.nombre}/>
+                    <Image style={{maxHeight: imageSize, maxWidth: imageSize - 25, objectFit: 'contain'}} src={getProductUrl(product)} alt={product.nombre}/>
                     :
                     <Stack align='center' gap={5}>
                         <IconPhoto size={100} color="var(--mantine-color-dimmed)" stroke={0.75}/>
@@ -98,16 +105,16 @@ export function ProductCard({product}: {product: Producto}) {
                 <Flex gap={20} mt='auto' justify='space-between' align='flex-end'>
                     <Stack gap={5} justify='flex-end'>
                         {product.descuento == 0 ? '' :
-                            <Text size='13' c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3} td="line-through">
+                            <Text size={isTablet ? '10' : '12'} c="dimmed" fw={500} style={{ lineHeight: 1 }} mt={3} td="line-through">
                                 ${product.precio.toLocaleString("es-AR")}
                             </Text>}
-                        <Text fz="h3" fw={600} style={{ lineHeight: 1 }}>
+                        <Text fz={isTablet ? '18' : '22'} fw={600} style={{ lineHeight: 1 }}>
                             ${product.precioFinal.toLocaleString("es-AR")}
                         </Text>
                     </Stack>
                  
                     <Box pos="relative" display="inline-block">
-                        <Button radius="md" onClick={addToCart} disabled={!determineStockAvailability()}>
+                        <Button radius="md" onClick={addToCart} disabled={!determineStockAvailability()} size={isTablet ? 'sm' : 'md'}>
                             <IconShoppingCart />
                         </Button>
 
