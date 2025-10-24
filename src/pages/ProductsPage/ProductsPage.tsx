@@ -7,7 +7,7 @@ import { useDisclosure, useMediaQuery } from '@mantine/hooks'
 import { fetchProducts } from "../../services/productService.ts"
 import { fetchMarcasFromProductos } from '../../services/productMarcaService.ts'
 
-import { Button, Collapse, Flex, Group, LoadingOverlay, Stack, Text } from '@mantine/core'
+import { Badge,  Button, Collapse, Flex, Group, LoadingOverlay, Stack } from '@mantine/core'
 
 import { ProductList } from "../../components/product/ProductList/ProductList.tsx"
 import { FilterList } from './FilterList/FilterList.tsx'
@@ -106,11 +106,13 @@ export function ProductsPage() {
     const categoria = filters.categoria ? filters.categoria : 'TODOS LOS PRODUCTOS'
 
     return (
-        <Stack w='100%'>
+        <Stack w='100%'>    
             <LoadingOverlay visible={loading} loaderProps={{size: '100px'}}></LoadingOverlay>
-            <Group style={{backgroundColor: 'var(--mantine-color-blue-4)'}} p={30} justify={isMobile ? 'center' : 'flex-start'}>
-                <Text fw={420} size={isMobile ? '33px' : (isLaptop ? '35px' : '40px')} ta='center'>{categoria.toUpperCase()}</Text>
-            </Group>
+            <Badge variant="gradient" gradient={{ from: 'blue.7', to: 'blue.5', deg: 90 }} radius='0' size={isMobile ? '30px' : (isLaptop ? '35px' : '40px')} fullWidth h={100}
+            style={{display: 'flex', justifyContent: isMobile ? 'center' : 'flex-start', alignItems: 'center', paddingRight: 10, textShadow: '1px 1px 3px rgba(0,0,0,0.25)'}}>
+                {categoria}
+            </Badge>
+
             <Stack justify='center' w={isMobile ? '100%' : (isLaptop ? '85%' : '70%')} m='auto'>
                 <Stack align='center'>
                     <Group>
