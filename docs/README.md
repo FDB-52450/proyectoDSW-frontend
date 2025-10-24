@@ -38,7 +38,7 @@ Antes de comenzar con la instalación y ejecución del frontend, asegúrate de h
 
 ```bash
 git clone https://github.com/FDB-52450/proyectoDSW-frontend.git
-cd frontend-repo
+cd proyectoDSW-frontend
 ```
 
 ### 2. Instalar dependencias

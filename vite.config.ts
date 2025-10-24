@@ -1,6 +1,10 @@
 import { defineConfig, configDefaults } from 'vitest/config'
 import react from '@vitejs/plugin-react-swc'
 
+import dotenv from 'dotenv'
+
+dotenv.config({ path: '.env' })
+
 // https://vite.dev/config/
 export default defineConfig({
     plugins: [react()],
@@ -10,4 +14,7 @@ export default defineConfig({
         setupFiles: './tests/unitTests/setup.ts', // optional setup file
         exclude: [...configDefaults.exclude, 'tests/e2eTests/**']
     },
+    server: {
+        port: Number(process.env.PORT)
+    }
 })
