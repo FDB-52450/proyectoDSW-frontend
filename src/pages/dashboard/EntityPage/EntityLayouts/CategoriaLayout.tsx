@@ -13,7 +13,7 @@ export function CategoriaLayout({form, isEditable}: {form: UseFormReturnType<Cat
                     <Grid.Col span={3} h={85}>
                         <Flex direction='column'>
                             <Text fw={650} mt={6}>NOMBRE (*)</Text>
-                            <TextInput radius="md" readOnly={!isEditable} {...form.getInputProps('nombre')}
+                            <TextInput radius="md" readOnly={!isEditable} {...form.getInputProps('nombre')} id='nombre'
                                 styles={{ input: {backgroundColor: isEditable ? 'white' : theme.colors.gray[1]}}}/>
                         </Flex>
                     </Grid.Col>
@@ -25,7 +25,7 @@ export function CategoriaLayout({form, isEditable}: {form: UseFormReturnType<Cat
                             <Tooltip label='(en meses)'>
                                 <Text fw={650} mt={6}>GARANTIA (*)</Text>
                             </Tooltip>
-                            <NumberInput radius="md" readOnly={!isEditable} {...form.getInputProps('duracionGarantia')}
+                            <NumberInput radius="md" readOnly={!isEditable} {...form.getInputProps('duracionGarantia')} id='garantia'
                                 styles={{ input: {backgroundColor: isEditable ? 'white' : theme.colors.gray[1]}}}/>
                         </Flex>
                     </Grid.Col>
@@ -37,7 +37,7 @@ export function CategoriaLayout({form, isEditable}: {form: UseFormReturnType<Cat
                             <Tooltip label='(en unidades)'>
                                 <Text fw={650} mt={6}>LIMITE STOCK (*)</Text>
                             </Tooltip>
-                            <NumberInput radius="md" readOnly={!isEditable} {...form.getInputProps('stockLimit')}
+                            <NumberInput radius="md" readOnly={!isEditable} {...form.getInputProps('stockLimit')} id='stockLim'
                                 styles={{ input: {backgroundColor: isEditable ? 'white' : theme.colors.gray[1]}}}/>
                         </Flex>
                     </Grid.Col>

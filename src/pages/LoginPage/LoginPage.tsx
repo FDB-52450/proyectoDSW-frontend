@@ -49,8 +49,8 @@ export function LoginPage() {
 
             <Paper withBorder shadow="sm" p={22} mt={30} radius="md">
                 <form onSubmit={form.onSubmit(handleSubmit)}>
-                    <TextInput label="Usuario" placeholder="Tu usuario" required radius="md" {...form.getInputProps('username')}/>
-                    <PasswordInput label="Contraseña" placeholder="Tu contraseña" required mt="md" radius="md" {...form.getInputProps('password')} />
+                    <TextInput id='usuario' label="Usuario" placeholder="Tu usuario" required radius="md" {...form.getInputProps('username')}/>
+                    <PasswordInput id='password' label="Contraseña" placeholder="Tu contraseña" required mt="md" radius="md" {...form.getInputProps('password')} />
                     {error && (<div style={{ color: 'red', marginTop: 10 }}>{error}</div>)}
                     <Button type='submit' fullWidth mt="xl" radius="md" loading={loading}> Ingresar </Button>
                 </form>

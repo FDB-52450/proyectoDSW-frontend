@@ -316,7 +316,7 @@ export function EntityPage() {
 
                 <Group justify='flex-end' mt={30}>
                     {createMode ? 
-                    <Button leftSection={<IconPlus/>} color='blue' onClick={handleSubmit}> 
+                    <Button leftSection={<IconPlus/>} color='blue' onClick={handleSubmit} id='crearButton'> 
                         Crear {tipo.slice(0, -1)}
                     </Button>
                     :

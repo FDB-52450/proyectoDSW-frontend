@@ -28,3 +28,11 @@ src/components/unused
 
 # Environment files
 .env
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright/.auth/
+state.json

@@ -85,7 +85,7 @@ export function ProductCard({product}: {product: Producto}) {
                     {product.destacado && (
                     <Box pos="absolute" top={8} right={8} bg="rgba(255, 255, 255, 0.85)" p={4} style={{ zIndex: 2 }}>
                         <Tooltip label='Destacado'>
-                            <IconStarFilled size={20} stroke={2} className={classes.rgbIcon}/>
+                            <IconStarFilled size={20} stroke={2} className={classes.rgbIcon} data-testid='destacado-icon'/>
                         </Tooltip>
                     </Box>)}
                     {product.imagenes[0] ? 
