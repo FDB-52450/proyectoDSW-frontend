@@ -2,8 +2,10 @@ import { pushCreateNotification, pushDeleteNotification, pushErrorNotification, 
 
 import type { Administrador } from "../entities/administrador.ts"
 
+const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'
+
 export async function fetchCurrentUser() {
-    const res = await fetch('http://localhost:8080/api/administradores/me', { credentials: 'include' })
+    const res = await fetch(`${apiUrl}/api/administradores/me`, { credentials: 'include' })
 
     if (!res.ok) {
         return null
@@ -13,7 +15,7 @@ export async function fetchCurrentUser() {
 }
 
 export async function login(username: string, password: string) {
-    const res = await fetch('http://localhost:8080/api/administradores/login', { 
+    const res = await fetch(`${apiUrl}/api/administradores/login`, { 
         method: 'POST',
         credentials: 'include',
         headers: {
@@ -33,12 +35,12 @@ export async function login(username: string, password: string) {
 }
 
 export async function logout() {
-    await fetch('http://localhost:8080/api/administradores/logout', { credentials: 'include' })
+    await fetch(`${apiUrl}/api/administradores/logout`, { credentials: 'include' })
 }
 
 export async function fetchAdmins() {
     try {
-        const url = 'http://localhost:8080/api/administradores/'
+        const url = `${apiUrl}/api/administradores/`
         const response = await fetch(url, {credentials: 'include'})
         const json = await response.json()
 
@@ -62,7 +64,7 @@ export async function fetchAdmins() {
 
 export async function fetchAdmin(id: string) {
     try {
-        const url = 'http://localhost:8080/api/administradores/' + Number(id)
+        const url = `${apiUrl}/api/administradores/` + Number(id)
         const response = await fetch(url, {credentials: 'include'})
         const json = await response.json()
 
@@ -86,7 +88,7 @@ export async function createAdmin(data: Partial<Administrador>) {
         const { role, ...rest } = data
         void role
 
-        const url = 'http://localhost:8080/api/administradores/'
+        const url = `${apiUrl}/api/administradores/`
         const response = await fetch(url, { 
             method: 'POST',
             credentials: 'include',
@@ -118,7 +120,7 @@ export async function createAdmin(data: Partial<Administrador>) {
 
 export async function updateAdmin(id: string, data: Partial<Administrador>) {
     try {
-        const url = 'http://localhost:8080/api/administradores/' + Number(id)
+        const url = `${apiUrl}/api/administradores/` + Number(id)
         const response = await fetch(url, { 
             method: 'PATCH',
             credentials: 'include',
@@ -150,7 +152,7 @@ export async function updateAdmin(id: string, data: Partial<Administrador>) {
 
 export async function deleteAdmin(id: string) {
     try {
-        const url = 'http://localhost:8080/api/administradores/' + Number(id)
+        const url = `${apiUrl}/api/administradores/` + Number(id)
         const response = await fetch(url, { 
             method: 'DELETE',
             credentials: 'include',

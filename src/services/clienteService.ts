@@ -3,9 +3,11 @@ import { pushCreateNotification, pushErrorNotification, pushUpdateNotification }
 import type { Cliente } from "../entities/cliente.ts"
 import type { ClienteFilters } from "../entities/filters/clienteFilters.ts"
 
+const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'
+
 export async function fetchClientes(filters: ClienteFilters) {
     try {
-        let url = 'http://localhost:8080/api/clientes/'
+        let url = `${apiUrl}/api/clientes/`
 
         if (filters) {
             const params = new URLSearchParams()
@@ -42,7 +44,7 @@ export async function fetchClientes(filters: ClienteFilters) {
 
 export async function fetchCliente(id: string) {
     try {
-        const url = 'http://localhost:8080/api/clientes/' + Number(id)
+        const url = `${apiUrl}/api/clientes/` + Number(id)
         const response = await fetch(url, { credentials: 'include' })
         const json = await response.json()
 
@@ -62,7 +64,7 @@ export async function fetchCliente(id: string) {
 
 export async function createCliente(data: Cliente) {
     try {
-        const url = 'http://localhost:8080/api/clientes/'
+        const url = `${apiUrl}/api/clientes/`
         const response = await fetch(url, { 
             method: 'POST',
             credentials: 'include',
@@ -94,7 +96,7 @@ export async function createCliente(data: Cliente) {
 
 export async function updateCliente(id: string, data: Cliente) {
     try {
-        const url = 'http://localhost:8080/api/clientes/' + Number(id)
+        const url = `${apiUrl}/api/clientes/` + Number(id)
         const response = await fetch(url, { 
             method: 'PATCH',
             credentials: 'include',
@@ -126,7 +128,7 @@ export async function updateCliente(id: string, data: Cliente) {
 
 export async function suspendCliente(id: string, duracion: number | null, razon: string) {
     try {
-        const url = 'http://localhost:8080/api/clientes/' + Number(id) + '/suspend'
+        const url = `${apiUrl}/api/clientes/` + Number(id) + '/suspend'
         const data = {duracion, razon}
         const response = await fetch(url, { 
             method: 'POST',
@@ -159,7 +161,7 @@ export async function suspendCliente(id: string, duracion: number | null, razon:
 
 export async function reactivateCliente(id: string) {
     try {
-        const url = 'http://localhost:8080/api/clientes/' + Number(id) + '/reactivate'
+        const url = `${apiUrl}/api/clientes/` + Number(id) + '/reactivate'
         const response = await fetch(url, { 
             method: 'POST',
             credentials: 'include',
@@ -187,7 +189,7 @@ export async function reactivateCliente(id: string) {
 
 export async function fetchStatusCliente(data: Partial<Cliente>) {
         try {
-        const url = 'http://localhost:8080/api/clientes/status'
+        const url = `${apiUrl}/api/clientes/status`
         const response = await fetch(url, { 
             method: 'POST',
             headers: {

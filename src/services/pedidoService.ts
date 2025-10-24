@@ -1,12 +1,15 @@
+import dayjs from "dayjs"
+
 import { pushCreatePedido, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
 
 import type { Pedido } from "../entities/pedido.ts"
 import type { PedidoFilters } from "../entities/filters/pedidoFilters.ts"
-import dayjs from "dayjs"
+
+const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'
 
 export async function fetchPedidos(filters?: PedidoFilters) {
     try {
-        let url = 'http://localhost:8080/api/pedidos/'
+        let url = `${apiUrl}/api/pedidos/`
 
         if (filters) {
             const params = new URLSearchParams()
@@ -44,7 +47,7 @@ export async function fetchPedidos(filters?: PedidoFilters) {
 
 export async function fetchPedido(id: string) {
     try {
-        const url = 'http://localhost:8080/api/pedidos/' + Number(id)
+        const url = `${apiUrl}/api/pedidos/` + Number(id)
         const response = await fetch(url, { credentials: 'include' })
         const json = await response.json()
 
@@ -68,7 +71,7 @@ export async function createPedido(data: Partial<Pedido>) {
         const simpleDetalle = data.detalle!.map((pedProd) => ({productoId: pedProd.producto.id, cantidad: pedProd.cantidad}))
         const simpleData = {...data, fechaEntrega: dayjs(data.fechaEntrega).format('YYYY-MM-DD'), detalle: simpleDetalle}
 
-        const url = 'http://localhost:8080/api/pedidos/'
+        const url = `${apiUrl}/api/pedidos/`
         const response = await fetch(url, { 
             method: 'POST',
             credentials: 'include',
@@ -108,7 +111,7 @@ export async function updatePedido(id: string, data: Partial<Pedido>) {
             simpleData = data
         }
 
-        const url = 'http://localhost:8080/api/pedidos/' + Number(id)
+        const url = `${apiUrl}/api/pedidos/` + Number(id)
         const response = await fetch(url, { 
             method: 'PATCH',
             credentials: 'include',

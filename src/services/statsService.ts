@@ -1,6 +1,8 @@
+const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'
+
 export async function fetchStats(typeStats: string) {
     try {
-        const url = 'http://localhost:8080/api/stats/' + typeStats
+        const url = `${apiUrl}/api/stats/` + typeStats
         const response = await fetch(url, {credentials: 'include'})
         const json = await response.json()
 

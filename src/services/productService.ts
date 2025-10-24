@@ -1,10 +1,13 @@
 import type { Producto } from "../entities/producto.ts"
 import type { ProductoFilters } from "../entities/filters/productoFilters.ts"
+
 import { pushCreateNotification, pushDeleteNotification, pushErrorNotification, pushUpdateNotification } from "../notifications/customNotifications.tsx"
+
+const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'
 
 export async function fetchProducts(filters?: ProductoFilters, hideParams: boolean = false, showFullStock: boolean = false) {
     try {
-        let url = 'http://localhost:8080/api/productos/'
+        let url = `${apiUrl}/api/productos/`
 
         if (filters) {
             const params = new URLSearchParams()
@@ -60,7 +63,7 @@ export async function fetchProducts(filters?: ProductoFilters, hideParams: boole
 
 export async function fetchProduct(id: string, showFullStock: boolean = false) {
     try {
-        const url = 'http://localhost:8080/api/productos/' + Number(id) + (showFullStock ? '?view=admin' : '')
+        const url = `${apiUrl}/api/productos/` + Number(id) + (showFullStock ? '?view=admin' : '')
         const response = await fetch(url, {credentials: 'include'})
         const json = await response.json()
 
@@ -81,7 +84,7 @@ export async function fetchProduct(id: string, showFullStock: boolean = false) {
 
 export async function createProduct(data: Producto) {
     try {
-        const url = 'http://localhost:8080/api/productos/'
+        const url = `${apiUrl}/api/productos/`
         const formData = new FormData()
 
         formData.append('nombre', data.nombre)
@@ -130,7 +133,7 @@ export async function createProduct(data: Producto) {
 
 export async function updateProduct(id: string, data: Partial<Producto>) {
     try {
-        const url = 'http://localhost:8080/api/productos/' + Number(id)
+        const url = `${apiUrl}/api/productos/` + Number(id)
         const formData = new FormData()
      
         if (data.nombre !== undefined) formData.append('nombre', data.nombre)
@@ -175,7 +178,7 @@ export async function updateProduct(id: string, data: Partial<Producto>) {
 
 export async function deleteProduct(id: string) {
     try {
-        const url = 'http://localhost:8080/api/productos/' + Number(id)
+        const url = `${apiUrl}/api/productos/` + Number(id)
         const response = await fetch(url, { 
             method: 'DELETE',
             credentials: 'include',

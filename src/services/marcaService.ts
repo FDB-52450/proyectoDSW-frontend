@@ -2,9 +2,11 @@ import { pushCreateNotification, pushDeleteNotification, pushErrorNotification, 
 
 import type { Marca } from "../entities/marca.ts"
 
+const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'
+
 export async function fetchMarcas() {
     try {
-        const url = 'http://localhost:8080/api/marcas/'
+        const url = `${apiUrl}/api/marcas/`
         const response = await fetch(url)
         const json = await response.json()
 
@@ -29,7 +31,7 @@ export async function fetchMarcas() {
 
 export async function fetchMarca(id: string) {
     try {
-        const url = 'http://localhost:8080/api/marcas/' + Number(id)
+        const url = `${apiUrl}/api/marcas/` + Number(id)
         const response = await fetch(url)
         const json = await response.json()
 
@@ -49,7 +51,7 @@ export async function fetchMarca(id: string) {
 
 export async function createMarca(data: Marca) {
     try {
-        const url = 'http://localhost:8080/api/marcas/'
+        const url = `${apiUrl}/api/marcas/`
         const formData = new FormData()
 
         formData.append('nombre', data.nombre)
@@ -84,7 +86,7 @@ export async function createMarca(data: Marca) {
 
 export async function updateMarca(id: string, data: Partial<Marca>) {
     try {
-        const url = 'http://localhost:8080/api/marcas/' + Number(id)
+        const url = `${apiUrl}/api/marcas/` + Number(id)
         const formData = new FormData()
 
         if (data.nombre) formData.append('nombre', data.nombre)
@@ -119,7 +121,7 @@ export async function updateMarca(id: string, data: Partial<Marca>) {
 
 export async function deleteMarca(id: string) {
     try {
-        const url = 'http://localhost:8080/api/marcas/' + Number(id)
+        const url = `${apiUrl}/api/marcas/` + Number(id)
         const response = await fetch(url, { 
             method: 'DELETE',
             credentials: 'include',

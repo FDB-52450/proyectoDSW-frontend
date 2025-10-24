@@ -2,9 +2,11 @@ import { pushCreateNotification, pushDeleteNotification, pushErrorNotification, 
 
 import type { Categoria } from "../entities/categoria.ts"
 
+const apiUrl = import.meta.env.VITE_BACKEND_URL || 'http://localhost:8080'
+
 export async function fetchCategorias() {
     try {
-        const url = 'http://localhost:8080/api/categorias/'
+        const url = `${apiUrl}/api/categorias/`
         const response = await fetch(url)
         const json = await response.json()
 
@@ -28,7 +30,7 @@ export async function fetchCategorias() {
 
 export async function fetchCategoria(id: string) {
     try {
-        const url = 'http://localhost:8080/api/categorias/' + Number(id)
+        const url = `${apiUrl}/api/categorias/` + Number(id)
         const response = await fetch(url)
         const json = await response.json()
 
@@ -49,7 +51,7 @@ export async function fetchCategoria(id: string) {
 
 export async function createCategoria(data: Categoria) {
     try {
-        const url = 'http://localhost:8080/api/categorias/'
+        const url = `${apiUrl}/api/categorias/`
         const response = await fetch(url, { 
             method: 'POST',
             credentials: 'include',
@@ -81,7 +83,7 @@ export async function createCategoria(data: Categoria) {
 
 export async function updateCategoria(id: string, data: Categoria) {
     try {
-        const url = 'http://localhost:8080/api/categorias/' + Number(id)
+        const url = `${apiUrl}/api/categorias/` + Number(id)
         const response = await fetch(url, { 
             method: 'PATCH',
             credentials: 'include',
@@ -113,7 +115,7 @@ export async function updateCategoria(id: string, data: Categoria) {
 
 export async function deleteCategoria(id: string) {
     try {
-        const url = 'http://localhost:8080/api/categorias/' + Number(id)
+        const url = `${apiUrl}/api/categorias/` + Number(id)
         const response = await fetch(url, { 
             method: 'DELETE',
             credentials: 'include',

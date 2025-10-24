@@ -26,3 +26,5 @@ dist-ssr
 # Unused/replaced components
 src/components/unused
 
+# Environment files
+.env
